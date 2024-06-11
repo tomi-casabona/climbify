@@ -5,11 +5,13 @@ import { Signin } from "../src/pages/Signin";
 import { Login } from "../src/pages/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./pages/Profile";
+import { Formulario } from "./components/Formulario";
 
 export const App: React.FC = () => {
   return (
     <Router>
       <Navbar />
+      <Formulario />
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
