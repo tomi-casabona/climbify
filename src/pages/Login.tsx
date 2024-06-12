@@ -27,7 +27,7 @@ export const Login: React.FC = () => {
         password
       );
       console.log("User logged in:", userCredential.user);
-      navigate("/profile");
+      navigate("/home");
     } catch (error) {
       setError((error as AuthError).message);
     }
@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       console.log("Google sign in:", result.user);
-      navigate("/profile");
+      navigate("/home");
     } catch (error) {
       setError((error as AuthError).message);
     }
@@ -49,7 +49,7 @@ export const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       console.log("Facebook sign in:", result.user);
-      navigate("/profile");
+      navigate("/home");
     } catch (error) {
       setError((error as AuthError).message);
     }

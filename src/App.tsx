@@ -1,23 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home } from "../src/pages/Home";
-import { Signin } from "../src/pages/Signin";
-import { Login } from "../src/pages/Login";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
-import { Profile } from "./pages/Profile";
-import { Formulario } from "./components/Formulario";
+import { AppRoutes } from "./routes/AppRoutes";
 
 export const App: React.FC = () => {
   return (
     <Router>
       <Navbar />
-      <Formulario />
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      <AppRoutes />
     </Router>
   );
 };
