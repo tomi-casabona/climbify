@@ -1,4 +1,4 @@
-import { Attempt } from "../redux/types/userDataTypes"
+import { Attempt } from "../types/userDataTypes"
 
 export const createAttempt = (): Attempt => {
     const attempt = {
