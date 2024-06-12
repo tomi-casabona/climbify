@@ -1,3 +1,9 @@
+export interface UserState {
+  data: UserData | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
 export interface UserData {
   id: `${string}-${string}-${string}-${string}-${string}`;
   ascents: number;

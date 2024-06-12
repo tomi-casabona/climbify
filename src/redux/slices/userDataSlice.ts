@@ -1,12 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UserData } from "../types/userDataTypes";
-import { fetchUserData } from "../thunks/userDataThunks";
-
-interface UserState {
-  data: UserData | null;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
+import { createSlice } from "@reduxjs/toolkit";
+import { UserState } from "../types/userDataTypes";
+import { fetchUserData, updateUserData } from "../thunks/userDataThunks";
 
 const initialState: UserState = {
   data: null,
@@ -17,11 +11,7 @@ const initialState: UserState = {
 const userDataSlice = createSlice({
   name: "userData",
   initialState,
-  reducers: {
-    updateUserData(state, action: PayloadAction<UserState>) {
-      return action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.pending, (state) => {
@@ -31,11 +21,22 @@ const userDataSlice = createSlice({
         state.data = action.payload;
         state.status = "succeeded";
       })
-      .addCase(fetchUserData.rejected, (state) => {
+      .addCase(fetchUserData.rejected, (state, action) => {
         state.status = "failed";
-      });
+        state.error = action.error.message || null;
+      })
+      .addCase(updateUserData.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
   },
 });
 
-export const { updateUserData } = userDataSlice.actions;
 export default userDataSlice.reducer;
