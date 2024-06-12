@@ -1,8 +1,8 @@
-import { UserData } from "../redux/types/userDataTypes"
+import { Attempt } from "../redux/types/userDataTypes"
 
-export const createAttempt = () => {
+export const createAttempt = (): Attempt => {
     const attempt = {
-        id: crypto.randomUUID,
+        id: crypto.randomUUID(),
         date: new Date(),
         comments: "",
         completed: false,

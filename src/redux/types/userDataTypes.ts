@@ -28,7 +28,7 @@ export interface Route {
 }
 
 export interface Attempt {
-  id: string;
+  id: `${string}-${string}-${string}-${string}-${string}`;
   date: Date;
   comments?: string;
   completed: boolean;
