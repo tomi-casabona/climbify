@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, UserData } from "../redux/types/userDataTypes";
+import { UserData } from "../redux/types/userDataTypes";
 
 export const Formulario: React.FC = () => {
   const [location, setLocation] = useState("");
@@ -7,120 +7,112 @@ export const Formulario: React.FC = () => {
   const [sector, setSector] = useState("");
   const [comments, setComments] = useState("");
   const [route, setRoute] = useState("");
-  const [grade, setGrade] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
+  const [grade, setGrade] = useState<number>(0);  
   const [height, setHeight] = useState<number>(0);
-  const [completed, setCompleted] = useState<boolean>(false);
-  const [attemptId, setAttemptId] = useState<string>("");
 
-  // todo : hacer un formulario de modificacion del intento
-
-  const [data, setData] = useState<UserData>({ ascents: 0, locations: null }); // inicializar con el getFirebaseData
+  const [userData, setUserData] = useState<UserData>({
+    id: crypto.randomUUID(),
+    ascents: 0,
+    locations: [],
+  });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const newVia: Route = {
-      route,
-      grade,
-      score,
-      attempts: [
-        {
-          date: new Date(),
-          comments,
-          completed,
-        },
-      ],
-    };
+    const locationName = location;
+    const schoolName = school;
+    const sectorName = sector;
+    const routeName = route;
+    const routeGrade = grade;
+    const routeHeight = height;
 
-    setData((prevData) => {
-      const updatedData = { ...prevData };
+    setUserData((prevState) => {
+      // Previous state was cloned
+      const newState = { ...prevState };
 
-      if (updatedData.locations) {
-        const locationIndex = updatedData.locations.findIndex(
-          (c) => c.location === location
-        );
-
-        if (
-          locationIndex !== -1 &&
-          updatedData.locations[locationIndex].schools
-        ) {
-          const schoolIndex = updatedData.locations[
-            locationIndex
-          ].schools.findIndex((e) => e.school === school);
-
-          if (
-            schoolIndex !== -1 &&
-            updatedData.locations[locationIndex].schools[schoolIndex].sectors
-          ) {
-            const sectorIndex = updatedData.locations[locationIndex].schools[
-              schoolIndex
-            ].sectors.findIndex((s) => s.sector === sector);
-
-            if (
-              sectorIndex !== -1 &&
-              updatedData.locations[locationIndex].schools[schoolIndex].sectors[
-                sectorIndex
-              ].routes
-            ) {
-              const routeIndex = updatedData.locations[locationIndex].schools[
-                schoolIndex
-              ].sectors[sectorIndex].routes.findIndex((r) => r.route === route);
-
-              if (
-                routeIndex !== -1 &&
-                updatedData.locations[locationIndex].schools[schoolIndex]
-                  .sectors[sectorIndex].routes[routeIndex].attempts
-              ) {
-                const attemptIndex = updatedData.locations[
-                  locationIndex
-                ].schools[schoolIndex].sectors[sectorIndex].routes[
-                  routeIndex
-                ].attempts.findIndex((a) => a.id === attemptId);
-
-                if (
-                  attemptIndex !== -1 &&
-                  updatedData.locations[locationIndex].schools[schoolIndex]
-                    .sectors[sectorIndex].routes[routeIndex].attempts[
-                    attemptIndex
-                  ]
-                ) {
-                  //////////////////////
-                }
-              }
-            } else {
-              updatedData.locations[locationIndex].schools[
-                schoolIndex
-              ].sectors.push({
-                sector,
-                routes: [newVia],
-              });
-            }
-          } else {
-            updatedData[locationIndex].schools.push({
-              school,
-              sectores: [{ sector, vias: [newVia] }],
-            });
-          }
-        } else {
-          updatedData.push({
-            location,
-            schools: [{ school, sectores: [{ sector, vias: [newVia] }] }],
-          });
-        }
+      // Find or create the location
+      let location = newState.locations.find(
+        (loc) => loc.location === locationName
+      );
+      if (!location) {
+        location = {
+          id: crypto.randomUUID(),
+          location: locationName,
+          schools: [],
+        };
+        newState.locations.push(location);
       }
 
-      return updatedData;
-    });
+      //Get location Index
+      const locationIndex = newState.locations.findIndex(
+        (l) => l.location === locationName
+      );
 
-    setRoute("");
-    setGrade(0);
-    setScore(0);
-    setComments("");
-    setCompleted(false);
-    setLocation("");
-    setSchool("");
-    setSector("");
+      // Find or create the school
+      let school = newState.locations[locationIndex].schools.find(
+        (sch) => sch.school === schoolName
+      );
+      if (!school) {
+        school = {
+          id: crypto.randomUUID(),
+          school: schoolName,
+          sectors: [],
+        };
+        newState.locations[locationIndex].schools.push(school);
+      }
+      //Get school Index
+
+      const schoolIndex = newState.locations[locationIndex].schools.findIndex(
+        (s) => s.school === schoolName
+      );
+
+      // Find or create the sector
+      let sector = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors.find((sec) => sec.sector === sectorName);
+      if (!sector) {
+        sector = {
+          id: crypto.randomUUID(),
+          sector: sectorName,
+          routes: [],
+        };
+        newState.locations[locationIndex].schools[schoolIndex].sectors.push(
+          sector
+        );
+      }
+      //Get sector Index
+
+      const sectorIndex = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors.findIndex((s) => s.sector === sectorName);
+
+      // Find or create the route
+      let route = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors[sectorIndex].routes.find((r) => r.route === routeName);
+      if (!route) {
+        route = {
+          id: crypto.randomUUID(),
+          route: routeName,
+          grade: routeGrade,
+          height: routeHeight,
+          attempts: [],
+          completed: false,
+        };
+        newState.locations[locationIndex].schools[schoolIndex].sectors[
+          sectorIndex
+        ].routes.push(route);
+      }
+      //Get route Index
+
+      // const routeIndex = newState.locations[locationIndex].schools[
+      //   schoolIndex
+      // ].sectors[sectorIndex].routes.findIndex((r) => r.route === routeName);
+
+      console.log(newState.locations);
+
+      return newState;
+    });
   };
 
   return (
@@ -219,9 +211,6 @@ export const Formulario: React.FC = () => {
           Agregar Vía
         </button>
       </form>
-      <pre className="mt-6 bg-gray-100 p-4 rounded-lg shadow-inner">
-        {JSON.stringify(data, null, 2)}
-      </pre>
     </div>
   );
 };
