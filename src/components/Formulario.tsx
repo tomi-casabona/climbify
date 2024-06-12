@@ -1,107 +1,118 @@
 import React, { useState } from "react";
-
-interface Intento {
-  date: number;
-  comentarios: string;
-  completed: boolean;
-}
-
-interface Via {
-  nombre: string;
-  grado: number;
-  calificacion: number;
-  intentos: Intento[];
-}
-
-interface Sector {
-  sector: string;
-  vias: Via[];
-}
-
-interface Escuela {
-  escuela: string;
-  sectores: Sector[];
-}
-
-interface Ciudad {
-  ciudad: string;
-  escuelas: Escuela[];
-}
+import { UserData } from "../redux/types/userDataTypes";
 
 export const Formulario: React.FC = () => {
-  const [ciudad, setCiudad] = useState("");
-  const [escuela, setEscuela] = useState("");
+  const [location, setLocation] = useState("");
+  const [school, setSchool] = useState("");
   const [sector, setSector] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [grado, setGrado] = useState<number>(0);
-  const [calificacion, setCalificacion] = useState<number>(0);
-  const [comentarios, setComentarios] = useState("");
-  const [completed, setCompleted] = useState<boolean>(false);
+  const [comments, setComments] = useState("");
+  const [route, setRoute] = useState("");
+  const [grade, setGrade] = useState<number>(0);  
+  const [height, setHeight] = useState<number>(0);
 
-  const [data, setData] = useState<Ciudad[]>([]);
+  const [userData, setUserData] = useState<UserData>({
+    id: crypto.randomUUID(),
+    ascents: 0,
+    locations: [],
+  });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const newVia: Via = {
-      nombre,
-      grado,
-      calificacion,
-      intentos: [
-        {
-          date: Date.now(),
-          comentarios,
-          completed,
-        },
-      ],
-    };
+    const locationName = location;
+    const schoolName = school;
+    const sectorName = sector;
+    const routeName = route;
+    const routeGrade = grade;
+    const routeHeight = height;
 
-    setData((prevData) => {
-      const updatedData = [...prevData];
-      const ciudadIndex = updatedData.findIndex((c) => c.ciudad === ciudad);
+    setUserData((prevState) => {
+      // Previous state was cloned
+      const newState = { ...prevState };
 
-      if (ciudadIndex !== -1) {
-        const escuelaIndex = updatedData[ciudadIndex].escuelas.findIndex(
-          (e) => e.escuela === escuela
-        );
-        if (escuelaIndex !== -1) {
-          const sectorIndex = updatedData[ciudadIndex].escuelas[
-            escuelaIndex
-          ].sectores.findIndex((s) => s.sector === sector);
-          if (sectorIndex !== -1) {
-            updatedData[ciudadIndex].escuelas[escuelaIndex].sectores[
-              sectorIndex
-            ].vias.push(newVia);
-          } else {
-            updatedData[ciudadIndex].escuelas[escuelaIndex].sectores.push({
-              sector,
-              vias: [newVia],
-            });
-          }
-        } else {
-          updatedData[ciudadIndex].escuelas.push({
-            escuela,
-            sectores: [{ sector, vias: [newVia] }],
-          });
-        }
-      } else {
-        updatedData.push({
-          ciudad,
-          escuelas: [{ escuela, sectores: [{ sector, vias: [newVia] }] }],
-        });
+      // Find or create the location
+      let location = newState.locations.find(
+        (loc) => loc.location === locationName
+      );
+      if (!location) {
+        location = {
+          id: crypto.randomUUID(),
+          location: locationName,
+          schools: [],
+        };
+        newState.locations.push(location);
       }
 
-      return updatedData;
-    });
+      //Get location Index
+      const locationIndex = newState.locations.findIndex(
+        (l) => l.location === locationName
+      );
 
-    setNombre("");
-    setGrado(0);
-    setCalificacion(0);
-    setComentarios("");
-    setCompleted(false);
-    setCiudad("");
-    setEscuela("");
-    setSector("");
+      // Find or create the school
+      let school = newState.locations[locationIndex].schools.find(
+        (sch) => sch.school === schoolName
+      );
+      if (!school) {
+        school = {
+          id: crypto.randomUUID(),
+          school: schoolName,
+          sectors: [],
+        };
+        newState.locations[locationIndex].schools.push(school);
+      }
+      //Get school Index
+
+      const schoolIndex = newState.locations[locationIndex].schools.findIndex(
+        (s) => s.school === schoolName
+      );
+
+      // Find or create the sector
+      let sector = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors.find((sec) => sec.sector === sectorName);
+      if (!sector) {
+        sector = {
+          id: crypto.randomUUID(),
+          sector: sectorName,
+          routes: [],
+        };
+        newState.locations[locationIndex].schools[schoolIndex].sectors.push(
+          sector
+        );
+      }
+      //Get sector Index
+
+      const sectorIndex = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors.findIndex((s) => s.sector === sectorName);
+
+      // Find or create the route
+      let route = newState.locations[locationIndex].schools[
+        schoolIndex
+      ].sectors[sectorIndex].routes.find((r) => r.route === routeName);
+      if (!route) {
+        route = {
+          id: crypto.randomUUID(),
+          route: routeName,
+          grade: routeGrade,
+          height: routeHeight,
+          attempts: [],
+          completed: false,
+        };
+        newState.locations[locationIndex].schools[schoolIndex].sectors[
+          sectorIndex
+        ].routes.push(route);
+      }
+      //Get route Index
+
+      // const routeIndex = newState.locations[locationIndex].schools[
+      //   schoolIndex
+      // ].sectors[sectorIndex].routes.findIndex((r) => r.route === routeName);
+
+      console.log(newState.locations);
+
+      return newState;
+    });
   };
 
   return (
@@ -116,8 +127,8 @@ export const Formulario: React.FC = () => {
           </label>
           <input
             type="text"
-            value={ciudad}
-            onChange={(e) => setCiudad(e.target.value)}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -128,8 +139,8 @@ export const Formulario: React.FC = () => {
           </label>
           <input
             type="text"
-            value={escuela}
-            onChange={(e) => setEscuela(e.target.value)}
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -152,8 +163,8 @@ export const Formulario: React.FC = () => {
           </label>
           <input
             type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            value={route}
+            onChange={(e) => setRoute(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -164,20 +175,20 @@ export const Formulario: React.FC = () => {
           </label>
           <input
             type="number"
-            value={grado}
-            onChange={(e) => setGrado(Number(e.target.value))}
+            value={grade}
+            onChange={(e) => setGrade(Number(e.target.value))}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Calificación:
+            Altura máxima:
           </label>
           <input
             type="number"
-            value={calificacion}
-            onChange={(e) => setCalificacion(Number(e.target.value))}
+            value={height}
+            onChange={(e) => setHeight(Number(e.target.value))}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -187,21 +198,10 @@ export const Formulario: React.FC = () => {
             Comentarios:
           </label>
           <textarea
-            value={comentarios}
-            onChange={(e) => setComentarios(e.target.value)}
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div className="flex items-center">
-          <label className="block text-sm font-medium text-gray-700 mr-4">
-            Completado:
-          </label>
-          <input
-            type="checkbox"
-            checked={completed}
-            onChange={(e) => setCompleted(e.target.checked)}
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
           />
         </div>
         <button
@@ -211,9 +211,6 @@ export const Formulario: React.FC = () => {
           Agregar Vía
         </button>
       </form>
-      <pre className="mt-6 bg-gray-100 p-4 rounded-lg shadow-inner">
-        {JSON.stringify(data, null, 2)}
-      </pre>
     </div>
   );
 };
