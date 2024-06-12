@@ -28,6 +28,7 @@ export interface Route {
 }
 
 export interface Attempt {
+  id: string;
   date: Date;
   comments?: string;
   completed: boolean;
