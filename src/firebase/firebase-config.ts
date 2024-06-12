@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, Auth} from "firebase/auth";
+import { getAuth, Auth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCURs3ZTOllBMYC2QbO0O4nwZ8d6ReFAHU",
@@ -16,4 +17,4 @@ const firebaseConfig = {
 export const appFirebase = initializeApp(firebaseConfig);
 export const analyticsFirebase = getAnalytics(appFirebase);
 export const auth: Auth = getAuth(appFirebase); // Asignar tipo explícito a auth
-
+export const db = getFirestore(appFirebase);
