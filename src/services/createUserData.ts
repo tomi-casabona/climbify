@@ -1,4 +1,3 @@
-// This function should return an object with the information of the userData updated to pass as a parameter of the function updateUserData
 import { NewStateObject, UserData } from "../types/userDataTypes";
 import { initUserData } from "./initUserData";
 
@@ -6,8 +5,8 @@ export const createUserData = (userData: UserData | null, newStateObject: NewSta
   // Clone or initialize the userData
   const newState: UserData = userData ? { ...userData } : initUserData();
 
-  // // Clone the locations array to ensure it's extensible
-  // newState.locations = [...newState.locations];
+  // Clone the locations array to ensure it's extensible
+  newState.locations = newState.locations.map(location => ({ ...location, schools: [...location.schools] }));
 
   // Find or create the location
   let locationIndex = newState.locations.findIndex(
@@ -23,8 +22,8 @@ export const createUserData = (userData: UserData | null, newStateObject: NewSta
     locationIndex = newState.locations.length - 1; // Update the index after push
   }
 
-  // // Ensure schools array is extensible
-  // newState.locations[locationIndex].schools = [...newState.locations[locationIndex].schools];
+  // Ensure schools array is extensible
+  newState.locations[locationIndex].schools = newState.locations[locationIndex].schools.map(school => ({ ...school, sectors: [...school.sectors] }));
   // Find or create the school
   let schoolIndex = newState.locations[locationIndex].schools.findIndex(
     (sch) => sch.school === newStateObject.schoolName
@@ -39,8 +38,8 @@ export const createUserData = (userData: UserData | null, newStateObject: NewSta
     schoolIndex = newState.locations[locationIndex].schools.length - 1; // Update the index after push
   }
 
-  // // Ensure sectors array is extensible
-  // newState.locations[locationIndex].schools[schoolIndex].sectors = [...newState.locations[locationIndex].schools[schoolIndex].sectors]
+  // Ensure sectors array is extensible
+  newState.locations[locationIndex].schools[schoolIndex].sectors = newState.locations[locationIndex].schools[schoolIndex].sectors.map(sector => ({ ...sector, routes: [...sector.routes] }))
   // Find or create the sector
   let sectorIndex = newState.locations[locationIndex].schools[
     schoolIndex
@@ -58,7 +57,7 @@ export const createUserData = (userData: UserData | null, newStateObject: NewSta
   }
 
   // Ensure routes array is extensible
-  newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes = [...newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes]
+  newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes = newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes.map(route => ({ ...route, attempts: [...route.attempts] }));
   // Find or create the route
   let routeIndex = newState.locations[locationIndex].schools[
     schoolIndex
