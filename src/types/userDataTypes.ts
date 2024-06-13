@@ -1,3 +1,13 @@
+export interface NewStateObject {
+  locationName: string;
+  schoolName: string;
+  sectorName: string;
+  routeName: string;
+  routeGrade: number;
+  routeHeight: number;
+  comments: string;
+}
+
 export interface UserState {
   data: UserData | null;
   status: "idle" | "loading" | "succeeded" | "failed";
