@@ -7,26 +7,19 @@ import { updateUserData } from "../redux/thunks/userDataThunks";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const userData = useSelector((state: RootState) => state.userData.data);
+	const userData = useSelector((state: RootState) => state.userData.data)
 
-	const [newState, setNewState] = useState<NewStateObject>({
-		locationName: "",
-		schoolName: "",
-		sectorName: "",
-		routeName: "",
-		routeGrade: 0,
-		routeHeight: 0,
-		comments: "",
-	});
+  console.log(userData);
 
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		setNewState({
-			...newState,
-			[e.target.name]: e.target.value,
-		});
-	};
+  const [newState, setNewState] = useState<NewStateObject>({
+    locationName: "",
+    schoolName: "",
+    sectorName: "",
+    routeName: "",
+    routeGrade: 0,
+    routeHeight: 0,
+    comments: "",
+  });
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
