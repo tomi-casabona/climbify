@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NewStateObject, UserData } from "../types/userDataTypes";
+import { NewStateObject } from "../types/userDataTypes";
 import { createUserData } from "../services/createUserData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
@@ -7,10 +7,7 @@ import { updateUserData } from "../redux/thunks/userDataThunks";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const userData = useSelector(
-		(state: RootState) => state.userData.data
-	) as UserData;
-	console.log(userData);
+	const userData = useSelector((state: RootState) => state.userData.data);
 
 	const [newState, setNewState] = useState<NewStateObject>({
 		locationName: "",
@@ -34,8 +31,6 @@ export const Formulario: React.FC = () => {
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		const newUserData = createUserData(userData, newState);
-		console.log(newUserData);
-
 		dispatch(updateUserData(newUserData));
 	};
 

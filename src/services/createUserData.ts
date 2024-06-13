@@ -2,12 +2,12 @@
 import { NewStateObject, UserData } from "../types/userDataTypes";
 import { initUserData } from "./initUserData";
 
-export const createUserData = (userData: UserData, newStateObject: NewStateObject) => {
+export const createUserData = (userData: UserData | null, newStateObject: NewStateObject) => {
   // Clone or initialize the userData
-  let newState: UserData = userData ? { ...userData } : initUserData();
+  const newState: UserData = userData ? { ...userData } : initUserData();
 
-  // Clone the locations array to ensure it's extensible
-  newState.locations = [...newState.locations];
+  // // Clone the locations array to ensure it's extensible
+  // newState.locations = [...newState.locations];
 
   // Find or create the location
   let locationIndex = newState.locations.findIndex(
@@ -20,10 +20,11 @@ export const createUserData = (userData: UserData, newStateObject: NewStateObjec
       schools: [],
     };
     newState.locations.push(location);
+    locationIndex = newState.locations.length - 1; // Update the index after push
   }
 
-  // Ensure schools array is extensible
-  newState.locations[locationIndex].schools = [...newState.locations[locationIndex].schools];
+  // // Ensure schools array is extensible
+  // newState.locations[locationIndex].schools = [...newState.locations[locationIndex].schools];
   // Find or create the school
   let schoolIndex = newState.locations[locationIndex].schools.findIndex(
     (sch) => sch.school === newStateObject.schoolName
@@ -35,10 +36,11 @@ export const createUserData = (userData: UserData, newStateObject: NewStateObjec
       sectors: [],
     };
     newState.locations[locationIndex].schools.push(school);
+    schoolIndex = newState.locations[locationIndex].schools.length - 1; // Update the index after push
   }
 
-  // Ensure sectors array is extensible
-  newState.locations[locationIndex].schools[schoolIndex].sectors = [...newState.locations[locationIndex].schools[schoolIndex].sectors]
+  // // Ensure sectors array is extensible
+  // newState.locations[locationIndex].schools[schoolIndex].sectors = [...newState.locations[locationIndex].schools[schoolIndex].sectors]
   // Find or create the sector
   let sectorIndex = newState.locations[locationIndex].schools[
     schoolIndex
@@ -52,6 +54,7 @@ export const createUserData = (userData: UserData, newStateObject: NewStateObjec
     newState.locations[locationIndex].schools[schoolIndex].sectors.push(
       sector
     );
+    sectorIndex = newState.locations[locationIndex].schools[schoolIndex].sectors.length - 1; // Update the index after push
   }
 
   // Ensure routes array is extensible
@@ -72,6 +75,7 @@ export const createUserData = (userData: UserData, newStateObject: NewStateObjec
     newState.locations[locationIndex].schools[schoolIndex].sectors[
       sectorIndex
     ].routes.push(route);
+    routeIndex = newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes.length - 1; // Update the index after push
   }
 
   console.log(newState.locations);
