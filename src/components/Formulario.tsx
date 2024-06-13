@@ -33,7 +33,6 @@ export const Formulario: React.FC = () => {
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-
 		const newUserData = createUserData(userData, newState);
 		console.log(newUserData);
 
@@ -51,7 +50,7 @@ export const Formulario: React.FC = () => {
 						Nombre de la Ciudad:
 					</label>
 					<input
-						name="location"
+						name="locationName"
 						type="text"
 						value={newState.locationName}
 						onChange={handleChange}
@@ -64,7 +63,7 @@ export const Formulario: React.FC = () => {
 						Nombre de la Escuela:
 					</label>
 					<input
-						name="school"
+						name="schoolName"
 						type="text"
 						value={newState.schoolName}
 						onChange={handleChange}
@@ -77,7 +76,7 @@ export const Formulario: React.FC = () => {
 						Nombre del Sector:
 					</label>
 					<input
-						name="sector"
+						name="sectorName"
 						type="text"
 						value={newState.sectorName}
 						onChange={handleChange}
@@ -90,7 +89,7 @@ export const Formulario: React.FC = () => {
 						Nombre de la Vía:
 					</label>
 					<input
-						name="route"
+						name="routeName"
 						type="text"
 						value={newState.routeName}
 						onChange={handleChange}
@@ -103,7 +102,7 @@ export const Formulario: React.FC = () => {
 						Grado:
 					</label>
 					<input
-						name="grade"
+						name="routeGrade"
 						type="number"
 						value={newState.routeGrade}
 						onChange={handleChange}
@@ -116,7 +115,7 @@ export const Formulario: React.FC = () => {
 						Altura máxima:
 					</label>
 					<input
-						name="height"
+						name="routeHeight"
 						type="number"
 						value={newState.routeHeight}
 						onChange={handleChange}
@@ -138,6 +137,7 @@ export const Formulario: React.FC = () => {
 				</div>
 				<button
 					type="submit"
+					onClick={handleSubmit}
 					className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
 					Agregar Vía
