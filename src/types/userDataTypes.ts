@@ -15,7 +15,7 @@ export interface UserState {
 }
 
 export interface UserData {
-  id: `${string}-${string}-${string}-${string}-${string}`;
+  id: string;
   ascents: number;
   locations: Location[];
 }
