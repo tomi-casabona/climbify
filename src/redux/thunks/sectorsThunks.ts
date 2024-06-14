@@ -1,17 +1,17 @@
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { UserData } from "../../types/userDataTypes";
+import { Sector } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchUserData = createAsyncThunk(
-  "userData/fetchUserData",
+export const fetchSectors = createAsyncThunk(
+  "sectors/fetchSectors",
   async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, "climbify", user.uid);
-      const userDoc = await getDoc(docRef);
-      if (userDoc.exists()) {
-        return userDoc.data() as UserData;
+      const docRef = doc(db, user.uid, "sectors");
+      const sectorsDoc = await getDoc(docRef);
+      if (sectorsDoc.exists()) {
+        return sectorsDoc.data() as Sector[];
       } else {
         throw new Error("No such document");
       }
@@ -21,13 +21,13 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
-export const updateUserData = createAsyncThunk(
-  'user/updateUserData',
-  async (userData: UserData) => {
+export const updateSectors = createAsyncThunk(
+  'sectors/updateSectors',
+  async (sectors: Sector[]) => {
     const user = auth.currentUser;
     if (user) {
-      await setDoc(doc(db, "climbify", user.uid), userData)
-      return userData;
+      await setDoc(doc(db, user.uid, "sectors"), sectors)
+      return sectors;
     } else {
       throw new Error('No authenticated user');
     }

@@ -1,4 +1,4 @@
-import { NewStateObject, UserData } from "../types/userDataTypes";
+import { NewStateObject, UserData } from "../types/dataTypes";
 import { initUserData } from "./initUserData";
 
 export const createUserData = (userData: UserData | null, newStateObject: NewStateObject) => {

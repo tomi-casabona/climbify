@@ -1,4 +1,4 @@
-import { Attempt } from "../types/userDataTypes"
+import { Attempt } from "../types/dataTypes"
 
 export const createAttempt = (): Attempt => {
     const attempt = {

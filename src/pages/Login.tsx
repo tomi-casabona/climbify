@@ -9,16 +9,12 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchUserData } from "../redux/thunks/userDataThunks";
-import { AppDispatch } from "../redux/store";
 
 export const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
-	const dispatch = useDispatch<AppDispatch>();
 
 	const handleEmailPasswordLogin = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -31,7 +27,6 @@ export const Login: React.FC = () => {
 				password
 			);
 			console.log("User logged in:", userCredential.user);
-			dispatch(fetchUserData());
 			navigate("/home");
 		} catch (error) {
 			setError((error as AuthError).message);
@@ -43,7 +38,6 @@ export const Login: React.FC = () => {
 		try {
 			const result: UserCredential = await signInWithPopup(auth, provider);
 			console.log("Google sign in:", result.user);
-			dispatch(fetchUserData());
 			navigate("/home");
 		} catch (error) {
 			setError((error as AuthError).message);
@@ -55,7 +49,6 @@ export const Login: React.FC = () => {
 		try {
 			const result: UserCredential = await signInWithPopup(auth, provider);
 			console.log("Facebook sign in:", result.user);
-			dispatch(fetchUserData());
 			navigate("/home");
 		} catch (error) {
 			setError((error as AuthError).message);
