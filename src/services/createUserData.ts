@@ -21,7 +21,7 @@ export const createUserData = (actualState: { locations: LocationState, schools:
     (school) => school.schoolName === formObject.schoolName
   );
   if (schoolIndex === -1) {
-    const school = { schoolId: crypto.randomUUID(), schoolName: formObject.locationName, locationIndex: locationIndex, sectors: [] };
+    const school = { schoolId: crypto.randomUUID(), schoolName: formObject.schoolName, locationIndex: locationIndex, sectors: [] };
     newSchools.push(school);
     schoolIndex = newSchools.length - 1; // Update the index after push
   }
