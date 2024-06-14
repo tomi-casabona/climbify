@@ -29,7 +29,6 @@ export const Formulario: React.FC = () => {
     routeName: "",
     routeGrade: 0,
     routeHeight: 0,
-    comments: "",
   });
 
   const handleSubmit = (event: React.FormEvent) => {

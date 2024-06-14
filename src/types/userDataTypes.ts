@@ -5,7 +5,6 @@ export interface NewStateObject {
   routeName: string;
   routeGrade: number;
   routeHeight: number;
-  comments: string;
 }
 
 export interface UserState {
@@ -43,7 +42,7 @@ export interface Route {
   route: string;
   grade: number;
   score?: number;
-  comments?: string;
+  comments?: string[];
   height: number;
   attempts: Attempt[];
   completed: boolean;

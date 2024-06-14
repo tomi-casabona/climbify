@@ -68,6 +68,7 @@ export const createUserData = (userData: UserData | null, newStateObject: NewSta
       route: newStateObject.routeName,
       grade: newStateObject.routeGrade,
       height: newStateObject.routeHeight,
+      comments: [],
       attempts: [],
       completed: false,
     };
