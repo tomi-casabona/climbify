@@ -33,7 +33,7 @@ export const createUserData = (actualState: { locations: LocationState, schools:
     (sector) => sector.sectorName === formObject.sectorName
   );
   if (sectorIndex === -1) {
-    const sector = { sectorId: crypto.randomUUID(), sectorName: formObject.locationName, locationIndex: locationIndex, schoolIndex: schoolIndex, routes: [] };
+    const sector = { sectorId: crypto.randomUUID(), sectorName: formObject.sectorName, locationIndex: locationIndex, schoolIndex: schoolIndex, routes: [] };
     newSectors.push(sector);
     sectorIndex = newSectors.length - 1; // Update the index after push
   }

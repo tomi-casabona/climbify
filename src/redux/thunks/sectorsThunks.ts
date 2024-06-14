@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, addDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { Sector } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";

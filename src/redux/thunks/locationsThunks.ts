@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, addDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { Location } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -8,8 +8,7 @@ export const fetchLocations = createAsyncThunk(
   async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, user.uid, "locations");
-      const locationsDoc = await getDoc(docRef);
+      const locationsDoc = await getDoc(doc(db, user.uid, "locations"));
       if (locationsDoc.exists()) {
         const data = locationsDoc.data();
         return data.locations as Location[]
