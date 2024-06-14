@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc } from "firebase/firestore";
 import { Location } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -11,7 +11,7 @@ export const fetchLocations = createAsyncThunk(
       const docRef = doc(db, user.uid, "locations");
       const locationsDoc = await getDoc(docRef);
       if (locationsDoc.exists()) {
-        return locationsDoc.data() as Location[];
+        return locationsDoc.data().locations as Location[];
       } else {
         throw new Error("No such document");
       }
@@ -26,7 +26,9 @@ export const updateLocations = createAsyncThunk(
   async (locations: Location[]) => {
     const user = auth.currentUser;
     if (user) {
-      await setDoc(doc(db, user.uid, "locations"), locations)
+      // Hay coleccion llamada user.uid?
+      const docRef = doc(db, user.uid, "locations")
+      await setDoc(docRef, { locations: locations })
       return locations;
     } else {
       throw new Error('No authenticated user');

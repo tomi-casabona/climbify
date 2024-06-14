@@ -7,8 +7,23 @@ export interface FormObject {
   routeHeight: number;
 }
 
-export interface State {
-  data: Location[] | School[] | Sector[] | Route[] | null;
+export interface LocationState {
+  data: Location[] | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+export interface SchoolState {
+  data: School[] | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+export interface SectorState {
+  data: Sector[] | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+export interface RouteState {
+  data: Route[] | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }

@@ -1,84 +1,55 @@
-import { NewStateObject, UserData } from "../types/dataTypes";
-import { initUserData } from "./initUserData";
+import { FormObject, Location, LocationState, Route, RouteState, School, SchoolState, Sector, SectorState } from "../types/dataTypes";
 
-export const createUserData = (userData: UserData | null, newStateObject: NewStateObject) => {
+export const createUserData = (actualState: { locations: LocationState, schools: SchoolState, sectors: SectorState, routes: RouteState, }, formObject: FormObject) => {
   // Clone or initialize the userData
-  const newState: UserData = userData ? { ...userData } : initUserData();
-
-  // Clone the locations array to ensure it's extensible
-  newState.locations = newState.locations.map(location => ({ ...location, schools: [...location.schools] }));
+  const newLocations: Location[] = actualState.locations.data ? actualState.locations.data.map(location => ({ ...location })) : [{ locationId: crypto.randomUUID(), locationName: formObject.locationName, schools: [] }];
 
   // Find or create the location
-  let locationIndex = newState.locations.findIndex(
-    (loc) => loc.location === newStateObject.locationName
+  let locationIndex = newLocations.findIndex(
+    (loc) => loc.locationName === formObject.locationName
   );
   if (locationIndex === -1) {
-    const location = {
-      id: crypto.randomUUID(),
-      location: newStateObject.locationName,
-      schools: [],
-    };
-    newState.locations.push(location);
-    locationIndex = newState.locations.length - 1; // Update the index after push
+    const location = { locationId: crypto.randomUUID(), locationName: formObject.locationName, schools: [] };
+    newLocations.push(location);
+    locationIndex = newLocations.length - 1; // Update the index after push
   }
 
-  // Ensure schools array is extensible
-  newState.locations[locationIndex].schools = newState.locations[locationIndex].schools.map(school => ({ ...school, sectors: [...school.sectors] }));
+  const newSchools: School[] = actualState.schools.data ? actualState.schools.data.map(school => ({ ...school })) : [{ schoolId: crypto.randomUUID(), schoolName: formObject.schoolName, locationIndex: locationIndex, sectors: [] }]
+
   // Find or create the school
-  let schoolIndex = newState.locations[locationIndex].schools.findIndex(
-    (sch) => sch.school === newStateObject.schoolName
+  let schoolIndex = newSchools.findIndex(
+    (school) => school.schoolName === formObject.schoolName
   );
   if (schoolIndex === -1) {
-    const school = {
-      id: crypto.randomUUID(),
-      school: newStateObject.schoolName,
-      sectors: [],
-    };
-    newState.locations[locationIndex].schools.push(school);
-    schoolIndex = newState.locations[locationIndex].schools.length - 1; // Update the index after push
+    const school = { schoolId: crypto.randomUUID(), schoolName: formObject.locationName, locationIndex: locationIndex, sectors: [] };
+    newSchools.push(school);
+    schoolIndex = newSchools.length - 1; // Update the index after push
   }
 
-  // Ensure sectors array is extensible
-  newState.locations[locationIndex].schools[schoolIndex].sectors = newState.locations[locationIndex].schools[schoolIndex].sectors.map(sector => ({ ...sector, routes: [...sector.routes] }))
-  // Find or create the sector
-  let sectorIndex = newState.locations[locationIndex].schools[
-    schoolIndex
-  ].sectors.findIndex((sec) => sec.sector === newStateObject.sectorName);
+  const newSectors: Sector[] = actualState.sectors.data ? actualState.sectors.data.map(sector => ({ ...sector })) : [{ sectorId: crypto.randomUUID(), sectorName: formObject.sectorName, locationIndex: locationIndex, schoolIndex: schoolIndex, routes: [] }]
+
+  // Find or create the school
+  let sectorIndex = newSectors.findIndex(
+    (sector) => sector.sectorName === formObject.sectorName
+  );
   if (sectorIndex === -1) {
-    const sector = {
-      id: crypto.randomUUID(),
-      sector: newStateObject.sectorName,
-      routes: [],
-    };
-    newState.locations[locationIndex].schools[schoolIndex].sectors.push(
-      sector
-    );
-    sectorIndex = newState.locations[locationIndex].schools[schoolIndex].sectors.length - 1; // Update the index after push
+    const sector = { sectorId: crypto.randomUUID(), sectorName: formObject.locationName, locationIndex: locationIndex, schoolIndex: schoolIndex, routes: [] };
+    newSectors.push(sector);
+    sectorIndex = newSectors.length - 1; // Update the index after push
   }
 
-  // Ensure routes array is extensible
-  newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes = newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes.map(route => ({ ...route, attempts: [...route.attempts] }));
-  // Find or create the route
-  let routeIndex = newState.locations[locationIndex].schools[
-    schoolIndex
-  ].sectors[sectorIndex].routes.findIndex((r) => r.route === newStateObject.routeName);
+  const newRoutes: Route[] = actualState.routes.data ? actualState.routes.data.map(route => ({ ...route })) : [{ routeId: crypto.randomUUID(), routeName: formObject.routeName, locationIndex: locationIndex, schoolIndex: schoolIndex, sectorIndex: sectorIndex, routeAttempts: [], routeComments: [], routeGrade: formObject.routeGrade, routeHeight: formObject.routeHeight, completed: false }]
+
+  // Find or create the school
+  let routeIndex = newRoutes.findIndex(
+    (route) => route.routeName === formObject.routeName
+  );
   if (routeIndex === -1) {
-    const route = {
-      id: crypto.randomUUID(),
-      route: newStateObject.routeName,
-      grade: newStateObject.routeGrade,
-      height: newStateObject.routeHeight,
-      comments: [],
-      attempts: [],
-      completed: false,
-    };
-    newState.locations[locationIndex].schools[schoolIndex].sectors[
-      sectorIndex
-    ].routes.push(route);
-    routeIndex = newState.locations[locationIndex].schools[schoolIndex].sectors[sectorIndex].routes.length - 1; // Update the index after push
+    const route = { routeId: crypto.randomUUID(), routeName: formObject.routeName, locationIndex: locationIndex, schoolIndex: schoolIndex, sectorIndex: sectorIndex, routeAttempts: [], routeComments: [], routeGrade: formObject.routeGrade, routeHeight: formObject.routeHeight, completed: false };
+    newRoutes.push(route);
+    routeIndex = newRoutes.length - 1; // Update the index after push
   }
 
-  console.log(newState.locations);
 
-  return newState;
+  return { newLocations, newSchools, newSectors, newRoutes };
 };

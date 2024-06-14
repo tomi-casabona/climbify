@@ -1,26 +1,32 @@
 import React, { useState } from "react";
-import { NewStateObject } from "../types/dataTypes";
+import { FormObject } from "../types/dataTypes";
 import { createUserData } from "../services/createUserData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { updateUserData } from "../redux/thunks/locationsThunks";
+import { updateLocations } from "../redux/thunks/locationsThunks";
+import { updateSectors } from "../redux/thunks/sectorsThunks";
+import { updateSchools } from "../redux/thunks/schoolsThunks";
+import { updateRoutes } from "../redux/thunks/routesThunks";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const userData = useSelector((state: RootState) => state.userData.data);
-
-	console.log();
+	const actualState = {
+		locations: useSelector((state: RootState) => state.locations),
+		schools: useSelector((state: RootState) => state.schools),
+		sectors: useSelector((state: RootState) => state.sectors),
+		routes: useSelector((state: RootState) => state.routes),
+	};
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		setNewState({
-			...newState,
+		setForm({
+			...form,
 			[e.target.name]: e.target.value,
 		});
 	};
 
-	const [newState, setNewState] = useState<NewStateObject>({
+	const [form, setForm] = useState<FormObject>({
 		locationName: "",
 		schoolName: "",
 		sectorName: "",
@@ -31,8 +37,14 @@ export const Formulario: React.FC = () => {
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-		const newUserData = createUserData(userData, newState);
-		dispatch(updateUserData(newUserData));
+		const { newLocations, newSchools, newSectors, newRoutes } = createUserData(
+			actualState,
+			form
+		);
+		dispatch(updateLocations(newLocations));
+		dispatch(updateSchools(newSchools));
+		dispatch(updateSectors(newSectors));
+		dispatch(updateRoutes(newRoutes));
 	};
 
 	return (
@@ -48,7 +60,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="locationName"
 						type="text"
-						value={newState.locationName}
+						value={form.locationName}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -61,7 +73,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="schoolName"
 						type="text"
-						value={newState.schoolName}
+						value={form.schoolName}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -74,7 +86,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="sectorName"
 						type="text"
-						value={newState.sectorName}
+						value={form.sectorName}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -87,7 +99,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="routeName"
 						type="text"
-						value={newState.routeName}
+						value={form.routeName}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -100,7 +112,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="routeGrade"
 						type="number"
-						value={newState.routeGrade}
+						value={form.routeGrade}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -113,7 +125,7 @@ export const Formulario: React.FC = () => {
 					<input
 						name="routeHeight"
 						type="number"
-						value={newState.routeHeight}
+						value={form.routeHeight}
 						onChange={handleChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

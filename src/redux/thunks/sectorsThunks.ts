@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc } from "firebase/firestore";
 import { Sector } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -11,7 +11,7 @@ export const fetchSectors = createAsyncThunk(
       const docRef = doc(db, user.uid, "sectors");
       const sectorsDoc = await getDoc(docRef);
       if (sectorsDoc.exists()) {
-        return sectorsDoc.data() as Sector[];
+        return sectorsDoc.data().schools as Sector[];
       } else {
         throw new Error("No such document");
       }
@@ -26,7 +26,8 @@ export const updateSectors = createAsyncThunk(
   async (sectors: Sector[]) => {
     const user = auth.currentUser;
     if (user) {
-      await setDoc(doc(db, user.uid, "sectors"), sectors)
+      const docRef = doc(db, user.uid, "sectors")
+      await setDoc(docRef, { sectors: sectors })
       return sectors;
     } else {
       throw new Error('No authenticated user');

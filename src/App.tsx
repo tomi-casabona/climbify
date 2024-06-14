@@ -3,20 +3,34 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { AppRoutes } from "./routes/AppRoutes";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "./redux/thunks/locationsThunks";
+import { fetchLocations } from "./redux/thunks/locationsThunks";
+import { fetchSchools } from "./redux/thunks/schoolsThunks";
+import { fetchSectors } from "./redux/thunks/sectorsThunks";
+import { fetchRoutes } from "./redux/thunks/routesThunks";
 import { AppDispatch } from "./redux/store";
 import { RootState } from "./redux/store";
 
 export const App: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const userData = useSelector((state: RootState) => state.userData);
+	const { locations, schools, sectors, routes } = useSelector(
+		(state: RootState) => state
+	);
 
 	useEffect(() => {
-		if (userData.status === "idle") {
-			dispatch(fetchUserData());
+		if (locations.status === "idle") {
+			dispatch(fetchLocations());
+		}
+		if (schools.status === "idle") {
+			dispatch(fetchSchools());
+		}
+		if (sectors.status === "idle") {
+			dispatch(fetchSectors());
+		}
+		if (routes.status === "idle") {
+			dispatch(fetchRoutes());
 		}
 	});
-	console.log(userData);
+	console.log(locations, schools, sectors, routes);
 
 	return (
 		<Router>

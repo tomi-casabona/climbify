@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { State } from "../../types/dataTypes";
+import { SchoolState } from "../../types/dataTypes";
 import { fetchSchools, updateSchools } from "../thunks/schoolsThunks";
 
-const initialState: State = {
+const initialState: SchoolState = {
   data: null,
   status: "idle",
   error: null,
