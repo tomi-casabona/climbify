@@ -43,6 +43,7 @@ export interface Route {
   route: string;
   grade: number;
   score?: number;
+  comments?: string;
   height: number;
   attempts: Attempt[];
   completed: boolean;
@@ -51,6 +52,5 @@ export interface Route {
 export interface Attempt {
   id: `${string}-${string}-${string}-${string}-${string}`;
   date: Date;
-  comments?: string;
   completed: boolean;
 }
