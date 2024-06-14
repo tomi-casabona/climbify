@@ -32,8 +32,10 @@ export const App: React.FC = () => {
 
 	return (
 		<Router>
-			<Navbar />
-			<AppRoutes />
+			<div className="font-poppins min-h-screen bg-light-bg dark:bg-dark-bg">
+				<Navbar />
+				<AppRoutes />
+			</div>
 		</Router>
 	);
 };
