@@ -11,7 +11,8 @@ export const fetchRoutes = createAsyncThunk(
       const docRef = doc(db, user.uid, "routes");
       const routesDoc = await getDoc(docRef);
       if (routesDoc.exists()) {
-        return routesDoc.data().routes as Route[];
+        const data = routesDoc.data();
+        return data.routes as Route[]
       } else {
         throw new Error("No such document");
       }

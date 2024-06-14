@@ -11,7 +11,8 @@ export const fetchSchools = createAsyncThunk(
       const docRef = doc(db, user.uid, "routes");
       const schoolsDoc = await getDoc(docRef);
       if (schoolsDoc.exists()) {
-        return schoolsDoc.data().schools as School[];
+        const data = schoolsDoc.data();
+        return data.schools as School[]
       } else {
         throw new Error("No such document");
       }

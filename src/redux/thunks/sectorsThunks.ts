@@ -11,7 +11,8 @@ export const fetchSectors = createAsyncThunk(
       const docRef = doc(db, user.uid, "sectors");
       const sectorsDoc = await getDoc(docRef);
       if (sectorsDoc.exists()) {
-        return sectorsDoc.data().schools as Sector[];
+        const data = sectorsDoc.data();
+        return data.sectors as Sector[]
       } else {
         throw new Error("No such document");
       }

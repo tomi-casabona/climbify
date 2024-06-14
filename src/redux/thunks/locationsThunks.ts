@@ -11,7 +11,8 @@ export const fetchLocations = createAsyncThunk(
       const docRef = doc(db, user.uid, "locations");
       const locationsDoc = await getDoc(docRef);
       if (locationsDoc.exists()) {
-        return locationsDoc.data().locations as Location[];
+        const data = locationsDoc.data();
+        return data.locations as Location[]
       } else {
         throw new Error("No such document");
       }

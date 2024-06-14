@@ -50,6 +50,9 @@ export const createUserData = (actualState: { locations: LocationState, schools:
     routeIndex = newRoutes.length - 1; // Update the index after push
   }
 
+  // Actualizar el array de schools de locations --> añadir el schoolIndex
+  // Actualizar el array de sectors de schools --> añadir el sectorIndex
+  // Actualizar el array de routes de sectors --> añadir el routeIndex
 
   return { newLocations, newSchools, newSectors, newRoutes };
 };
