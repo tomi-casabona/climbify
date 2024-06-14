@@ -8,8 +8,7 @@ export const fetchSchools = createAsyncThunk(
   async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, user.uid, "routes");
-      const schoolsDoc = await getDoc(docRef);
+      const schoolsDoc = await getDoc(doc(db, user.uid, "schools"));
       if (schoolsDoc.exists()) {
         const data = schoolsDoc.data();
         return data.schools as School[]

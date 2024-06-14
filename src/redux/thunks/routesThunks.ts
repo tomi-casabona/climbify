@@ -8,8 +8,7 @@ export const fetchRoutes = createAsyncThunk(
   async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, user.uid, "routes");
-      const routesDoc = await getDoc(docRef);
+      const routesDoc = await getDoc(doc(db, user.uid, "routes"));
       if (routesDoc.exists()) {
         const data = routesDoc.data();
         return data.routes as Route[]

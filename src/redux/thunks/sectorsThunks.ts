@@ -8,8 +8,7 @@ export const fetchSectors = createAsyncThunk(
   async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, user.uid, "sectors");
-      const sectorsDoc = await getDoc(docRef);
+      const sectorsDoc = await getDoc(doc(db, user.uid, "sectors"));
       if (sectorsDoc.exists()) {
         const data = sectorsDoc.data();
         return data.sectors as Sector[]
