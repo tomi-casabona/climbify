@@ -1,7 +1,15 @@
-export const HomeLastAscents = ({ index }: { index: number }) => {
-  const routeTitle = "Rescat emocional";
-  console.log(routeTitle.length);
+import type { Route } from "../../types/dataTypes";
+
+export const HomeLastAscents = ({
+  route,
+  index,
+}: {
+  route: Route;
+  index: number;
+}) => {
+  const routeTitle = route.routeName;
   const esPar = index % 2 === 0 ? true : false;
+  console.log(route);
   return (
     <div className="inline-block mx-1 h-60">
       <div
@@ -15,7 +23,7 @@ export const HomeLastAscents = ({ index }: { index: number }) => {
           </p>
         </div>
         <div className="h-3/5">
-          <p className="text-7xl text-primary">6b+</p>
+          <p className="text-7xl text-primary">{route.routeGrade}</p>
         </div>
       </div>
     </div>

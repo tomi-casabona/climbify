@@ -14,8 +14,5 @@ export const filterLastSevenRoutes = (routes: Route[]): Route[] => {
         });
     });
 
-    console.log(filteredRoutes);
-
-
     return filteredRoutes;
 }

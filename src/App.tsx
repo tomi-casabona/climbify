@@ -34,9 +34,7 @@ export const App: React.FC = () => {
 
 		return () => unsubscribe();
 	}, [dispatch]);
-
-	console.log(locations, schools, sectors, routes);
-
+	
 	return (
 		<Router>
 			<div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
