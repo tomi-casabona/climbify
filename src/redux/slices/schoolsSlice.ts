@@ -1,42 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserState } from "../../types/userDataTypes";
-import { fetchUserData, updateUserData } from "../thunks/userDataThunks";
+import { SchoolState } from "../../types/dataTypes";
+import { fetchSchools, updateSchools } from "../thunks/schoolsThunks";
 
-const initialState: UserState = {
+const initialState: SchoolState = {
   data: null,
   status: "idle",
   error: null,
 };
 
-const userDataSlice = createSlice({
-  name: "userData",
+const schoolsSlice = createSlice({
+  name: "schools",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.pending, (state) => {
+      .addCase(fetchSchools.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
+      .addCase(fetchSchools.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = "succeeded";
       })
-      .addCase(fetchUserData.rejected, (state, action) => {
+      .addCase(fetchSchools.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       })
-      .addCase(updateUserData.pending, (state) => {
+      .addCase(updateSchools.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateUserData.fulfilled, (state, action) => {
+      .addCase(updateSchools.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(updateUserData.rejected, (state, action) => {
+      .addCase(updateSchools.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       })
   },
 });
 
-export default userDataSlice.reducer;
+export default schoolsSlice.reducer;
