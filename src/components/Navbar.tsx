@@ -22,14 +22,14 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 fixed bottom-0">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="flex justify-center">
+      <div className="bg-neutral p-4 fixed bottom-0 my-4 w-11/12 rounded-full flex justify-around items-center">
         <div>
           <button
             onClick={() => navigate("/home")}
-            className="text-white text-xl font-bold"
+            className="text-xl font-bold btn btn-secondary btn-circle"
           >
-            Home
+            H
           </button>
         </div>
         <div className="flex space-x-4">
@@ -41,10 +41,7 @@ export const Navbar: React.FC = () => {
               >
                 Sign In
               </button>
-              <button
-                onClick={handleLogin}
-                className="bg-green-500 text-white px-3 py-2 rounded-md hover:bg-green-600"
-              >
+              <button onClick={handleLogin} className="btn-warning btn text-xl">
                 Login
               </button>
             </>
@@ -52,14 +49,14 @@ export const Navbar: React.FC = () => {
             <>
               <button
                 onClick={() => navigate("/formulario")}
-                className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
+                className="btn-secondary btn btn-circle text-xl"
               >
-                New Route
+                +
               </button>
 
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
+                className="btn-warning btn text-xl"
               >
                 Logout
               </button>
