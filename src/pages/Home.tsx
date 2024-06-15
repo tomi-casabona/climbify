@@ -6,6 +6,8 @@ import type { Route } from "../types/dataTypes";
 import { HomeCard } from "../components/Home/HomeCard";
 import { HomeLastAscents } from "../components/Home/HomeLastAscents";
 import { useEffect, useState } from "react";
+import { getMaxCompletedGrade } from "../services/getMaxCompletedGrade";
+import { calculateMidGrade } from "../services/calculateMidGrade";
 
 export const Home: React.FC = () => {
   const usuario = useSelector((state: RootState) => state.user);
@@ -16,19 +18,16 @@ export const Home: React.FC = () => {
   const [totalCompletedRoutes, setTotalCompletedRoutes] = useState(0);
   const [lastRoutes, setLastRoutes] = useState<Route[]>([]);
   const [totalRoutes, setTotalRoutes] = useState<Route[]>([]);
+  const [maxGrade, setMaxGrade] = useState(0);
+  const [midGrade, setMidGrade] = useState(0);
 
-  console.log(routesFirebase);
   useEffect(() => {
     if (routesFirebase) {
-      console.log(routesFirebase);
-      const completedRoutes = calculateCompletedRoutes(routesFirebase);
-      console.log(completedRoutes);
-      const lastSevenRoutes = filterLastSevenRoutes(routesFirebase);
-      console.log(lastSevenRoutes);
-
-      setTotalCompletedRoutes(completedRoutes);
-      setLastRoutes(lastSevenRoutes);
+      setTotalCompletedRoutes(calculateCompletedRoutes(routesFirebase));
+      setLastRoutes(filterLastSevenRoutes(routesFirebase));
       setTotalRoutes(routesFirebase);
+      setMaxGrade(getMaxCompletedGrade(routesFirebase)); // work with numbers
+      setMidGrade(calculateMidGrade(routesFirebase)); // work with numbers
     }
   }, [routesFirebase]);
 
@@ -45,14 +44,14 @@ export const Home: React.FC = () => {
           content="total-routes"
         />
         <HomeCard
-          mainNumber={"6c"} // cambiar por max-grade
-          secondaryNumber={"6b"} // cambiar por med-grade
+          mainNumber={`${maxGrade}`} // cambiar por max-grade
+          secondaryNumber={`${midGrade}`} // cambiar por med-grade
           content="grade-info"
         />
         <h2 className="py-5 text-2xl mx-5">Últimos ascensos</h2>
         <div className="flex overflow-auto whitespace-nowrap no-scrollbar scroll-smooth">
           {totalRoutes.map((route, index) => {
-            if (index < 2)
+            if (index < 7)
               return (
                 <HomeLastAscents key={index} route={route} index={index} />
               );

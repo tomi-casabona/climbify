@@ -9,7 +9,6 @@ export const HomeLastAscents = ({
 }) => {
   const routeTitle = route.routeName;
   const esPar = index % 2 === 0 ? true : false;
-  console.log(route);
   return (
     <div className="inline-block mx-1 h-60">
       <div
