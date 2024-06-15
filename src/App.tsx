@@ -21,7 +21,7 @@ export const App: React.FC = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       console.log(user);
       if (user) {
-       const userData = getUserData(user);
+        const userData = getUserData(user);
         dispatch(fetchLocations());
         dispatch(fetchSchools());
         dispatch(fetchSectors());
@@ -33,10 +33,14 @@ export const App: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
+  console.log(locations, schools, sectors, routes);
+
   return (
     <Router>
-      <Navbar />
-      <AppRoutes />
+      <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
+        <Navbar />
+        <AppRoutes />
+      </div>
     </Router>
   );
 };
