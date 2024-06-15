@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 fixed bottom-0 w-full">
+    <nav className="bg-gray-800 p-4 fixed bottom-0">
       <div className="container mx-auto flex justify-between items-center">
         <div>
           <button

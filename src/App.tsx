@@ -37,7 +37,7 @@ export const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="font-poppins min-h-screen bg-light-bg dark:bg-dark-bg">
+      <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
         <Navbar />
         <AppRoutes />
       </div>

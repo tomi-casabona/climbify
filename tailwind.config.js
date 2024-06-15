@@ -1,11 +1,14 @@
 import daisyui from "daisyui";
 
+const plugin = require("tailwindcss/plugin");
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        "tt-hoves": ["TT Hoves", "sans-serif"],
       },
     },
   },
@@ -18,7 +21,8 @@ export default {
           secondary: "#d3dbf4",
           "secondary-darker": "#bec6e0",
           accent: "#bb3c43",
-          neutral: "#12161c",
+          neutral: "#e4dfda",
+          "neutral-content": "#03080e",
           "base-100": "#fffffc",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
@@ -54,5 +58,21 @@ export default {
       },
     ],
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    plugin(function ({ addUtilities }) {
+      addUtilities(
+        {
+          ".no-scrollbar": {
+            "-ms-overflow-style": "none", // IE and Edge
+            "scrollbar-width": "none", // Firefox
+          },
+          ".no-scrollbar::-webkit-scrollbar": {
+            display: "none", // Chrome, Safari, and Opera
+          },
+        },
+        ["responsive"]
+      );
+    }),
+  ],
 };

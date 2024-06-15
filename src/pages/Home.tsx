@@ -3,6 +3,8 @@ import type { RootState } from "../redux/store";
 import { calculateCompletedRoutes } from "../services/calculateCompletedRoutes";
 import { filterLastSevenRoutes } from "../services/filterLastSevenRoutes";
 import type { Route } from "../types/dataTypes";
+import { HomeCard } from "../components/Home/HomeCard";
+import { HomeLastAscents } from "../components/Home/HomeLastAscents";
 
 export const Home: React.FC = () => {
   const usuario = useSelector((state: RootState) => state.user);
@@ -97,12 +99,27 @@ export const Home: React.FC = () => {
   console.log(lastRoutes);
   return (
     <>
-      <div className="p-5 text-white">
-        <div className="p-5">
-          <h3 className="">
-            Hola {usuario.info ? usuario.info.displayName : "climber"}!
-          </h3>
-          <h1 className="font-extrabold text-5xl uppercase">Resumen</h1>
+      <div className="py-5 my-5">
+        <div className="p-5 mx-5">
+          <p>Hola {usuario.info ? usuario.info.displayName : "climber"}!</p>
+          <h1 className="font-bold text-5xl uppercase">Resumen</h1>
+        </div>
+        <HomeCard
+          mainNumber={`${lastRoutes.length}`}
+          secondaryNumber={`${totalCompletedRoutes}`}
+          content="total-routes"
+        />
+        <HomeCard
+          mainNumber={"6c"} // cambiar por max-grade
+          secondaryNumber={"6b"} // cambiar por med-grade
+          content="grade-info"
+        />
+        <h2 className="py-5 text-2xl mx-5">Últimos ascensos</h2>
+        <div className="flex overflow-auto whitespace-nowrap no-scrollbar scroll-smooth">
+          {/* TODO Aquí tendría que hacer un map de las últimas 7 rutas y devolver este
+          componente */}
+          <HomeLastAscents index={0} />
+          <HomeLastAscents index={1} />
         </div>
       </div>
     </>
