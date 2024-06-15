@@ -1,16 +1,16 @@
 import { ReactElement } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-interface ProtectedRouteProps {
+interface PublicRouteProps {
 	isAuthorized: boolean;
 	redirectToPath?: string;
 }
-// Update the ProtectedRoute component to accept the defined props
-export const ProtectedRoute = ({
+
+export const PublicRoute = ({
 	isAuthorized,
 	redirectToPath = "/",
-}: ProtectedRouteProps): ReactElement => {
-	if (!isAuthorized) {
+}: PublicRouteProps): ReactElement => {
+	if (isAuthorized) {
 		return <Navigate to={redirectToPath} replace />;
 	}
 	return <Outlet />;

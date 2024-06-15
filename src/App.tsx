@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { AppRoutes } from "./routes/AppRoutes";
@@ -13,34 +13,36 @@ import { setUser } from "./redux/slices/userSlice";
 import { getUserData } from "./services/getUserData";
 
 export const App: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { locations, schools, sectors, routes } = useSelector(
-    (state: RootState) => state
-  );
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        const userData = getUserData(user);
-        dispatch(fetchLocations());
-        dispatch(fetchSchools());
-        dispatch(fetchSectors());
-        dispatch(fetchRoutes());
-        dispatch(setUser(userData));
-      }
-    });
+	const dispatch = useDispatch<AppDispatch>();
+	const { locations, schools, sectors, routes } = useSelector(
+		(state: RootState) => state
+	);
+	const [isLogged, setIsLogged] = useState<boolean>(false);
 
-    return () => unsubscribe();
-  }, [dispatch]);
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			setIsLogged(!!user);
+			if (user) {
+				const userData = getUserData(user);
+				dispatch(fetchLocations());
+				dispatch(fetchSchools());
+				dispatch(fetchSectors());
+				dispatch(fetchRoutes());
+				dispatch(setUser(userData));
+			}
+		});
 
-  console.log(locations, schools, sectors, routes);
+		return () => unsubscribe();
+	}, [dispatch]);
 
-  return (
-    <Router>
-      <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
-        <Navbar />
-        <AppRoutes />
-      </div>
-    </Router>
-  );
+	console.log(locations, schools, sectors, routes);
+
+	return (
+		<Router>
+			<div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
+				{isLogged && <Navbar />}
+				<AppRoutes isLogged={isLogged} />
+			</div>
+		</Router>
+	);
 };
