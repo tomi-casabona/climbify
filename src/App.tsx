@@ -9,33 +9,38 @@ import { fetchLocations } from "./redux/thunks/locationsThunks";
 import { fetchSchools } from "./redux/thunks/schoolsThunks";
 import { fetchSectors } from "./redux/thunks/sectorsThunks";
 import { fetchRoutes } from "./redux/thunks/routesThunks";
+import { setUser } from "./redux/slices/userSlice";
+import { getUserData } from "./services/getUserData";
 
 export const App: React.FC = () => {
-	const dispatch = useDispatch<AppDispatch>();
-	const { locations, schools, sectors, routes } = useSelector(
-		(state: RootState) => state
-	);
-	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			if (user) {
-				dispatch(fetchLocations());
-				dispatch(fetchSchools());
-				dispatch(fetchSectors());
-				dispatch(fetchRoutes());
-			}
-		});
+  const dispatch = useDispatch<AppDispatch>();
+  const { locations, schools, sectors, routes } = useSelector(
+    (state: RootState) => state
+  );
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        const userData = getUserData(user);
+        dispatch(fetchLocations());
+        dispatch(fetchSchools());
+        dispatch(fetchSectors());
+        dispatch(fetchRoutes());
+        dispatch(setUser(userData));
+      }
+    });
 
-		return () => unsubscribe();
-	}, [dispatch]);
+    return () => unsubscribe();
+  }, [dispatch]);
 
-	console.log(locations, schools, sectors, routes);
+  console.log(locations, schools, sectors, routes);
 
-	return (
-		<Router>
-			<div className="font-poppins min-h-screen bg-light-bg dark:bg-dark-bg">
-				<Navbar />
-				<AppRoutes />
-			</div>
-		</Router>
-	);
+  return (
+    <Router>
+      <div className="font-poppins min-h-screen bg-light-bg dark:bg-dark-bg">
+        <Navbar />
+        <AppRoutes />
+      </div>
+    </Router>
+  );
 };
