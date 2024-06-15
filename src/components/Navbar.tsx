@@ -23,7 +23,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="flex justify-center">
-      <div className="bg-neutral p-4 fixed bottom-0 my-4 w-11/12 rounded-full flex justify-around items-center">
+      <div className="bg-neutral p-4 fixed bottom-0 my-4 w-11/12 rounded-full flex justify-around items-center z-50">
         <div>
           <button
             onClick={() => navigate("/home")}
@@ -52,6 +52,12 @@ export const Navbar: React.FC = () => {
                 className="btn-secondary btn btn-circle text-xl"
               >
                 +
+              </button>
+              <button
+                onClick={() => navigate("/routes")}
+                className="btn-secondary btn btn-circle text-xl"
+              >
+                V
               </button>
 
               <button
