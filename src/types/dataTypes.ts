@@ -1,3 +1,4 @@
+
 export interface FormObject {
   locationName: string;
   schoolName: string;
@@ -11,6 +12,18 @@ export interface LocationState {
   data: Location[] | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+}
+export interface UserState {
+  info: UserData | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+export type UserData = {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
 }
 export interface SchoolState {
   data: School[] | null;

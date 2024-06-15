@@ -1,22 +1,15 @@
-  import React, { useEffect, useState } from "react";
-  import { auth } from "../firebase/firebase-config";
-  import { User } from "firebase/auth";
-  
-  export const Home: React.FC = () => {
-    const [user, setUser] = useState<User | null>(null);
-  
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        setUser(user);
-      });
-  
-      // Clean up the subscription on unmount
-      return () => unsubscribe();
-    }, []);
-  
-    return (
-      <>
-        <h2>Hello {user ? user.email : "Guest"}</h2>
-      </>
-    );
-  };
+import { useSelector } from "react-redux";
+import type { RootState } from "@reduxjs/toolkit/query";
+
+export const Home: React.FC = () => {
+  const usuario = useSelector((state: RootState) => state.user);
+
+  return (
+    <>
+      <h2>Hello {usuario ? usuario.info.displayName : "Guest"}</h2>
+      <h2>Hello {usuario ? usuario.info.email : "Guest"}</h2>
+      <img src={usuario.info.photoURL} alt="" />
+      <p>QUE CHICO MAS GUAPETON</p>
+    </>
+  );
+};
