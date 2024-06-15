@@ -11,12 +11,15 @@ import { fetchSectors } from "./redux/thunks/sectorsThunks";
 import { fetchRoutes } from "./redux/thunks/routesThunks";
 import { setUser } from "./redux/slices/userSlice";
 import { getUserData } from "./services/getUserData";
+import useAuth from "./hooks/useAuth";
 
 export const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { locations, schools, sectors, routes } = useSelector(
     (state: RootState) => state
   );
+  const isAuthenticated = useAuth();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       console.log(user);
@@ -38,7 +41,7 @@ export const App: React.FC = () => {
   return (
     <Router>
       <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
-        <Navbar />
+        {isAuthenticated && <Navbar />}
         <AppRoutes />
       </div>
     </Router>
