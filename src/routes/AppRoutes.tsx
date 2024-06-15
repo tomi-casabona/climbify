@@ -1,35 +1,27 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "../pages/Login";
 import { Signin } from "../pages/Signin";
 import { Home } from "../pages/Home";
 import { ProtectedRoute } from "./ProtectedRote";
 import { Formulario } from "../components/Formulario";
-import React from "react";
-import { auth } from "../firebase/firebase-config";
 import { RouteList } from "../pages/RouteList";
+import { PublicRoute } from "./PublicRoute";
 
-export const AppRoutes = () => {
-  //const isLogged: boolean = useSelector((state: any) => state.user.isLogged);
-  const [isLogged, setIsLoggeed] = React.useState<boolean>(false);
-
-  // mover a redux o context
-
-  React.useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsLoggeed(!!user);
-    });
-
-    return () => unsubscribe();
-  }, []);
-  return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/signIn" element={<Signin />} />
-      <Route element={<ProtectedRoute isAuthorized={isLogged} />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/routes" element={<RouteList />} />
-        <Route path="/formulario" element={<Formulario />} />
-      </Route>
-    </Routes>
-  );
+export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
+	return (
+		<Routes>
+			<Route
+				element={<PublicRoute isAuthorized={isLogged} redirectToPath="/" />}
+			>
+				<Route path="/login" element={<Login />} />
+				<Route path="/signin" element={<Signin />} />
+			</Route>
+			<Route element={<ProtectedRoute isAuthorized={isLogged} />}>
+				<Route path="/" element={<Home />} />
+				<Route path="/routes" element={<RouteList />} />
+				<Route path="/newroute" element={<Formulario />} />
+			</Route>
+			<Route path="*" element={<Navigate to="/" />} />
+		</Routes>
+	);
 };
