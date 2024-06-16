@@ -1,4 +1,4 @@
-import type { Route } from "../../types/dataTypes";
+import type { Route } from "../../../types/dataTypes";
 
 export const orderByLocation = (routes: Route[]): Route[] => {
     // Ordenar las rutas por routeGrade de mayor a menor

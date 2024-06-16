@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import { calculateCompletedRoutes } from "../services/calculateCompletedRoutes";
-import { filterLastSevenRoutes } from "../services/filterLastSevenRoutes";
+import { calculateCompletedRoutes } from "../services/routeServices/calculatedData/calculateCompletedRoutes";
 import type { Route } from "../types/dataTypes";
 import { HomeCard } from "../components/Home/HomeCard";
 import { HomeLastAscents } from "../components/Home/HomeLastAscents";
 import { useEffect, useState } from "react";
-import { getMaxCompletedGrade } from "../services/getMaxCompletedGrade";
-import { calculateMidGrade } from "../services/calculateMidGrade";
+import { filterLastSevenRoutes } from "../services/routeServices/filters/filterLastSevenRoutes";
+import { getMaxCompletedGrade } from "../services/routeServices/calculatedData/getMaxCompletedGrade";
+import { calculateMidGrade } from "../services/routeServices/calculatedData/calculateMidGrade";
 
 export const Home: React.FC = () => {
   const usuario = useSelector((state: RootState) => state.user);

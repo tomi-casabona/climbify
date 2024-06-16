@@ -3,14 +3,14 @@ import { RouteCard } from "../components/RouteList/RouteCard";
 import { Route } from "../types/dataTypes";
 import type { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
-import { filterByRouteName } from "../services/filters/filterByRouteName";
-import { orderByDate } from "../services/orderBy/orderByDate";
-import { orderByMinGrade } from "../services/orderBy/orderByMinGrade";
-import { orderBySector } from "../services/orderBy/orderBySector";
-import { orderByLocation } from "../services/orderBy/orderByLocation";
-import { orderBySchool } from "../services/orderBy/orderBySchool";
-import { orderByNameAsc } from "../services/orderBy/orderByName";
-import { orderByMaxGrade } from "../services/orderBy/orderByMaxGrade";
+import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
+import { orderByDate } from "../services/routeServices/orderBy/orderByDate";
+import { orderByMinGrade } from "../services/routeServices/orderBy/orderByMinGrade";
+import { orderBySector } from "../services/routeServices/orderBy/orderBySector";
+import { orderByLocation } from "../services/routeServices/orderBy/orderByLocation";
+import { orderBySchool } from "../services/routeServices/orderBy/orderBySchool";
+import { orderByNameAsc } from "../services/routeServices/orderBy/orderByName";
+import { orderByMaxGrade } from "../services/routeServices/orderBy/orderByMaxGrade";
 
 export const RouteList = () => {
   const showModal = () => {

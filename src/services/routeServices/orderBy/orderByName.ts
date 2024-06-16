@@ -1,4 +1,4 @@
-import type { Route } from "../../types/dataTypes";
+import type { Route } from "../../../types/dataTypes";
 
 export const orderByNameAsc = (routes: Route[]): Route[] => {
     // Ordenar las rutas por el atributo 'name' en orden alfabético ascendente

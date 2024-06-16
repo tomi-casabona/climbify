@@ -1,4 +1,4 @@
-import type { Attempt, Route } from "../../types/dataTypes";
+import type { Attempt, Route } from "../../../types/dataTypes";
 
 
 export const orderByDate = (routes: Route[]): Route[] => {

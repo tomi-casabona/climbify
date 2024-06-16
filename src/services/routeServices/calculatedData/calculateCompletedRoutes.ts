@@ -1,4 +1,4 @@
-import type { Route } from "../types/dataTypes";
+import type { Route } from "../../../types/dataTypes";
 
 export const calculateCompletedRoutes = (routes: Route[]): number => {
 
