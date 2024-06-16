@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
 import { showModal } from "../services/routeServices/showModal";
 import { applySorting } from "../services/routeServices/applySorting";
+import { FilterModal } from "../components/FilterModal";
 export const RouteList = () => {
   const [query, setQuery] = useState("");
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
@@ -20,18 +21,19 @@ export const RouteList = () => {
       setFilteredRoutes(routes); // Inicializa filteredRoutes con routes cuando se carguen los datos
     }
   }, [routes]);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newQuery = e.target.value;
     setQuery(newQuery);
     if (routes) {
       const filtered = filterByRouteName(routes, newQuery);
       setFilteredRoutes(filtered);
     }
-  };
+  }
 
-  const handleCheckboxChange = (order: string) => {
+  function handleCheckboxChange(order: string) {
     setSelectedOrder(order === selectedOrder ? "" : order);
-  };
+  }
 
   const handleFilterClick = () => {
     setFilteredRoutes(applySorting(selectedOrder, filteredRoutes));
@@ -51,84 +53,11 @@ export const RouteList = () => {
         <button className="btn rounded-full" onClick={showModal}>
           Order By{" "}
         </button>
-        <dialog id="my_modal_1" className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg pb-4">
-              Pick your preferred order !!
-            </h3>
-            <div className="flex justify-between py-2">
-              Order by recent date
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "recentDate"}
-                onChange={() => handleCheckboxChange("recentDate")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              Order by Name
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "name"}
-                onChange={() => handleCheckboxChange("name")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              Order by level descendent
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "levelDescendent"}
-                onChange={() => handleCheckboxChange("levelDescendent")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              Order by level ascendent
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "levelAscendent"}
-                onChange={() => handleCheckboxChange("levelAscendent")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              group by sector name
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "sectorName"}
-                onChange={() => handleCheckboxChange("sectorName")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              group by location name
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "locationName"}
-                onChange={() => handleCheckboxChange("locationName")}
-              />
-            </div>
-            <div className="flex justify-between py-2">
-              group by school name
-              <input
-                type="checkbox"
-                className="toggle toggle-error"
-                checked={selectedOrder === "schoolName"}
-                onChange={() => handleCheckboxChange("schoolName")}
-              />
-            </div>
-
-            <div className="modal-action">
-              <form method="dialog">
-                <button className="btn" onClick={handleFilterClick}>
-                  Apply
-                </button>
-              </form>
-            </div>
-          </div>
-        </dialog>
+        <FilterModal
+          selectedOrder={selectedOrder}
+          handleCheckboxChange={handleCheckboxChange}
+          handleFilterClick={handleFilterClick}
+        />
       </div>
       <div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth">
         {filteredRoutes?.map((route, index) => {
