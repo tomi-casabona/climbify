@@ -7,7 +7,12 @@ export const HomeLastAscents = ({
   route: Route;
   index: number;
 }) => {
-  const routeTitle = route.routeName;
+  const routename =
+    route.routeName.length > 8
+      ? route.routeName.substring(0, 8) + "..."
+      : route.routeName;
+
+  const routeTitle = routename;
   const esPar = index % 2 === 0 ? true : false;
   return (
     <div className="inline-block mx-1 h-60">
@@ -16,7 +21,7 @@ export const HomeLastAscents = ({
       >
         <div className="h-2/5 flex items-end">
           <p
-            className={`${routeTitle.length < 9 ? "text-3xl" : `${routeTitle.length < 13 ? "text-2xl" : "text-xl"}`} uppercase text-wrap ${esPar ? "text-neutral" : "text-neutral-content"}`}
+            className={`text-2xl uppercase text-wrap ${esPar ? "text-neutral" : "text-neutral-content"}`}
           >
             {routeTitle}
           </p>
