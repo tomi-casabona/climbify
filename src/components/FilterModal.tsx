@@ -13,7 +13,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 }) => {
   return (
     <dialog id="my_modal_1" className="modal">
-      <div className="modal-box">
+      <div className="modal-box dark:bg-[url('/public/backgroundImages/bg-climber-dark.png')] bg-right-top bg-no-repeat bg-[length:700px_700px]  ">
         <h3 className="font-bold text-lg pb-4">Pick your preferred order !!</h3>
         <div className="flex justify-between py-2">
           Order by recent date
