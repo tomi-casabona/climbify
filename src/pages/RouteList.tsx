@@ -4,35 +4,22 @@ import { Route } from "../types/dataTypes";
 import type { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
-import { orderByDate } from "../services/routeServices/orderBy/orderByDate";
-import { orderByMinGrade } from "../services/routeServices/orderBy/orderByMinGrade";
-import { orderBySector } from "../services/routeServices/orderBy/orderBySector";
-import { orderByLocation } from "../services/routeServices/orderBy/orderByLocation";
-import { orderBySchool } from "../services/routeServices/orderBy/orderBySchool";
-import { orderByNameAsc } from "../services/routeServices/orderBy/orderByName";
-import { orderByMaxGrade } from "../services/routeServices/orderBy/orderByMaxGrade";
-
+import { showModal } from "../services/routeServices/showModal";
+import { applySorting } from "../services/routeServices/applySorting";
 export const RouteList = () => {
-  const showModal = () => {
-    const modalElement = document.getElementById("my_modal_1");
-    if (modalElement instanceof HTMLDialogElement) {
-      modalElement.showModal();
-    }
-  };
+  const [query, setQuery] = useState("");
+  const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<string>("recentDate");
+
   const routes: Route[] | null = useSelector(
     (state: RootState) => state.routes.data
   );
+
   useEffect(() => {
     if (routes) {
       setFilteredRoutes(routes); // Inicializa filteredRoutes con routes cuando se carguen los datos
     }
   }, [routes]);
-  const [query, setQuery] = useState("");
-  const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<string | null>(
-    "recentDate"
-  );
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
@@ -43,36 +30,11 @@ export const RouteList = () => {
   };
 
   const handleCheckboxChange = (order: string) => {
-    setSelectedOrder(order === selectedOrder ? null : order);
+    setSelectedOrder(order === selectedOrder ? "" : order);
   };
-  const applySorting = () => {
-    if (selectedOrder) {
-      switch (selectedOrder) {
-        case "recentDate":
-          setFilteredRoutes(orderByDate(filteredRoutes));
-          break;
-        case "name":
-          setFilteredRoutes(orderByNameAsc(filteredRoutes));
-          break;
-        case "levelDescendent":
-          setFilteredRoutes(orderByMaxGrade(filteredRoutes));
-          break;
-        case "levelAscendent":
-          setFilteredRoutes(orderByMinGrade(filteredRoutes));
-          break;
-        case "sectorName":
-          setFilteredRoutes(orderBySector(filteredRoutes));
-          break;
-        case "locationName":
-          setFilteredRoutes(orderByLocation(filteredRoutes));
-          break;
-        case "schoolName":
-          setFilteredRoutes(orderBySchool(filteredRoutes));
-          break;
-        default:
-          break;
-      }
-    }
+
+  const handleFilterClick = () => {
+    setFilteredRoutes(applySorting(selectedOrder, filteredRoutes));
   };
 
   return (
@@ -160,7 +122,7 @@ export const RouteList = () => {
 
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn" onClick={applySorting}>
+                <button className="btn" onClick={handleFilterClick}>
                   Apply
                 </button>
               </form>
