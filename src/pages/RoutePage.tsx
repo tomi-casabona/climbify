@@ -1,13 +1,14 @@
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { Location, Route, School, Sector, type Attempt } from "../types/dataTypes";
+import { Location, Route, School, Sector, Attempt } from "../types/dataTypes";
 import { PeguesComponent } from "../components/RoutePage/PeguesComponent";
 import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
-import { useContext } from "react";
 import { updateRoutes } from "../redux/thunks/routesThunks";
+import { updatePegue } from "../services/updatePegue";
 
 export const RoutePage = () => {
 	const { id } = useParams();
@@ -21,9 +22,14 @@ export const RoutePage = () => {
 
 	const route = routes.find((route) => route.routeId === id) as Route;
 
-	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex].sectorName);
-	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex].schoolName);
-	const location = capitalizeFirstLetterOnly(locations[route.locationIndex].locationName);
+	// Add a check to ensure `route` is defined before accessing its properties
+	if (!route) {
+		return <div>Route not found</div>;
+	}
+
+	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex]?.sectorName);
+	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
+	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
 	const addPegue = () => {
 		if (!route) return;
@@ -33,22 +39,22 @@ export const RoutePage = () => {
 			date: new Date().toISOString(),
 			completed: true,
 		};
+		const newRoutes = updatePegue(route, routes, newAttempt);
+		dispatch(updateRoutes(newRoutes));
+	};
 
-		const updatedRoute: Route = {
-			...route,
-			routeAttempts: [...route.routeAttempts, newAttempt],
-		};
-		
+	const toggleAttempt = (updatedAttempt: Attempt) => {
+		const indexAttempt = route.routeAttempts.findIndex(
+			(attempt) => attempt.id === updatedAttempt.id
+		);
+		const updatedRoute: Route = { ...route };
+		updatedRoute.routeAttempts[indexAttempt] = {...updatedAttempt};
+
 		console.log(updatedRoute);
 		// Find the route by ID and update it
-		const routeIndex = routes.findIndex((route) => route.routeId === id);
+		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
 		const newRoutes = [...routes];
-		if (routeIndex !== -1) {
-			newRoutes[routeIndex] = {
-				...newRoutes[routeIndex],
-				routeAttempts: [...route.routeAttempts, newAttempt],
-			};
-		}
+		newRoutes[routeIndex] = updatedRoute;
 
 		dispatch(updateRoutes(newRoutes));
 	};
@@ -125,7 +131,7 @@ export const RoutePage = () => {
 							<li className="list-item">Aún no le has dado ningún pegue...</li>
 						) : (
 							route.routeAttempts?.map((attempt, index) => (
-								<PeguesComponent attempt={attempt} key={index} />
+								<PeguesComponent attempt={attempt} key={index} toggleAttempt={toggleAttempt} />
 							))
 						)}
 					</ul>
@@ -159,9 +165,7 @@ export const RoutePage = () => {
 					) : route.routeComments.length === 0 ? (
 						<li>No hay ningún comentario.</li>
 					) : (
-						route.routeComments.map((comment) => {
-							return <li>{comment}</li>;
-						})
+						route.routeComments.map((comment, index) => <li key={index}>{comment}</li>)
 					)}
 				</ul>
 			</div>
