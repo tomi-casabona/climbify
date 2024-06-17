@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
@@ -9,6 +9,7 @@ import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
+import { showModal } from "../services/routeServices/showModal";
 
 export const RoutePage = () => {
 	const { id } = useParams();
@@ -31,13 +32,13 @@ export const RoutePage = () => {
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
-	const addPegue = () => {
+	const addPegue = ({ completed }: { completed: boolean }) => {
 		if (!route) return;
 
 		const newAttempt: Attempt = {
 			id: crypto.randomUUID(),
 			date: new Date().toISOString(),
-			completed: false,
+			completed: completed,
 		};
 		const newRoutes = updatePegue(route, routes, newAttempt);
 		dispatch(updateRoutes(newRoutes));
@@ -144,7 +145,10 @@ export const RoutePage = () => {
 					</div>
 
 					<div className="flex justify-center">
-						<button className="btn btn-outline btn-circle" onClick={() => addPegue()}>
+						<button
+							className="btn btn-outline btn-circle"
+							onClick={() => showModal("my_modal_3")} /* onClick={() => addPegue()} */
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -154,6 +158,28 @@ export const RoutePage = () => {
 								<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
 							</svg>
 						</button>
+						<dialog id="my_modal_3" className="modal">
+							<div className="modal-box w-2/3">
+								<form method="dialog">
+									<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+										✕
+									</button>
+									<h3 className="font-bold text-lg text-center">Encadenaste la vía?</h3>
+									<div className="flex justify-center gap-5 mt-5">
+										<button
+											onClick={() => addPegue({ completed: true })}
+											className="btn btn-secondary btn-circle">
+											Sí
+										</button>
+										<button
+											onClick={() => addPegue({ completed: false })}
+											className="btn btn-accent btn-circle">
+											No
+										</button>
+									</div>
+								</form>
+							</div>
+						</dialog>
 					</div>
 				</div>
 			</div>
