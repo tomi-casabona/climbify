@@ -105,7 +105,7 @@ export const createUserData =
       (route) => route.routeName === formObject.routeName
     );
     if (routeIndex === -1) {
-      const route = {
+      const route: Route = {
         routeId: crypto.randomUUID(),
         routeName: formObject.routeName,
         locationIndex: locationIndex,
