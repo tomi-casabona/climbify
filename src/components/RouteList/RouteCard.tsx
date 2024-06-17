@@ -36,7 +36,9 @@ export const RouteCard = ({
 				<div className="text-3xl px-5 font-light text-primary text-end">
 					<h4 className="text-2xl">{scale.grades[route.routeGrade]}</h4>
 					{/* Placeholder for completion date */}
-					<p className="text-lg font-extralight">Poner fecha</p>
+					<p className="text-lg font-extralight">
+						{!route.routeDate ? "Pendiente" : route.routeDate}
+					</p>
 					{/* Replace with actual completion date logic */}
 				</div>
 			</div>

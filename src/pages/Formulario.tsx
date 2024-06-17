@@ -67,7 +67,7 @@ export const Formulario: React.FC = () => {
 			<h1 className="font-bold text-5xl uppercase my-5">Nueva vía</h1>
 			<form onSubmit={handleSubmit} className="h-10/12 overflow-y-auto">
 				<div>
-					<label className="label">Ubicación:</label>
+					<label className="label font-bold uppercase">Ubicación</label>
 					<input
 						name="locationName"
 						placeholder="Barcelona"
@@ -79,7 +79,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Escuela:</label>
+					<label className="label font-bold uppercase">Escuela</label>
 					<input
 						name="schoolName"
 						placeholder="La Mola"
@@ -91,7 +91,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Sector:</label>
+					<label className="label font-bold uppercase">Sector</label>
 					<input
 						name="sectorName"
 						placeholder="La Paret Gran"
@@ -103,7 +103,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Nombre de la Vía:</label>
+					<label className="label font-bold uppercase">Nombre de la Vía</label>
 					<input
 						name="routeName"
 						placeholder="Rescat Emocional"
@@ -115,7 +115,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Grado:</label>
+					<label className="label font-bold uppercase">Grado</label>
 					<select
 						name="routeGrade"
 						className="select-bordered w-full py-1 px-2 bg-base-content text-base-100 rounded-full"
@@ -130,7 +130,7 @@ export const Formulario: React.FC = () => {
 					</select>
 				</div>
 				<div className="pb-3">
-					<label className="label">Altura máxima:</label>
+					<label className="label font-bold uppercase">Altura máxima</label>
 					<input
 						name="routeHeight"
 						type="number"
@@ -143,7 +143,7 @@ export const Formulario: React.FC = () => {
 				<button
 					type="submit"
 					onClick={handleSubmit}
-					className="btn btn-primary rounded-full w-full mt-10">
+					className="btn btn-primary rounded-full w-full my-10 uppercase text-base-content">
 					Agregar Vía
 				</button>
 			</form>
