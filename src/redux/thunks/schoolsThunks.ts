@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { School } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -27,7 +27,11 @@ export const updateSchools = createAsyncThunk(
     const user = auth.currentUser;
     if (user) {
       const docRef = doc(db, user.uid, "schools")
-      await setDoc(docRef, { schools: schools })
+      if ((await getDoc(docRef)).exists()) {
+        await updateDoc(docRef, { schools: schools })
+      } else {
+        await setDoc(docRef, { schools: schools })
+      }
       return schools;
     } else {
       throw new Error('No authenticated user');

@@ -27,7 +27,11 @@ export const updateSectors = createAsyncThunk(
     const user = auth.currentUser;
     if (user) {
       const docRef = doc(db, user.uid, "sectors")
-      await setDoc(docRef, { sectors: sectors })
+      if ((await getDoc(docRef)).exists()) {
+        await updateDoc(docRef, { sectors: sectors })
+      } else {
+        await setDoc(docRef, { sectors: sectors })
+      }
       return sectors;
     } else {
       throw new Error('No authenticated user');
