@@ -21,7 +21,7 @@ export const UserPage = () => {
 		}
 	};
 	return (
-		<div className="m-5 p-5">
+		<div className="mx-5 mb-5 px-5 py-10">
 			<div className="flex justify-center items-center">
 				<img
 					src={

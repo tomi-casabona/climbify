@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
@@ -9,10 +9,9 @@ import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
-import { CommentsModal } from "../components/RoutePage/CommentsModal";
+import { showModal } from "../services/routeServices/showModal";
 
 export const RoutePage = () => {
-	const [showModal, setShowModal] = useState(false);
 	const [comment, setComment] = useState("");
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -34,13 +33,6 @@ export const RoutePage = () => {
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
-	const addComment = () => {
-		setShowModal(true);
-	};
-
-	const closeModal = () => {
-		setShowModal(false);
-	};
 	const saveComment = () => {
 		const updatedComments = [...(route.routeComments || []), comment];
 		const updatedRoute = { ...route, routeComments: updatedComments };
@@ -55,13 +47,13 @@ export const RoutePage = () => {
 		setComment("");
 	};
 
-	const addPegue = () => {
+	const addPegue = ({ completed }: { completed: boolean }) => {
 		if (!route) return;
 
 		const newAttempt: Attempt = {
 			id: crypto.randomUUID(),
 			date: new Date().toISOString(),
-			completed: true,
+			completed: completed,
 		};
 		const newRoutes = updatePegue(route, routes, newAttempt);
 		dispatch(updateRoutes(newRoutes));
@@ -85,9 +77,9 @@ export const RoutePage = () => {
 	};
 
 	return (
-		<div className="w-full h-screen absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
+		<div className="w-full h-full absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
 			{/* Header */}
-			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mt-5 mx-3">
+			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mx-3">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
 					onClick={() => navigate("/routes")}>
@@ -168,7 +160,10 @@ export const RoutePage = () => {
 					</div>
 
 					<div className="flex justify-center">
-						<button className="btn btn-outline btn-circle" onClick={() => addPegue()}>
+						<button
+							className="btn btn-outline btn-circle"
+							onClick={() => showModal("my_modal_3")} /* onClick={() => addPegue()} */
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -178,18 +173,33 @@ export const RoutePage = () => {
 								<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
 							</svg>
 						</button>
+						<dialog id="my_modal_3" className="modal">
+							<div className="modal-box w-2/3">
+								<form method="dialog">
+									<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+										✕
+									</button>
+									<h3 className="font-bold text-lg text-center">Encadenaste la vía?</h3>
+									<div className="flex justify-center gap-5 mt-5">
+										<button
+											onClick={() => addPegue({ completed: true })}
+											className="btn btn-secondary btn-circle">
+											Sí
+										</button>
+										<button
+											onClick={() => addPegue({ completed: false })}
+											className="btn btn-accent btn-circle">
+											No
+										</button>
+									</div>
+								</form>
+							</div>
+						</dialog>
 					</div>
 				</div>
 			</div>
 			{/* Comments */}
-			{showModal && (
-				<CommentsModal
-					comment={comment}
-					setComment={setComment}
-					saveComment={saveComment}
-					closeModal={closeModal}
-				/>
-			)}
+
 			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%]">
 				<p className="font-bold">Comentarios:</p>
 				<ul>
@@ -202,16 +212,44 @@ export const RoutePage = () => {
 					)}
 				</ul>
 				<div className="flex justify-center">
-					<button className="btn btn-outline btn-circle" onClick={() => addComment()}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							height="24"
-							width="21"
-							viewBox="0 0 448 512"
-							fill="currentColor">
-							<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-						</svg>
-					</button>
+					<div className="flex justify-center">
+						<button
+							className="btn btn-outline btn-circle"
+							onClick={() => showModal("my_modal_4")} /* onClick={() => addPegue()} */
+						>
+							
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="24"
+								width="21"
+								viewBox="0 0 448 512"
+								fill="currentColor">
+								<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+							</svg>
+						</button>
+						<dialog id="my_modal_4" className="modal">
+							<div className="modal-box w-2/3">
+								<form method="dialog">
+									<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+										✕
+									</button>
+									<h3 className="font-bold text-lg text-center">Encadenaste la vía?</h3>
+									<div className="flex justify-center gap-5 mt-5">
+										<button
+											onClick={() => addPegue({ completed: true })}
+											className="btn btn-secondary btn-circle">
+											Sí
+										</button>
+										<button
+											onClick={() => addPegue({ completed: false })}
+											className="btn btn-accent btn-circle">
+											No
+										</button>
+									</div>
+								</form>
+							</div>
+						</dialog>
+					</div>
 				</div>
 			</div>
 		</div>
