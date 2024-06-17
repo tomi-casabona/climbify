@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { Formulario } from "../components/Formulario";
 import { RouteList } from "../pages/RouteList";
 import { PublicRoute } from "./PublicRoute";
+import { EditRoute } from "../pages/EditRoute";
 
 export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
   return (
@@ -18,6 +19,7 @@ export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
       </Route>
       <Route element={<ProtectedRoute isAuthorized={isLogged} />}>
         <Route path="/" element={<Home />} />
+        <Route path="/editRoute" element={<EditRoute />} />
         <Route path="/routes" element={<RouteList />} />
         <Route path="/newroute" element={<Formulario />} />
       </Route>
