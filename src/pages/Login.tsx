@@ -37,7 +37,6 @@ export const Login: React.FC = () => {
     const provider = new GoogleAuthProvider();
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
-      console.log("Google sign in:", result.user);
       navigate("/home");
     } catch (error) {
       setError((error as AuthError).message);
