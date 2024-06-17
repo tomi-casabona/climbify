@@ -5,5 +5,6 @@ export interface Scale {
 
 export type ScaleContextType = {
   scale: Scale;
+  scaleIndex: number;
   selectScale: (scaleIndex: number) => void;
 }
