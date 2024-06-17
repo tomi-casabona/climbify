@@ -1,4 +1,10 @@
 export function capitalizeFirstLetterOnly(str: string) {
-    // Convierte toda la cadena a minúsculas y luego solo la primera letra a mayúscula
-    return str.toLowerCase().charAt(0).toUpperCase() + str.toLowerCase().slice(1);
+
+    const words = str.split(" ");
+
+    const capitalizedWords = words.map(word =>
+        word.toLowerCase().charAt(0).toUpperCase() + word.toLowerCase().slice(1)
+    );
+
+    return capitalizedWords.join(" ");
 }
