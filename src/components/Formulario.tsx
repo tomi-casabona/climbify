@@ -7,6 +7,7 @@ import { updateLocations } from "../redux/thunks/locationsThunks";
 import { updateSectors } from "../redux/thunks/sectorsThunks";
 import { updateSchools } from "../redux/thunks/schoolsThunks";
 import { updateRoutes } from "../redux/thunks/routesThunks";
+import { useNavigate } from "react-router-dom";
 
 export const Formulario: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,6 +17,7 @@ export const Formulario: React.FC = () => {
     sectors: useSelector((state: RootState) => state.sectors),
     routes: useSelector((state: RootState) => state.routes),
   };
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,6 +47,7 @@ export const Formulario: React.FC = () => {
     dispatch(updateSchools(newSchools));
     dispatch(updateSectors(newSectors));
     dispatch(updateRoutes(newRoutes));
+    navigate("/routes"); // una vez hecho el componente RouteDetail, cambiar el navigate
   };
 
   return (
