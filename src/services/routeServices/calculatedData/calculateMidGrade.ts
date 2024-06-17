@@ -1,4 +1,4 @@
-import type { Route } from "../types/dataTypes";
+import { Route } from "../../../types/dataTypes";
 
 export const calculateMidGrade = (routes: Route[]): number => {
 

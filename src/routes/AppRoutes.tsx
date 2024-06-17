@@ -9,6 +9,8 @@ import { PublicRoute } from "./PublicRoute";
 import { RoutePage } from "../pages/RoutePage";
 import { Navbar } from "../components/Navbar";
 import { EditRoute } from "../pages/EditRoute";
+import { Stats } from "../pages/Stats";
+import { UserPage } from "../pages/UserPage";
 
 export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 	const location = useLocation();
@@ -32,6 +34,8 @@ export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 					</Route>
 					<Route path="/editRoute" element={<EditRoute />} />
 					<Route path="/newroute" element={<Formulario />} />
+					<Route path="/stats" element={<Stats />} />
+					<Route path="/user" element={<UserPage />} />
 				</Route>
 				<Route path="*" element={<Navigate to="/" />} />
 			</Routes>
