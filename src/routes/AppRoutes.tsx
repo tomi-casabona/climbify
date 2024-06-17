@@ -8,6 +8,8 @@ import { RouteList } from "../pages/RouteList";
 import { PublicRoute } from "./PublicRoute";
 import { RoutePage } from "../pages/RoutePage";
 import { Navbar } from "../components/Navbar";
+import { Stats } from "../pages/Stats";
+import { UserPage } from "../pages/UserPage";
 
 export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 	const location = useLocation();
@@ -32,6 +34,8 @@ export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 						<Route path="route/:id" element={<RoutePage />} />
 					</Route>
 					<Route path="/newroute" element={<Formulario />} />
+					<Route path="/stats" element={<Stats />} />
+					<Route path="/user" element={<UserPage />} />
 				</Route>
 				<Route path="*" element={<Navigate to="/" />} />
 			</Routes>
