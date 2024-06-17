@@ -1,7 +1,6 @@
 import type { Route } from "../types/dataTypes";
 
 export const filterLastSevenRoutes = (routes: Route[]): Route[] => {
-
     const currentDate = new Date();
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(currentDate.getDate() - 7);

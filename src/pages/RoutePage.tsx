@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { Location, Route, School, Sector } from "../types/dataTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { Location, Route, School, Sector, type Attempt } from "../types/dataTypes";
 import { PeguesComponent } from "../components/RoutePage/PeguesComponent";
 import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { useContext } from "react";
+import { updateRoutes } from "../redux/thunks/routesThunks";
 
 export const RoutePage = () => {
 	const { id } = useParams();
@@ -15,15 +16,41 @@ export const RoutePage = () => {
 	const sectors = useSelector((state: RootState) => state.sectors.data) as Sector[];
 	const schools = useSelector((state: RootState) => state.schools.data) as School[];
 	const locations = useSelector((state: RootState) => state.locations.data) as Location[];
+	const dispatch = useDispatch<AppDispatch>();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
 	const route = routes.find((route) => route.routeId === id) as Route;
+
 	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex].sectorName);
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex].schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex].locationName);
 
 	const addPegue = () => {
-		console.log("should add pegue...");
+		if (!route) return;
+
+		const newAttempt: Attempt = {
+			id: crypto.randomUUID(),
+			date: new Date().toISOString(),
+			completed: true,
+		};
+
+		const updatedRoute: Route = {
+			...route,
+			routeAttempts: [...route.routeAttempts, newAttempt],
+		};
+		
+		console.log(updatedRoute);
+		// Find the route by ID and update it
+		const routeIndex = routes.findIndex((route) => route.routeId === id);
+		const newRoutes = [...routes];
+		if (routeIndex !== -1) {
+			newRoutes[routeIndex] = {
+				...newRoutes[routeIndex],
+				routeAttempts: [...route.routeAttempts, newAttempt],
+			};
+		}
+
+		dispatch(updateRoutes(newRoutes));
 	};
 
 	return (
@@ -94,10 +121,10 @@ export const RoutePage = () => {
 				<div className="h-full w-1/2 flex flex-col bg-base-100 bg-opacity-10 rounded-3xl p-3 gap-4">
 					<h3 className="font-bold text-2xl text-center text-base-100">Pegues</h3>
 					<ul className="text-sm text-base-100 text-center flex-1 overflow-auto">
-						{route.routeAttempts.length === 0 ? (
+						{route.routeAttempts && route.routeAttempts.length === 0 ? (
 							<li className="list-item">Aún no le has dado ningún pegue...</li>
 						) : (
-							route.routeAttempts.map((attempt, index) => (
+							route.routeAttempts?.map((attempt, index) => (
 								<PeguesComponent attempt={attempt} key={index} />
 							))
 						)}
@@ -105,7 +132,7 @@ export const RoutePage = () => {
 					<div className="flex justify-between items-center">
 						<h3 className="text-base-100 font-bold text-2xl">Total:</h3>
 						<h3 className="text-base-content font-bold text-4xl text-end">
-							{route.routeAttempts.length}
+							{route.routeAttempts ? route.routeAttempts.length : 0}
 						</h3>
 					</div>
 
