@@ -34,7 +34,7 @@ export const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg">
+      <div className="font-tt-hoves min-h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
         {isLogged && <Navbar />}
         <AppRoutes isLogged={isLogged} />
       </div>

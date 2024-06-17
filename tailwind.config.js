@@ -10,6 +10,10 @@ export default {
         poppins: ["Poppins", "sans-serif"],
         "tt-hoves": ["TT Hoves", "sans-serif"],
       },
+      backgroundImage: {
+        "light-bg": "url('/public/backgroundImages/bg-img-light.png')",
+        "dark-bg": "url('/public/backgroundImages/bg-img-dark.png')",
+      },
     },
   },
   daisyui: {
