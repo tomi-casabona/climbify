@@ -47,8 +47,9 @@ export const RoutePage = () => {
 		const indexAttempt = route.routeAttempts.findIndex(
 			(attempt) => attempt.id === updatedAttempt.id
 		);
-		const updatedRoute: Route = { ...route };
-		updatedRoute.routeAttempts[indexAttempt] = {...updatedAttempt};
+		const updatedRoute: Route = { ...route, routeAttempts: [...route.routeAttempts] };
+
+		updatedRoute.routeAttempts[indexAttempt] = { ...updatedAttempt };
 
 		console.log(updatedRoute);
 		// Find the route by ID and update it
