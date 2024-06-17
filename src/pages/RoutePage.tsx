@@ -37,7 +37,7 @@ export const RoutePage = () => {
 		const newAttempt: Attempt = {
 			id: crypto.randomUUID(),
 			date: new Date().toISOString(),
-			completed: true,
+			completed: false,
 		};
 		const newRoutes = updatePegue(route, routes, newAttempt);
 		dispatch(updateRoutes(newRoutes));
@@ -60,9 +60,9 @@ export const RoutePage = () => {
 	};
 
 	return (
-		<div className="w-full h-screen absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
+		<div className="w-full h-full absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
 			{/* Header */}
-			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mt-5 mx-3">
+			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mx-3">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
 					onClick={() => navigate("/routes")}>

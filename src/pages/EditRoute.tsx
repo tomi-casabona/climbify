@@ -84,7 +84,7 @@ export const EditRoute: React.FunctionComponent = () => {
 			<div className="flex justify-between">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={handleDelete}>
+					onClick={() => navigate(`/routes/route/${route.routeId}`)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
@@ -96,7 +96,7 @@ export const EditRoute: React.FunctionComponent = () => {
 				</button>
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={() => navigate("/")}>
+					onClick={handleDelete}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"

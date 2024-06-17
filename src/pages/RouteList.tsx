@@ -41,7 +41,7 @@ export const RouteList = () => {
 	};
 
 	return (
-		<div className="py-5 my-5 flex flex-col h-screen">
+		<div className="py-5 mb-5 flex flex-col h-screen">
 			<h1 className="p-5 uppercase font-bold text-5xl">Tus vías</h1>
 			<div className="flex justify-around items-center gap-3 w-11/12 mx-auto pb-3 border-b border-neutral">
 				<input
@@ -79,10 +79,10 @@ export const RouteList = () => {
 				})}
 				<div className="p-14 w-full bg-transparent"></div>
 			</div>
-			<div className="fixed bottom-0 w-full">
+			{/* <div className="fixed bottom-0 w-full">
 				<div className="bg-gradient-to-t from-base-100 to-transparent w-full p-4"></div>
 				<div className="bg-base-100 w-full p-16"></div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
