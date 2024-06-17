@@ -4,6 +4,7 @@ import { capitalizeFirstLetterOnly } from "../../services/capitalizeFirstLetter"
 import { ScaleContextType } from "../../types/gradeType";
 import { ScaleContext } from "../../context/gradeContext";
 import { useContext } from "react";
+import { getMostRecentDate } from "../../services/routeServices/getMostRecentDate";
 
 export const RouteCard = ({
 	route,
@@ -24,6 +25,7 @@ export const RouteCard = ({
 	const finalDescription =
 		description.length > 22 ? description.substring(0, 22) + "..." : description;
 
+	const lastDate = getMostRecentDate(route.routeAttempts);
 	return (
 		<div
 			className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full cursor-pointer"
@@ -36,9 +38,7 @@ export const RouteCard = ({
 				<div className="text-3xl px-5 font-light text-primary text-end">
 					<h4 className="text-2xl">{scale.grades[route.routeGrade]}</h4>
 					{/* Placeholder for completion date */}
-					<p className="text-lg font-extralight">
-						{!route.routeDate ? "Pendiente" : route.routeDate}
-					</p>
+					<p className="text-lg font-extralight">{!lastDate ? "Pendiente" : lastDate}</p>
 					{/* Replace with actual completion date logic */}
 				</div>
 			</div>
