@@ -11,7 +11,6 @@ export const UserPage = () => {
 	const navigate = useNavigate();
 	const { scale, scaleIndex, selectScale } = useContext(ScaleContext) as ScaleContextType;
 	const user = useSelector((state: RootState) => state.user);
-	console.log(user.info);
 
 	const handleLogout = async () => {
 		try {
@@ -35,9 +34,13 @@ export const UserPage = () => {
 			</div>
 			<h1 className=" text-5xl my-5 text-center">Hola, {user.info?.displayName}!</h1>
 			<div className="flex flex-col justify-center items-center">
-				<details className="dropdown">
-					<summary className="m-1 btn">Tipo de escala</summary>
-					<ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+				<div className="dropdown my-5">
+					<div tabIndex={0} className="m-1 btn btn-primary btn-outline active:bg-base-content">
+						Tipo de escala
+					</div>
+					<ul
+						tabIndex={0}
+						className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
 						<li>
 							<a className={`${scaleIndex === 0 && "bg-base-200"}`} onClick={() => selectScale(0)}>
 								French
@@ -64,7 +67,11 @@ export const UserPage = () => {
 							</a>
 						</li>
 					</ul>
-				</details>
+				</div>
+				<div className="my-5 text-xl font-bold">Escala actual: {scale.scale}</div>
+				<div className="my-5 text-xl">
+					Ejemplo: {scale.grades[4]}, {scale.grades[10]}, {scale.grades[20]}...
+				</div>
 				<div>
 					<button onClick={handleLogout} className="btn-warning btn text-xl">
 						Logout

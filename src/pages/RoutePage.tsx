@@ -4,6 +4,9 @@ import { RootState } from "../redux/store";
 import { Location, Route, School, Sector } from "../types/dataTypes";
 import { PeguesComponent } from "../components/RoutePage/PeguesComponent";
 import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
+import { ScaleContextType } from "../types/gradeType";
+import { ScaleContext } from "../context/gradeContext";
+import { useContext } from "react";
 
 export const RoutePage = () => {
 	const { id } = useParams();
@@ -12,6 +15,7 @@ export const RoutePage = () => {
 	const sectors = useSelector((state: RootState) => state.sectors.data) as Sector[];
 	const schools = useSelector((state: RootState) => state.schools.data) as School[];
 	const locations = useSelector((state: RootState) => state.locations.data) as Location[];
+	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
 	const route = routes.find((route) => route.routeId === id) as Route;
 	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex].sectorName);
@@ -81,7 +85,9 @@ export const RoutePage = () => {
 						</div>
 					</div>
 					<div className="bg-base-content w-full h-2/5 rounded-3xl flex flex-col justify-center items-center">
-						<h4 className="text-7xl text-primary font-extrabold">{route.routeGrade}</h4>
+						<h4 className="text-7xl text-primary font-extrabold">
+							{scale.grades[route.routeGrade]}
+						</h4>
 						<h5 className="text-2xl text-secondary font-bold">{route.routeHeight}m</h5>
 					</div>
 				</div>
