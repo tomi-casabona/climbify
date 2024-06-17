@@ -25,14 +25,12 @@ export const CompletedRoutes = ({ routes }: { routes: Route[] }) => {
 			<div className="flex flex-wrap">
 				{scale.grades.map((grade, index) => {
 					return (
-						<>
-							<div className="w-1/2 flex" key={index}>
-								<p className="text-primary font-bold text-2xl mx-3">{grade}: </p>
-								<p className="text-secondary font-bold text-2xl me-3">
-									{calculateTotal(routes, index)}
-								</p>
-							</div>
-						</>
+						<li className="w-1/2 flex" key={index}>
+							<p className="text-primary font-bold text-2xl mx-3">{grade}: </p>
+							<p className="text-secondary font-bold text-2xl me-3">
+								{calculateTotal(routes, index)}
+							</p>
+						</li>
 					);
 				})}
 			</div>

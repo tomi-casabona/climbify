@@ -51,7 +51,7 @@ export const RouteList = () => {
 					className="input w-10/12 mx-auto rounded-full bg-neutral-content text-base-100"
 					onChange={handleInputChange}
 				/>
-				<button className="btn rounded-full" onClick={showModal}>
+				<button className="btn rounded-full" onClick={() => showModal("my_modal_1")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
