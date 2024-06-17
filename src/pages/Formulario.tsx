@@ -130,7 +130,7 @@ export const Formulario: React.FC = () => {
 					</select>
 				</div>
 				<div className="pb-3">
-					<label className="label font-bold uppercase">Altura máxima</label>
+					<label className="label font-bold uppercase">Altura</label>
 					<input
 						name="routeHeight"
 						type="number"

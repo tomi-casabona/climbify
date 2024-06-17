@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Route, Location, School, Sector, FormObject } from "../types/dataTypes";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +8,14 @@ import { updateSectors } from "../redux/thunks/sectorsThunks";
 import { updateSchools } from "../redux/thunks/schoolsThunks";
 import { deleteRoute, updateRoutes } from "../redux/thunks/routesThunks";
 import { editRouteService } from "../services/editRouteService";
+import { ScaleContextType } from "../types/gradeType";
+import { ScaleContext } from "../context/gradeContext";
 
 export const EditRoute: React.FunctionComponent = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
-
+	const { scale } = useContext(ScaleContext) as ScaleContextType;
 	const { route } = location.state as { route: Route };
 
 	const locations = useSelector((state: RootState) => state.locations);
@@ -50,7 +52,9 @@ export const EditRoute: React.FunctionComponent = () => {
 		routeHeight: route.routeHeight || 0,
 	});
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
@@ -76,86 +80,112 @@ export const EditRoute: React.FunctionComponent = () => {
 	};
 
 	return (
-		<div className="max-w-4xl mx-auto p-6 bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat shadow-md rounded-lg">
-			<h1 className="text-2xl font-bold mb-6">Formulario de Vías de Escalada</h1>
-			<form onSubmit={handleSubmit} className="space-y-4">
+		<div className="h-screen mx-auto bg-base-100 p-10">
+			<div className="flex justify-between">
+				<button
+					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
+					onClick={handleDelete}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						height="20"
+						width="20"
+						viewBox="0 0 320 512"
+						fill="currentColor">
+						<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+					</svg>
+				</button>
+				<button
+					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
+					onClick={() => navigate("/")}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						height="20"
+						width="20"
+						viewBox="0 0 448 512"
+						fill="currentColor">
+						<path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+					</svg>
+				</button>
+			</div>
+
+			<h1 className="font-bold text-5xl uppercase my-5">Editar vía</h1>
+
+			<form onSubmit={handleSubmit} className="h-10/12 overflow-y-auto">
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Nombre de la Ciudad:</label>
+					<label className="label font-bold uppercase">Ubicación</label>
 					<input
 						name="locationName"
 						type="text"
 						value={form.locationName}
 						onChange={handleChange}
 						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
 					/>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Nombre de la Escuela:</label>
+					<label className="label font-bold uppercase">Escuela</label>
 					<input
 						name="schoolName"
 						type="text"
 						value={form.schoolName}
 						onChange={handleChange}
 						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
 					/>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Nombre del Sector:</label>
+					<label className="label font-bold uppercase">Sector</label>
 					<input
 						name="sectorName"
 						type="text"
 						value={form.sectorName}
 						onChange={handleChange}
 						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
 					/>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Nombre de la Vía:</label>
+					<label className="label font-bold uppercase">Nombre de la Vía</label>
 					<input
 						name="routeName"
 						type="text"
 						value={form.routeName}
 						onChange={handleChange}
 						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
 					/>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Grado:</label>
-					<input
+					<label className="label font-bold uppercase">Grado</label>
+					<select
 						name="routeGrade"
-						type="number"
-						value={form.routeGrade}
-						onChange={handleChange}
-						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					/>
+						className="select-bordered w-full py-1 px-2 bg-base-content text-base-100 rounded-full"
+						onChange={handleChange}>
+						{scale.grades.map((grade, index) => {
+							return (
+								<option value={index} key={grade}>
+									{grade}
+								</option>
+							);
+						})}
+					</select>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Altura máxima:</label>
+					<label className="label font-bold uppercase">Altura</label>
 					<input
 						name="routeHeight"
 						type="number"
 						value={form.routeHeight}
 						onChange={handleChange}
 						required
-						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
 					/>
 				</div>
 				<button
 					type="submit"
 					onClick={handleSubmit}
-					className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-					Agregar Vía
-				</button>
-				<button
-					type="submit"
-					onClick={handleDelete}
-					className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-					Eliminar Via
+					className="btn btn-primary rounded-full w-full mt-10 uppercase text-base-content">
+					Aceptar Cambios
 				</button>
 			</form>
 		</div>
