@@ -35,3 +35,27 @@ export const updateLocations = createAsyncThunk(
     }
   }
 );
+
+
+// Thunk para eliminar una location específica
+export const deleteLocation = createAsyncThunk(
+  'location/deleteLocation',
+  async (deletingLocation: Location) => {
+    const user = auth.currentUser;
+    if (user) {
+      const docRef = doc(db, user.uid, 'locations');
+      const docSnapshot = await getDoc(docRef);
+      if (!docSnapshot.exists()) {
+        throw new Error("No such document");
+      }
+      const locations = docSnapshot.data()?.locations || [];
+      const updatedLocations = locations.filter((location: Location) => location.locationId !== deletingLocation.locationId);
+
+      await setDoc(docRef, { routes: updatedLocations });
+
+      return updatedLocations;
+    } else {
+      throw new Error('No authenticated user');
+    }
+  }
+);

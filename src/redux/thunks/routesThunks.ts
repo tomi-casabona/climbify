@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { Route } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -50,7 +50,7 @@ export const deleteRoute = createAsyncThunk(
       const routes = docSnapshot.data()?.routes || [];
       const updatedRoutes = routes.filter((route: Route) => route.routeId !== deletingRoute.routeId);
 
-      await setDoc(docRef, { routes: updatedRoutes });
+      await updateDoc(docRef, { routes: updatedRoutes });
 
       return updatedRoutes;
     } else {

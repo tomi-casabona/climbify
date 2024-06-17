@@ -34,3 +34,26 @@ export const updateSchools = createAsyncThunk(
     }
   }
 );
+
+// Thunk para eliminar una ruta específica
+export const deleteSchool = createAsyncThunk(
+  'school/deleteSchool',
+  async (deletingSchool: School) => {
+    const user = auth.currentUser;
+    if (user) {
+      const docRef = doc(db, user.uid, 'schools');
+      const docSnapshot = await getDoc(docRef);
+      if (!docSnapshot.exists()) {
+        throw new Error("No such document");
+      }
+      const schools = docSnapshot.data()?.schools || [];
+      const updatedSchools = schools.filter((school: School) => school.schoolId !== deletingSchool.schoolId);
+
+      await setDoc(docRef, { routes: updatedSchools });
+
+      return updatedSchools;
+    } else {
+      throw new Error('No authenticated user');
+    }
+  }
+);
