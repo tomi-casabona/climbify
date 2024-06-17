@@ -38,23 +38,26 @@ export const Home: React.FC = () => {
 
 	return (
 		<>
-			<div className="py-5 my-5">
-				<div className="p-5 mx-5">
+			<div className="h-screen w-full py-5">
+				<div className="p-5 mx-5 h-[15%]">
 					<p>Hola {usuario.info ? usuario.info.displayName : "climber"}!</p>
 					<h1 className="font-bold text-5xl uppercase">Resumen</h1>
 				</div>
-				<HomeCard
-					mainNumber={`${totalCompletedRoutes}`}
-					secondaryNumber={`${lastRoutes.length}`}
-					content="total-routes"
-				/>
-				<HomeCard
-					mainNumber={`${totalCompletedRoutes === 0 ? "..." : scale.grades[maxGrade]}`} // cambiar por max-grade
-					secondaryNumber={`${totalCompletedRoutes === 0 ? "..." : scale.grades[midGrade]}`} // cambiar por med-grade
-					content="grade-info"
-				/>
-				<h2 className="py-5 text-2xl mx-5">Últimos ascensos</h2>
-				<div className="flex overflow-auto whitespace-nowrap no-scrollbar scroll-smooth">
+				<div className="h-[35%] overflow-hidden flex flex-col items-center justify-center w-full px-5">
+					<HomeCard
+						mainNumber={`${totalCompletedRoutes}`}
+						secondaryNumber={`${lastRoutes.length}`}
+						content="total-routes"
+					/>
+					<HomeCard
+						mainNumber={`${totalCompletedRoutes === 0 ? "..." : scale.grades[maxGrade]}`} // cambiar por max-grade
+						secondaryNumber={`${totalCompletedRoutes === 0 ? "..." : scale.grades[midGrade]}`} // cambiar por med-grade
+						content="grade-info"
+					/>
+				</div>
+
+				<h2 className="py-5 h-[10%] text-2xl mx-5">Últimos ascensos</h2>
+				<div className="h-[35%] flex overflow-auto whitespace-nowrap no-scrollbar scroll-smooth">
 					{totalRoutes.map((route, index) => {
 						if (index < 7) return <HomeLastAscents key={index} route={route} index={index} />;
 					})}

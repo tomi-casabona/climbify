@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FormObject } from "../types/dataTypes";
 import { createUserData } from "../services/createUserData";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,8 @@ import { updateSectors } from "../redux/thunks/sectorsThunks";
 import { updateSchools } from "../redux/thunks/schoolsThunks";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { useNavigate } from "react-router-dom";
+import { ScaleContext } from "../context/gradeContext";
+import { ScaleContextType } from "../types/gradeType";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -18,8 +20,11 @@ export const Formulario: React.FC = () => {
 		routes: useSelector((state: RootState) => state.routes),
 	};
 	const navigate = useNavigate();
+	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
@@ -62,7 +67,7 @@ export const Formulario: React.FC = () => {
 			<h1 className="font-bold text-5xl uppercase my-5">Nueva vía</h1>
 			<form onSubmit={handleSubmit} className="h-10/12 overflow-y-auto">
 				<div>
-					<label className="label">Ubicación:</label>
+					<label className="label font-bold uppercase">Ubicación</label>
 					<input
 						name="locationName"
 						placeholder="Barcelona"
@@ -74,7 +79,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Escuela:</label>
+					<label className="label font-bold uppercase">Escuela</label>
 					<input
 						name="schoolName"
 						placeholder="La Mola"
@@ -86,7 +91,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Sector:</label>
+					<label className="label font-bold uppercase">Sector</label>
 					<input
 						name="sectorName"
 						placeholder="La Paret Gran"
@@ -98,7 +103,7 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Nombre de la Vía:</label>
+					<label className="label font-bold uppercase">Nombre de la Vía</label>
 					<input
 						name="routeName"
 						placeholder="Rescat Emocional"
@@ -110,18 +115,22 @@ export const Formulario: React.FC = () => {
 					/>
 				</div>
 				<div>
-					<label className="label">Grado:</label>
-					<input
+					<label className="label font-bold uppercase">Grado</label>
+					<select
 						name="routeGrade"
-						type="number"
-						value={form.routeGrade}
-						onChange={handleChange}
-						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
-					/>
+						className="select-bordered w-full py-1 px-2 bg-base-content text-base-100 rounded-full"
+						onChange={handleChange}>
+						{scale.grades.map((grade, index) => {
+							return (
+								<option value={index} key={grade}>
+									{grade}
+								</option>
+							);
+						})}
+					</select>
 				</div>
 				<div className="pb-3">
-					<label className="label">Altura máxima:</label>
+					<label className="label font-bold uppercase">Altura</label>
 					<input
 						name="routeHeight"
 						type="number"
@@ -134,7 +143,7 @@ export const Formulario: React.FC = () => {
 				<button
 					type="submit"
 					onClick={handleSubmit}
-					className="btn btn-primary rounded-full w-full mt-10">
+					className="btn btn-primary rounded-full w-full my-10 uppercase text-base-content">
 					Agregar Vía
 				</button>
 			</form>
