@@ -3,7 +3,7 @@ import { Login } from "../pages/Login";
 import { Signin } from "../pages/Signin";
 import { Home } from "../pages/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
-import { Formulario } from "../components/Formulario";
+import { Formulario } from "../pages/Formulario";
 import { RouteList } from "../pages/RouteList";
 import { PublicRoute } from "./PublicRoute";
 import { RoutePage } from "../pages/RoutePage";
@@ -13,18 +13,17 @@ import { UserPage } from "../pages/UserPage";
 
 export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 	const location = useLocation();
-	const hideNavbar = location.pathname.includes("/route/");
+	const hideNavbarOnRoutePage = location.pathname.includes("/route/");
+	const hideNavbarOnCreateRoutePage = location.pathname.includes("/newroute");
 
 	return (
 		<>
 			{
 				/* Oculta el Navbar si no está loggeado o si está en RoutePage */
-				isLogged && !hideNavbar && <Navbar />
+				isLogged && !hideNavbarOnRoutePage && !hideNavbarOnCreateRoutePage && <Navbar />
 			}
 			<Routes>
-				<Route
-					element={<PublicRoute isAuthorized={isLogged} redirectToPath="/" />}
-				>
+				<Route element={<PublicRoute isAuthorized={isLogged} redirectToPath="/" />}>
 					<Route path="/login" element={<Login />} />
 					<Route path="/signin" element={<Signin />} />
 				</Route>
