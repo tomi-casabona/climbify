@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route } from "../../types/dataTypes";
 
 export const CompletedRoutesGraph = ({
