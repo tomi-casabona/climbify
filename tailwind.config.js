@@ -13,6 +13,7 @@ export default {
       backgroundImage: {
         "light-bg": "url('/public/backgroundImages/bg-img-light.png')",
         "dark-bg": "url('/public/backgroundImages/bg-img-dark.png')",
+        "route-default": "url('/public/backgroundImages/default-route-img.jpg')",
       },
     },
   },
@@ -23,11 +24,12 @@ export default {
           ...require("daisyui/src/theming/themes")["light"],
           primary: "#feb58b",
           secondary: "#d3dbf4",
-          "secondary-darker": "#bec6e0",
           accent: "#bb3c43",
           neutral: "#e4dfda",
           "neutral-content": "#03080e",
           "base-100": "#fffffc",
+          "base-content": "#03080E",
+          "custom-blue": "#bec6e0",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
           "--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
@@ -48,6 +50,7 @@ export default {
           "neutral-content": "#fffffc",
           "base-100": "#03080E",
           "base-content": "#fffffc",
+          "custom-blue": "#bec6e0",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
           "--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element

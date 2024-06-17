@@ -1,12 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { Route } from "../../types/dataTypes";
 
 export const RouteCard = ({ route }: { route: Route }) => {
+	const navigate = useNavigate();
 	const routename =
 		route.routeName.length > 14
 			? route.routeName.substring(0, 14) + " ..."
 			: route.routeName;
 	return (
-		<div className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full">
+		<div
+			className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full"
+			onClick={() => navigate(`route/${route.routeId}`)}
+		>
 			<div className="p-5 bg-base-100 rounded-full flex justify-between items-center">
 				<div>
 					<h4 className="text-2xl uppercase font-bold">{routename}</h4>
