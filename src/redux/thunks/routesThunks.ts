@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { Route } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -55,6 +55,7 @@ export const deleteRoute = createAsyncThunk(
       console.log('Updated routes:', updatedRoutes);
 
       try {
+        await deleteDoc(docRef);
         await setDoc(docRef, { routes: updatedRoutes });
         console.log('Routes successfully updated in Firebase');
       } catch (error) {
