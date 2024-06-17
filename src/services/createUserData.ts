@@ -16,7 +16,6 @@ export const createUserData =
           locationId: crypto.randomUUID(),
           locationName: formObject.locationName,
           schools: []
-
         }];
 
     // Find or create the location
@@ -122,9 +121,24 @@ export const createUserData =
       routeIndex = newRoutes.length - 1; // Update the index after push
     }
 
-    // Actualizar el array de schools de locations --> añadir el schoolIndex
-    // Actualizar el array de sectors de schools --> añadir el sectorIndex
-    // Actualizar el array de routes de sectors --> añadir el routeIndex
+    // Actualizar el array de schools de locations --> añadir el schoolIndex si no existe
+    if (newLocations[locationIndex].schools.length === 0) {
+      newLocations[locationIndex].schools.push(schoolIndex);
+    } else {
+      !newLocations[locationIndex].schools.includes(schoolIndex) && [...newLocations[locationIndex].schools, schoolIndex];
+    }
+    // Actualizar el array de sectors de schools --> añadir el sectorIndex si no existe
+    if (newSchools[schoolIndex].sectors.length === 0) {
+      newSchools[schoolIndex].sectors.push(sectorIndex)
+    } else {
+      !newSchools[schoolIndex].sectors.includes(sectorIndex) && [...newSchools[schoolIndex].sectors, sectorIndex];
+    }
+    // Actualizar el array de routes de sectors --> añadir el routeIndex si no existe
+    if (newSectors[sectorIndex].routes.length === 0) {
+      newSectors[sectorIndex].routes.push(routeIndex);
+    } else {
+      !newSectors[sectorIndex].routes.includes(routeIndex) && [...newSectors[sectorIndex].routes, routeIndex];
+    }
 
     return { newLocations, newSchools, newSectors, newRoutes };
   };
