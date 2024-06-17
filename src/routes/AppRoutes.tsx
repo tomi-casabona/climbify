@@ -8,6 +8,7 @@ import { RouteList } from "../pages/RouteList";
 import { PublicRoute } from "./PublicRoute";
 import { RoutePage } from "../pages/RoutePage";
 import { Navbar } from "../components/Navbar";
+import { EditRoute } from "../pages/EditRoute";
 
 export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 	const location = useLocation();
@@ -20,9 +21,7 @@ export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 				isLogged && !hideNavbar && <Navbar />
 			}
 			<Routes>
-				<Route
-					element={<PublicRoute isAuthorized={isLogged} redirectToPath="/" />}
-				>
+				<Route element={<PublicRoute isAuthorized={isLogged} redirectToPath="/" />}>
 					<Route path="/login" element={<Login />} />
 					<Route path="/signin" element={<Signin />} />
 				</Route>
@@ -31,6 +30,7 @@ export const AppRoutes = ({ isLogged }: { isLogged: boolean }) => {
 					<Route path="/routes" element={<RoutesContainer />}>
 						<Route path="route/:id" element={<RoutePage />} />
 					</Route>
+					<Route path="/editRoute" element={<EditRoute />} />
 					<Route path="/newroute" element={<Formulario />} />
 				</Route>
 				<Route path="*" element={<Navigate to="/" />} />
