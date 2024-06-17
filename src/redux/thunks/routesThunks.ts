@@ -1,5 +1,5 @@
 import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
-import { Route, RouteState } from "../../types/dataTypes";
+import { Route } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";

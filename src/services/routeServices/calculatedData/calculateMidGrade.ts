@@ -3,12 +3,8 @@ import { Route } from "../../../types/dataTypes";
 export const calculateMidGrade = (routes: Route[]): number => {
 
     const completedRoutes = routes.filter((route: Route) => route.completed === true);
+    const suma = completedRoutes.reduce((acumulador, route) => acumulador + route.routeGrade, 0);
+    const media = suma / completedRoutes.length;
 
-    const accumulatedGrade: number = completedRoutes.reduce((accumulator: number, route: Route) => {
-        const grade = route.routeGrade;
-
-        return grade + accumulator;
-    }, 0);
-    return Math.floor(accumulatedGrade / completedRoutes.length)
-
+    return media;
 };

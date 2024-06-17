@@ -2,11 +2,19 @@ import type { Attempt, Route } from "../types/dataTypes";
 
 export const updatePegue = (routeParam: Route, routes: Route[], attempt: Attempt) => {
 
-    const updatedRoute: Route = {
+    let updatedRoute: Route = {
         ...routeParam,
         routeAttempts: [...routeParam.routeAttempts, attempt],
     };
 
+    let routeCompleted = false;
+    updatedRoute.routeAttempts.forEach(attempt => {
+        if (attempt.completed === true) {
+            routeCompleted = true;
+        }
+    });
+
+    updatedRoute = { ...updatedRoute, completed: routeCompleted };
     console.log(updatedRoute);
     // Find the route by ID and update it
     const routeIndex = routes.findIndex((route) => route.routeId === routeParam.routeId);
@@ -18,4 +26,5 @@ export const updatePegue = (routeParam: Route, routes: Route[], attempt: Attempt
         };
     }
 
-return newRoutes};
+    return newRoutes
+};
