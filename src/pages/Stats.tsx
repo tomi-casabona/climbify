@@ -11,6 +11,7 @@ import { calculateMidGrade } from "../services/routeServices/calculatedData/calc
 import { calculateTotalHeight } from "../services/routeServices/calculatedData/calculateTotalHeight";
 import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
 import { PyramidComponent } from "../components/Stats/PyramidComponent";
+import { TotalHeightComponent } from "../components/Stats/TotalHeightComponent";
 
 export const Stats = () => {
 	const usuario = useSelector((state: RootState) => state.user);
@@ -40,7 +41,7 @@ export const Stats = () => {
 				Estadísticas
 			</h1>
 			<div className="flex flex-col justify-center text-center items-center w-2/3 bg-base-200 rounded-[2rem] mx-auto relative">
-				<h3 className="uppercase font-bold p-5">Tu grado</h3>
+				<h3 className="uppercase font-bold p-5">Tu máximo</h3>
 				<button className="absolute top-2 right-2 btn btn-circle">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -61,23 +62,7 @@ export const Stats = () => {
 				</h3>
 			</div>
 			<div className="flex my-3 gap-3 px-5">
-				<div className="flex flex-col w-1/2 gap-3">
-					<div className="px-4 py-8 w-full bg-secondary rounded-[2rem] flex flex-col justify-center items-center">
-						<h4 className="font-bold uppercase flex items-center gap-3">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="20"
-								width="15"
-								viewBox="0 0 384 512"
-								fill="currentColor">
-								<path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
-							</svg>
-							Escalado
-						</h4>
-						<p className="font-bold text-5xl text-primary">{totalHeight}m</p>
-					</div>
-					<div className="w-full bg-secondary rounded-[2rem]"></div>
-				</div>
+				<TotalHeightComponent totalHeight={totalHeight} />
 				<PyramidComponent />
 			</div>
 			<h1 className=" px-5 font-bold text-5xl uppercase my-5 text-center">Resultados</h1>
