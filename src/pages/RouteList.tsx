@@ -63,7 +63,7 @@ export const RouteList = () => {
 				{filteredRoutes?.map((route, index) => {
 					return <RouteCard key={index} route={route} />;
 				})}
-				<div className="p-14 w-full bg-base-100"></div>
+				<div className="p-14 w-full bg-transparent"></div>
 			</div>
 			<div className="fixed bottom-0 w-full">
 				<div className="bg-gradient-to-t from-base-100 to-transparent w-full p-4"></div>
