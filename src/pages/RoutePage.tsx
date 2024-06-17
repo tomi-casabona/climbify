@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
@@ -9,14 +9,17 @@ import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
+import { CommentsModal } from "../components/RoutePage/CommentsModal";
 
 export const RoutePage = () => {
+	const [showModal, setShowModal] = useState(false);
+	const [comment, setComment] = useState("");
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const routes = useSelector((state: RootState) => state.routes.data) as Route[];
 	const sectors = useSelector((state: RootState) => state.sectors.data) as Sector[];
 	const schools = useSelector((state: RootState) => state.schools.data) as School[];
-	const locations = useSelector((state: RootState) => state.locations.data) as Location[];
+	const locations = useSelector((state: RootState) => state.locations?.data) as Location[];
 	const dispatch = useDispatch<AppDispatch>();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
@@ -30,6 +33,27 @@ export const RoutePage = () => {
 	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex]?.sectorName);
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
+
+	const addComment = () => {
+		setShowModal(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+	const saveComment = () => {
+		const updatedComments = [...(route.routeComments || []), comment];
+		const updatedRoute = { ...route, routeComments: updatedComments };
+
+		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
+		const newRoutes = [...routes];
+		newRoutes[routeIndex] = updatedRoute;
+
+		dispatch(updateRoutes(newRoutes));
+
+		setShowModal(false);
+		setComment("");
+	};
 
 	const addPegue = () => {
 		if (!route) return;
@@ -158,7 +182,15 @@ export const RoutePage = () => {
 				</div>
 			</div>
 			{/* Comments */}
-			<div className="w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%]">
+			{showModal && (
+				<CommentsModal
+					comment={comment}
+					setComment={setComment}
+					saveComment={saveComment}
+					closeModal={closeModal}
+				/>
+			)}
+			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%]">
 				<p className="font-bold">Comentarios:</p>
 				<ul>
 					{!route.routeComments ? (
@@ -169,6 +201,18 @@ export const RoutePage = () => {
 						route.routeComments.map((comment, index) => <li key={index}>{comment}</li>)
 					)}
 				</ul>
+				<div className="flex justify-center">
+					<button className="btn btn-outline btn-circle" onClick={() => addComment()}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							height="24"
+							width="21"
+							viewBox="0 0 448 512"
+							fill="currentColor">
+							<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+						</svg>
+					</button>
+				</div>
 			</div>
 		</div>
 	);
