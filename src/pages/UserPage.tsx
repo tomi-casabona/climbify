@@ -32,7 +32,7 @@ export const UserPage = () => {
 					className="w-52 h-52 m-auto rounded-full border-4 border-base-content"
 				/>
 			</div>
-			<h1 className=" text-5xl my-5 text-center">Hola, {user.info?.displayName}!</h1>
+			<h1 className=" text-5xl my-5 text-center flex-wrap">Hola, {user.info?.displayName}!</h1>
 			<div className="flex flex-col justify-center items-center">
 				<div className="dropdown my-5">
 					<div tabIndex={0} className="m-1 btn btn-primary btn-outline active:bg-base-content">
@@ -73,7 +73,7 @@ export const UserPage = () => {
 					Ejemplo: {scale.grades[4]}, {scale.grades[10]}, {scale.grades[20]}...
 				</div>
 				<div>
-					<button onClick={handleLogout} className="btn-warning btn text-xl">
+					<button onClick={handleLogout} className="btn-secondary btn text-xl">
 						Logout
 					</button>
 				</div>
