@@ -2,6 +2,7 @@ import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { Route, RouteState } from "../../types/dataTypes";
 import { auth, db } from "../../firebase/firebase-config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export const fetchRoutes = createAsyncThunk(
   "routes/fetchRoutes",
@@ -43,14 +44,15 @@ export const deleteRoute = createAsyncThunk(
   'routes/deleteRoute',
   async (deletingRoute: Route, { getState }) => {
     const user = auth.currentUser;
-    const state = getState() as RouteState;
+    const state = getState() as RootState;
+    console.log(state)
+    const newDoc = state.routes.data?.filter((route: Route) => route.routeId != deletingRoute.routeId)
+    console.log(newDoc)
     if (user) {
       const docRef = doc(db, user.uid, "routes");
       if ((await getDoc(docRef)).exists()) {
         await deleteDoc(docRef);
-        const newDoc = state.data?.filter((route: Route) => route.routeId !== deletingRoute.routeId)
-
-        await setDoc(docRef, newDoc ? newDoc : { routes: [] })
+        await setDoc(docRef, newDoc ? { routes: newDoc } : { routes: [] })
         return newDoc;
       } else {
         throw new Error("No such document");
