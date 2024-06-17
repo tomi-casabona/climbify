@@ -76,7 +76,7 @@ export const RoutePage = () => {
 					</svg>
 				</button>
 				<div className="text-center text-wrap">
-					<h2 className="text-3xl font-bold">{route?.routeName}</h2>
+					<h2 className="text-3xl font-bold p-2">{route?.routeName}</h2>
 				</div>
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
