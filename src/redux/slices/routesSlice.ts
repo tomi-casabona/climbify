@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RouteState } from "../../types/dataTypes";
-import { fetchRoutes, updateRoutes } from "../thunks/routesThunks";
+import { deleteRoute, fetchRoutes, updateRoutes } from "../thunks/routesThunks";
 
 const initialState: RouteState = {
   data: null,
@@ -33,6 +33,17 @@ const routesSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(updateRoutes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
+      .addCase(deleteRoute.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteRoute.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload || null;
+      })
+      .addCase(deleteRoute.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       })

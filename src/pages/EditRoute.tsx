@@ -10,6 +10,7 @@ import { deleteRoute, updateRoutes } from "../redux/thunks/routesThunks";
 import { editRouteService } from "../services/editRouteService";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
+import { showModal } from "../services/routeServices/showModal";
 
 export const EditRoute: React.FunctionComponent = () => {
 	const location = useLocation();
@@ -75,8 +76,9 @@ export const EditRoute: React.FunctionComponent = () => {
 		dispatch(updateRoutes(newRoutes));
 		navigate("/routes");
 	};
-	const handleDelete = () => {
-		dispatch(deleteRoute(route));
+	const handleDelete = async () => {
+		await dispatch(deleteRoute(route));
+		navigate("/routes");
 	};
 
 	return (
@@ -96,7 +98,7 @@ export const EditRoute: React.FunctionComponent = () => {
 				</button>
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={handleDelete}>
+					onClick={() => showModal("my_modal_4")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
@@ -107,6 +109,25 @@ export const EditRoute: React.FunctionComponent = () => {
 					</svg>
 				</button>
 			</div>
+
+			<dialog id="my_modal_4" className="modal">
+				<div className="modal-box w-2/3">
+					<form method="dialog">
+						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+						<h3 className="font-bold text-lg text-center">Seguro que quieres eliminar esta vía?</h3>
+						<div className="flex justify-center gap-5 mt-5">
+							<button onClick={handleDelete} className="btn btn-accent btn-circle">
+								Sí
+							</button>
+							<button
+								onClick={() => navigate(`/routes/route/${route.routeId}`)}
+								className="btn btn-secondary btn-circle">
+								No
+							</button>
+						</div>
+					</form>
+				</div>
+			</dialog>
 
 			<h1 className="font-bold text-5xl uppercase my-5">Editar vía</h1>
 
