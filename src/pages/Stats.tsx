@@ -9,6 +9,8 @@ import { filterLastSevenRoutes } from "../services/routeServices/filters/filterL
 import { getMaxCompletedGrade } from "../services/routeServices/calculatedData/getMaxCompletedGrade";
 import { calculateMidGrade } from "../services/routeServices/calculatedData/calculateMidGrade";
 import { calculateTotalHeight } from "../services/routeServices/calculatedData/calculateTotalHeight";
+import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
+import { PyramidComponent } from "../components/Stats/PyramidComponent";
 
 export const Stats = () => {
 	const usuario = useSelector((state: RootState) => state.user);
@@ -33,7 +35,7 @@ export const Stats = () => {
 	}, [routesFirebase]);
 
 	return (
-		<div className="h-full flex py-10 px-5 flex-col justify-center overflow-auto w-full">
+		<div className="flex py-10  flex-col justify-center w-full">
 			<h1 className="text-center flex items-center px-5 font-bold text-5xl uppercase my-5">
 				Estadísticas
 			</h1>
@@ -58,9 +60,9 @@ export const Stats = () => {
 					{totalCompletedRoutes === 0 ? "..." : scale.grades[maxGrade]}
 				</h3>
 			</div>
-			<div className="flex my-3 gap-3 overflow-auto">
+			<div className="flex my-3 gap-3 px-5">
 				<div className="flex flex-col w-1/2 gap-3">
-					<div className="h-[10rem] w-full bg-secondary rounded-[2rem] flex flex-col justify-center items-center">
+					<div className="px-4 py-8 w-full bg-secondary rounded-[2rem] flex flex-col justify-center items-center">
 						<h4 className="font-bold uppercase flex items-center gap-3">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -74,10 +76,12 @@ export const Stats = () => {
 						</h4>
 						<p className="font-bold text-5xl text-primary">{totalHeight}m</p>
 					</div>
-					<div className="h-[40rem] w-full bg-secondary rounded-[2rem]"></div>
+					<div className="w-full bg-secondary rounded-[2rem]"></div>
 				</div>
-				<div className="flex-1 w-1/2 rounded-[2rem] bg-base-content"></div>
+				<PyramidComponent />
 			</div>
+			<h1 className=" px-5 font-bold text-5xl uppercase my-5 text-center">Resultados</h1>
+			<CompletedRoutes routes={routesFirebase} />
 		</div>
 	);
 };

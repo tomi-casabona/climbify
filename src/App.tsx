@@ -35,7 +35,7 @@ export const App: React.FC = () => {
 	return (
 		<Router>
 			<ScaleProvider>
-				<div className="font-tt-hoves h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
+				<div className="mx-auto font-tt-hoves h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
 					<AppRoutes isLogged={isLogged} />
 				</div>
 			</ScaleProvider>
