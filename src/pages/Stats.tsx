@@ -12,6 +12,7 @@ import { calculateTotalHeight } from "../services/routeServices/calculatedData/c
 import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
 import { PyramidComponent } from "../components/Stats/PyramidComponent";
 import { TotalHeightComponent } from "../components/Stats/TotalHeightComponent";
+import { CompletedRoutesGraph } from "../components/Stats/CompletedRoutesGraph";
 
 export const Stats = () => {
 	const usuario = useSelector((state: RootState) => state.user);
@@ -62,7 +63,10 @@ export const Stats = () => {
 				</h3>
 			</div>
 			<div className="flex my-3 gap-3 px-5">
-				<TotalHeightComponent totalHeight={totalHeight} />
+				<div className="flex flex-col w-1/2 gap-3">
+					<TotalHeightComponent totalHeight={totalHeight} />
+					<CompletedRoutesGraph totalRoutes={totalCompletedRoutes} routes={routesFirebase} />
+				</div>
 				<PyramidComponent />
 			</div>
 			<h1 className=" px-5 font-bold text-5xl uppercase my-5 text-center">Resultados</h1>

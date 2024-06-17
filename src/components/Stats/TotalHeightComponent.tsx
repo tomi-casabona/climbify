@@ -2,7 +2,7 @@ import React from "react";
 
 export const TotalHeightComponent = ({ totalHeight }: { totalHeight: number }) => {
 	return (
-		<div className="flex flex-col w-1/2 gap-3">
+		<>
 			<div className="px-4 py-8 w-full bg-secondary rounded-[2rem] flex flex-col justify-center items-center">
 				<h4 className="font-bold uppercase flex items-center gap-3">
 					<svg
@@ -18,6 +18,6 @@ export const TotalHeightComponent = ({ totalHeight }: { totalHeight: number }) =
 				<p className="font-bold text-5xl text-primary">{totalHeight}m</p>
 			</div>
 			<div className="w-full bg-secondary rounded-[2rem]"></div>
-		</div>
+		</>
 	);
 };
