@@ -47,7 +47,7 @@ export const RoutePage = () => {
 				</div>
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={() => console.log("edit button")}>
+					onClick={() => navigate("/editRoute", { state: { route } })}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
