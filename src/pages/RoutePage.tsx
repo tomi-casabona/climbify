@@ -33,18 +33,18 @@ export const RoutePage = () => {
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
-	const saveComment = () => {
+	const saveComment = (e) => {
+		e.preventDefault(); // Prevent form submission default behavior
 		const updatedComments = [...(route.routeComments || []), comment];
 		const updatedRoute = { ...route, routeComments: updatedComments };
 
 		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
 		const newRoutes = [...routes];
 		newRoutes[routeIndex] = updatedRoute;
-
 		dispatch(updateRoutes(newRoutes));
-
-		setShowModal(false);
 		setComment("");
+		hideModal("my_modal_4"); // Close the modal after saving the comment
+
 	};
 
 	const addPegue = ({ completed }: { completed: boolean }) => {
@@ -217,7 +217,6 @@ export const RoutePage = () => {
 							className="btn btn-outline btn-circle"
 							onClick={() => showModal("my_modal_4")} /* onClick={() => addPegue()} */
 						>
-							
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -228,24 +227,25 @@ export const RoutePage = () => {
 							</svg>
 						</button>
 						<dialog id="my_modal_4" className="modal">
-							<div className="modal-box w-2/3">
-								<form method="dialog">
+							<div className="modal-box w-2/3 h-1/4">
+								<form onSubmit={saveComment}>
 									<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
 										✕
 									</button>
-									<h3 className="font-bold text-lg text-center">Encadenaste la vía?</h3>
-									<div className="flex justify-center gap-5 mt-5">
-										<button
-											onClick={() => addPegue({ completed: true })}
-											className="btn btn-secondary btn-circle">
-											Sí
-										</button>
-										<button
-											onClick={() => addPegue({ completed: false })}
-											className="btn btn-accent btn-circle">
-											No
-										</button>
+									<h3 className="font-bold text-lg text-center">Deja tu comentario</h3>
+									<div className="flex justify-center gap-5 mt-5 h-1/3">
+										<input
+											type="text"
+											value={comment}
+											onChange={(e) => setComment(e.target.value)}
+											className="rounded p-2 border border-gray-300 focus:outline-none focus:border-primary "
+										/>
 									</div>
+									<button
+										type="submit"
+										className="btn btn-sm btn-circle btn-ghost absolute align-middle bottom-2">
+										Enviar
+									</button>
 								</form>
 							</div>
 						</dialog>
