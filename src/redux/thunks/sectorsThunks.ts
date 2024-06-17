@@ -38,3 +38,25 @@ export const updateSectors = createAsyncThunk(
     }
   }
 );
+// Thunk para eliminar un sector específico
+export const deleteSector = createAsyncThunk(
+  'sector/deleteSector',
+  async (deletingSector: Sector) => {
+    const user = auth.currentUser;
+    if (user) {
+      const docRef = doc(db, user.uid, 'sectors');
+      const docSnapshot = await getDoc(docRef);
+      if (!docSnapshot.exists()) {
+        throw new Error("No such document");
+      }
+      const sectors = docSnapshot.data()?.sectors || [];
+      const updatedSectors = sectors.filter((sector: Sector) => sector.sectorId !== deletingSector.sectorId);
+
+      await updateDoc(docRef, { routes: updatedSectors });
+
+      return updatedSectors;
+    } else {
+      throw new Error('No authenticated user');
+    }
+  }
+);

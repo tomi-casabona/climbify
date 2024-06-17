@@ -38,3 +38,27 @@ export const updateRoutes = createAsyncThunk(
     }
   }
 );
+
+
+// Thunk para eliminar una ruta específica
+export const deleteRoute = createAsyncThunk(
+  'routes/deleteRoute',
+  async (deletingRoute: Route) => {
+    const user = auth.currentUser;
+    if (user) {
+      const docRef = doc(db, user.uid, 'routes');
+      const docSnapshot = await getDoc(docRef);
+      if (!docSnapshot.exists()) {
+        throw new Error("No such document");
+      }
+      const routes = docSnapshot.data()?.routes || [];
+      const updatedRoutes = routes.filter((route: Route) => route.routeId !== deletingRoute.routeId);
+
+      await updateDoc(docRef, { routes: updatedRoutes });
+
+      return updatedRoutes;
+    } else {
+      throw new Error('No authenticated user');
+    }
+  }
+);
