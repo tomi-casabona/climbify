@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FormObject } from "../types/dataTypes";
 import { createUserData } from "../services/createUserData";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,8 @@ import { updateSectors } from "../redux/thunks/sectorsThunks";
 import { updateSchools } from "../redux/thunks/schoolsThunks";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { useNavigate } from "react-router-dom";
+import { ScaleContext } from "../context/gradeContext";
+import { ScaleContextType } from "../types/gradeType";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -18,8 +20,11 @@ export const Formulario: React.FC = () => {
 		routes: useSelector((state: RootState) => state.routes),
 	};
 	const navigate = useNavigate();
+	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
@@ -111,14 +116,18 @@ export const Formulario: React.FC = () => {
 				</div>
 				<div>
 					<label className="label">Grado:</label>
-					<input
+					<select
 						name="routeGrade"
-						type="number"
-						value={form.routeGrade}
-						onChange={handleChange}
-						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
-					/>
+						className="select-bordered w-full py-1 px-2 bg-base-content text-base-100 rounded-full"
+						onChange={handleChange}>
+						{scale.grades.map((grade, index) => {
+							return (
+								<option value={index} key={grade}>
+									{grade}
+								</option>
+							);
+						})}
+					</select>
 				</div>
 				<div className="pb-3">
 					<label className="label">Altura máxima:</label>
