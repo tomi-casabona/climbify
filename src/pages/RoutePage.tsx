@@ -22,12 +22,11 @@ export const RoutePage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	const route = routes.find((route) => route.routeId === id) as Route;
+	const route = routes?.find((route) => route.routeId === id) as Route;
 
 	if (!route) {
 		return <div>Route not found</div>;
 	}
-
 	const sector = capitalizeFirstLetterOnly(sectors[route.sectorIndex]?.sectorName);
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
