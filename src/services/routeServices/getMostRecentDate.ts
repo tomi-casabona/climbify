@@ -6,9 +6,11 @@ export const getMostRecentDate = (attempts: Attempt[]) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
     const lastAttempt = new Date(sortedAttempts[0].date)
-    const day = lastAttempt.getDay()
-    const month = lastAttempt.getMonth()
-    const year = lastAttempt.getFullYear()
+    console.log(lastAttempt)
+    const day = lastAttempt.getDate();
+    const month = lastAttempt.getMonth() + 1;
+    const year = lastAttempt.getFullYear();
+    console.log(month + 1)
 
     return day + "/" + month + "/" + year
 
