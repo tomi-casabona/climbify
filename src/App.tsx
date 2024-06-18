@@ -11,6 +11,7 @@ import { fetchRoutes } from "./redux/thunks/routesThunks";
 import { setUser } from "./redux/slices/userSlice";
 import { getUserData } from "./services/getUserData";
 import ScaleProvider from "./context/gradeContext";
+import { ThemeProvider } from "./context/themeContext";
 
 export const App: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -34,11 +35,13 @@ export const App: React.FC = () => {
 
 	return (
 		<Router>
-			<ScaleProvider>
-				<div className="mx-auto font-tt-hoves h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
-					<AppRoutes isLogged={isLogged} />
-				</div>
-			</ScaleProvider>
+			<ThemeProvider>
+				<ScaleProvider>
+					<div className="mx-auto font-tt-hoves h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
+						<AppRoutes isLogged={isLogged} />
+					</div>
+				</ScaleProvider>
+			</ThemeProvider>
 		</Router>
 	);
 };

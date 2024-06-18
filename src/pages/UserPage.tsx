@@ -6,6 +6,7 @@ import { ScaleContext } from "../context/gradeContext";
 import { ScaleContextType } from "../types/gradeType";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { ToggleThemeComponent } from "../components/ToggleThemeComponent";
 
 export const UserPage = () => {
 	const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const UserPage = () => {
 	};
 	return (
 		<div className="mx-5 mb-5 px-5 py-10">
+			<ToggleThemeComponent />
 			<div className="flex justify-center items-center">
 				<img
 					src={

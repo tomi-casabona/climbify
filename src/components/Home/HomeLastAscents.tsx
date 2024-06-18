@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const HomeLastAscents = ({ route, index }: { route: Route; index: number }) => {
 	const navigate = useNavigate();
 	const routeName =
-		route.routeName.length > 8 ? route.routeName.substring(0, 8) + "..." : route.routeName;
+		route.routeName.length > 10 ? route.routeName.substring(0, 10) + "..." : route.routeName;
 
 	const esPar = index % 2 === 0 ? true : false;
 
