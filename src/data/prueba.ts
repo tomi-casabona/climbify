@@ -1,10 +1,13 @@
 import type { Location, Route, School, Sector } from "../types/dataTypes";
 
 const locationPrueba: Location = {
+
+
     locationId: crypto.randomUUID(),
     locationName: "Barcelona",
     schools: [2, 3, 1],
 }
+
 
 const schoolPrueba: School = {
     schoolId: crypto.randomUUID(),
@@ -14,6 +17,7 @@ const schoolPrueba: School = {
 }
 
 const sectorPrueba: Sector = {
+
     sectorId: crypto.randomUUID(),
     sectorName: "Diafragma",
     schoolIndex: 2,
@@ -22,6 +26,7 @@ const sectorPrueba: Sector = {
 }
 
 const routePrueba: Route = {
+
     routeId: crypto.randomUUID(),
     routeName: "Comienza",
     routeGrade: 2,
@@ -35,6 +40,7 @@ const routePrueba: Route = {
     locationIndex: 2,
 }
 const routePrueba2: Route = {
+
     routeId: crypto.randomUUID(),
     routeName: " a escalar",
     routeGrade: 2,
