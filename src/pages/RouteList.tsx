@@ -7,6 +7,7 @@ import { filterByRouteName } from "../services/routeServices/filters/filterByRou
 import { showModal } from "../services/routeServices/showModal";
 import { applySorting } from "../services/routeServices/applySorting";
 import { FilterModal } from "../components/FilterModal";
+import { routesPrueba } from "../data/prueba";
 
 export const RouteList = () => {
 	const [query, setQuery] = useState("");
@@ -43,12 +44,12 @@ export const RouteList = () => {
 	return (
 		<div className="py-5 mb-5 flex flex-col h-screen">
 			<h1 className="p-5 uppercase font-bold text-5xl">Tus vías</h1>
-			<div className="flex justify-around items-center gap-3 w-11/12 mx-auto pb-3 border-b border-neutral">
+			<div className="flex justify-around self-start mx-5 gap-3 w-8/12 pb-5 border-b border-neutral">
 				<input
 					type="text"
 					placeholder="Buscar"
 					value={query}
-					className="input w-10/12 mx-auto rounded-full bg-neutral-content text-base-100"
+					className="input w-8/12 rounded-full bg-neutral-content text-base-100"
 					onChange={handleInputChange}
 				/>
 				<button className="btn rounded-full" onClick={() => showModal("my_modal_1")}>
@@ -68,6 +69,16 @@ export const RouteList = () => {
 				/>
 			</div>
 			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth">
+				{filteredRoutes.length === 0 &&
+					routesPrueba.map((route, index) => {
+						// Ensure data exists before accessing indices
+						const schoolName: string =
+							schools && schools[route.schoolIndex] ? schools[route.schoolIndex].schoolName : "";
+						const sectorName =
+							sectors && sectors[route.sectorIndex] ? sectors[route.sectorIndex].sectorName : "";
+
+						return <RouteCard key={index} route={route} school={schoolName} sector={sectorName} />;
+					})}
 				{filteredRoutes?.map((route, index) => {
 					// Ensure data exists before accessing indices
 					const schoolName: string =
