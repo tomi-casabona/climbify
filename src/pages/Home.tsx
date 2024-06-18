@@ -25,7 +25,8 @@ export const Home: React.FC = () => {
 		if (routesFirebase) {
 			setTotalCompletedRoutes(calculateCompletedRoutes(routesFirebase));
 			routesFirebase.length > 0 && setLastRoutes(filterLastSevenRoutes(routesFirebase));
-			setTotalRoutes(routesFirebase);
+			const totalLastRoutes = [...routesFirebase];
+			setTotalRoutes(totalLastRoutes.reverse());
 			setMaxGrade(getMaxCompletedGrade(routesFirebase)); // work with numbers
 			setMidGrade(calculateMidGrade(routesFirebase)); // work with numbers
 		}

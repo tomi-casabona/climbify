@@ -1,4 +1,4 @@
-import type { Route } from "../types/dataTypes";
+import { Route } from "../../../types/dataTypes";
 
 export const calculateTotalHeight = (routes: Route[]): number => {
 	const completedRoutes = routes.filter((route: Route) => route.completed === true);
