@@ -1,28 +1,27 @@
-import type { Location, Route, School, SchoolState } from "../types/dataTypes";
+import type { Location, Route, School, Sector } from "../types/dataTypes";
 
-export const locationPrueba: Location = {
+ const locationPrueba: Location = {
     locationId: crypto.randomUUID(),
     locationName: "Barcelona",
     schools: [2, 3, 1],
 }
 
-export const schoolPrueba: School = {
+ const schoolPrueba: School = {
     schoolId: crypto.randomUUID(),
     schoolName: "La Mola",
     locationIndex: 2,
     sectors: [2, 1],
 }
 
-export const sectorPrueba: Sector = {
+ const sectorPrueba : Sector = {
     sectorId: crypto.randomUUID(),
     sectorName: "Diafragma",
-    schoolIndex: [2],
-    locationIndex: [1],
-    locationPrueba,
+    schoolIndex: 2,
+    locationIndex: 1,
     routes: [4],
 }
 
-export const routePrueba: Route = {
+ const routePrueba: Route = {
     routeId: crypto.randomUUID(),
     routeName: "Comienza a registrar",
     routeGrade: 2,
@@ -35,7 +34,7 @@ export const routePrueba: Route = {
     schoolIndex: 2,
     locationIndex: 2,
 }
-export const routePrueba2: Route = {
+ const routePrueba2: Route = {
     routeId: crypto.randomUUID(),
     routeName: "Tu progreso",
     routeGrade: 2,
@@ -48,3 +47,7 @@ export const routePrueba2: Route = {
     schoolIndex: 2,
     locationIndex: 2,
 }
+export const routesPrueba = [routePrueba, routePrueba2]
+export const locationsPrueba = [locationPrueba]
+export const secotrsPrueba = [sectorPrueba]
+export const schoolsPrueba = [schoolPrueba]
