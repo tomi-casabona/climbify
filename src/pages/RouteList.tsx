@@ -7,6 +7,7 @@ import { filterByRouteName } from "../services/routeServices/filters/filterByRou
 import { showModal } from "../services/routeServices/showModal";
 import { applySorting } from "../services/routeServices/applySorting";
 import { FilterModal } from "../components/FilterModal";
+import { routesPrueba } from "../data/prueba";
 
 export const RouteList = () => {
 	const [query, setQuery] = useState("");
@@ -68,6 +69,15 @@ export const RouteList = () => {
 				/>
 			</div>
 			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth">
+			{filteredRoutes.length === 0 && routesPrueba.map((route, index) => {
+					// Ensure data exists before accessing indices
+					const schoolName: string =
+						schools && schools[route.schoolIndex] ? schools[route.schoolIndex].schoolName : "";
+					const sectorName =
+						sectors && sectors[route.sectorIndex] ? sectors[route.sectorIndex].sectorName : "";
+
+					return <RouteCard key={index} route={route} school={schoolName} sector={sectorName} />;
+				})}
 				{filteredRoutes?.map((route, index) => {
 					// Ensure data exists before accessing indices
 					const schoolName: string =

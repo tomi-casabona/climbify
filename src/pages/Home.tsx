@@ -10,6 +10,7 @@ import { getMaxCompletedGrade } from "../services/routeServices/calculatedData/g
 import { calculateMidGrade } from "../services/routeServices/calculatedData/calculateMidGrade";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
+import { routesPrueba } from "../data/prueba";
 
 export const Home: React.FC = () => {
 	const usuario = useSelector((state: RootState) => state.user);
@@ -58,6 +59,10 @@ export const Home: React.FC = () => {
 
 				<h2 className="py-5 h-[10%] text-2xl mx-5">Últimos ascensos</h2>
 				<div className="h-[35%] flex overflow-auto whitespace-nowrap no-scrollbar scroll-smooth">
+					{totalRoutes.length === 0 &&
+						routesPrueba.map((route, index) => {
+							if (index < 7) return <HomeLastAscents key={index} route={route} index={index} />;
+						})}
 					{totalRoutes.map((route, index) => {
 						if (index < 7) return <HomeLastAscents key={index} route={route} index={index} />;
 					})}
