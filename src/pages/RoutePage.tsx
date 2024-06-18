@@ -32,7 +32,7 @@ export const RoutePage = () => {
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
-	const saveComment = (e) => {
+	const saveComment = (e: SubmitEvent) => {
 		e.preventDefault(); // Prevent form submission default behavior
 		const updatedComments = [...(route.routeComments || []), comment];
 		const updatedRoute = { ...route, routeComments: updatedComments };

@@ -24,12 +24,7 @@ export const Home: React.FC = () => {
 	useEffect(() => {
 		if (routesFirebase) {
 			setTotalCompletedRoutes(calculateCompletedRoutes(routesFirebase));
-			routesFirebase.length > 0 && setLastRoutes(filterLastSevenRoutes(routesFirebase)); // BUUUUUUUUUUG
-			//si la base se datos esta vacia, no carga
-			//////////////////// BUUUUUUUUUUUUUUUUUUUUUG ///////////////////////////
-			//////////////////// BUUUUUUUUUUUUUUUUUUUUUG ///////////////////////////
-			//////////////////// BUUUUUUUUUUUUUUUUUUUUUG ///////////////////////////
-			//////////////////// BUUUUUUUUUUUUUUUUUUUUUG ///////////////////////////
+			routesFirebase.length > 0 && setLastRoutes(filterLastSevenRoutes(routesFirebase));
 			setTotalRoutes(routesFirebase);
 			setMaxGrade(getMaxCompletedGrade(routesFirebase)); // work with numbers
 			setMidGrade(calculateMidGrade(routesFirebase)); // work with numbers
