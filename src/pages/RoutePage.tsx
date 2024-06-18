@@ -229,7 +229,7 @@ export const RoutePage = () => {
 							</svg>{" "}
 						</button>
 						<dialog id="my_modal_2" className="modal">
-							<div className="modal-box w-full h-1/2 relative">
+							<div className="modal-box w-10/12 h-1/2 relative">
 								<form onSubmit={saveComment}>
 									<h3 className="font-bold text-lg text-center mt-3">Añadir comentario</h3>
 									<div className="flex justify-center mt-8">

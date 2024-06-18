@@ -45,9 +45,7 @@ export const deleteRoute = createAsyncThunk(
   async (deletingRoute: Route, { getState }) => {
     const user = auth.currentUser;
     const state = getState() as RootState;
-    console.log(state)
     const newDoc = state.routes.data?.filter((route: Route) => route.routeId != deletingRoute.routeId)
-    console.log(newDoc)
     if (user) {
       const docRef = doc(db, user.uid, "routes");
       if ((await getDoc(docRef)).exists()) {
