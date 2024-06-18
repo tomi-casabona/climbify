@@ -204,7 +204,7 @@ export const RoutePage = () => {
 			</div>
 			{/* Comments */}
 
-			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%]">
+			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%] relative">
 				<p className="font-bold">Comentarios:</p>
 				<ul>
 					{!route.routeComments ? (
@@ -217,7 +217,9 @@ export const RoutePage = () => {
 				</ul>
 				<div className="flex justify-center">
 					<div className="flex justify-center">
-						<button className="btn btn-outline btn-circle" onClick={() => showModal("my_modal_2")}>
+						<button
+							className="btn btn-outline absolute bottom-3 btn-circle"
+							onClick={() => showModal("my_modal_2")}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -225,30 +227,25 @@ export const RoutePage = () => {
 								viewBox="0 0 448 512"
 								fill="currentColor">
 								<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-							</svg>
+							</svg>{" "}
 						</button>
 						<dialog id="my_modal_2" className="modal">
-							<div className="modal-box w-2/3 h-2/5">
+							<div className="modal-box w-full h-1/2 relative">
 								<form onSubmit={saveComment}>
-									<h3 className="font-bold text-lg text-center mt-3">Deja tu comentario</h3>
+									<h3 className="font-bold text-lg text-center mt-3">Añadir comentario</h3>
 									<div className="flex justify-center mt-8">
 										<textarea
 											value={comment}
 											onChange={(e) => setComment(e.target.value)}
-											className="rounded p-2 border border-primary-300 focus:outline-none focus:border-primary h-auto resize-y w-2/3"
-											rows={4}
+											className="textarea textarea-bordered textarea-lg w-full h-full"
+											placeholder="Escribe tu comentario..."
 										/>
 									</div>
 									<div className=" flex justify-center pt-8">
-										<button type="submit" className="btn btn-secondary btn-circle ">
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												height="24"
-												width="21"
-												viewBox="0 0 448 512"
-												fill="currentColor">
-												<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-											</svg>
+										<button
+											type="submit"
+											className="btn btn-secondary btn-outline uppercase absolute bottom-5">
+											Añadir
 										</button>
 									</div>
 								</form>

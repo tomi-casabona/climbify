@@ -8,7 +8,7 @@ export const CompletedRoutesGraph = ({
 	routes: Route[];
 }) => {
 	const calculatePercentage = () => {
-		return (totalRoutes * 100) / routes.length;
+		return ((totalRoutes * 100) / routes.length).toFixed(2);
 	};
 
 	return (
