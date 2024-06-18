@@ -24,7 +24,6 @@ export const RoutePage = () => {
 
 	const route = routes.find((route) => route.routeId === id) as Route;
 
-	// Add a check to ensure `route` is defined before accessing its properties
 	if (!route) {
 		return <div>Route not found</div>;
 	}
@@ -43,8 +42,7 @@ export const RoutePage = () => {
 		newRoutes[routeIndex] = updatedRoute;
 		dispatch(updateRoutes(newRoutes));
 		setComment("");
-		hideModal("my_modal_4"); // Close the modal after saving the comment
-
+		document?.getElementById("my_modal_2").close();
 	};
 
 	const addPegue = ({ completed }: { completed: boolean }) => {
@@ -213,10 +211,7 @@ export const RoutePage = () => {
 				</ul>
 				<div className="flex justify-center">
 					<div className="flex justify-center">
-						<button
-							className="btn btn-outline btn-circle"
-							onClick={() => showModal("my_modal_4")} /* onClick={() => addPegue()} */
-						>
+						<button className="btn btn-outline btn-circle" onClick={() => showModal("my_modal_2")}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -226,26 +221,30 @@ export const RoutePage = () => {
 								<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
 							</svg>
 						</button>
-						<dialog id="my_modal_4" className="modal">
-							<div className="modal-box w-2/3 h-1/4">
+						<dialog id="my_modal_2" className="modal">
+							<div className="modal-box w-2/3 h-2/5">
 								<form onSubmit={saveComment}>
-									<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-										✕
-									</button>
-									<h3 className="font-bold text-lg text-center">Deja tu comentario</h3>
-									<div className="flex justify-center gap-5 mt-5 h-1/3">
-										<input
-											type="text"
+									<h3 className="font-bold text-lg text-center mt-3">Deja tu comentario</h3>
+									<div className="flex justify-center mt-8">
+										<textarea
 											value={comment}
 											onChange={(e) => setComment(e.target.value)}
-											className="rounded p-2 border border-gray-300 focus:outline-none focus:border-primary "
+											className="rounded p-2 border border-primary-300 focus:outline-none focus:border-primary h-auto resize-y w-2/3"
+											rows={4}
 										/>
 									</div>
-									<button
-										type="submit"
-										className="btn btn-sm btn-circle btn-ghost absolute align-middle bottom-2">
-										Enviar
-									</button>
+									<div className=" flex justify-center pt-8">
+										<button type="submit" className="btn btn-secondary btn-circle ">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												height="24"
+												width="21"
+												viewBox="0 0 448 512"
+												fill="currentColor">
+												<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+											</svg>
+										</button>
+									</div>
 								</form>
 							</div>
 						</dialog>
