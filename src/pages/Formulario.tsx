@@ -75,7 +75,7 @@ export const Formulario: React.FC = () => {
 						value={form.locationName}
 						onChange={handleChange}
 						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
+						className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary  w-full"
 					/>
 				</div>
 				<div>
@@ -87,7 +87,7 @@ export const Formulario: React.FC = () => {
 						value={form.schoolName}
 						onChange={handleChange}
 						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
+						className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary  w-full"
 					/>
 				</div>
 				<div>
@@ -99,7 +99,7 @@ export const Formulario: React.FC = () => {
 						value={form.sectorName}
 						onChange={handleChange}
 						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
+						className="input input-sm input-bordered rounded-full bg-secondary text-slate-800 w-full"
 					/>
 				</div>
 				<div>
@@ -111,14 +111,14 @@ export const Formulario: React.FC = () => {
 						value={form.routeName}
 						onChange={handleChange}
 						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
+						className="input input-sm input-bordered rounded-full bg-secondary  text-slate-800 w-full"
 					/>
 				</div>
 				<div>
 					<label className="label font-bold uppercase">Grado</label>
 					<select
 						name="routeGrade"
-						className="select-bordered w-full py-1 px-2 bg-base-content text-base-100 rounded-full"
+						className="select-bordered w-full py-1 px-2 bg-secondary  text-slate-800 rounded-full"
 						onChange={handleChange}>
 						{scale.grades.map((grade, index) => {
 							return (
@@ -137,7 +137,7 @@ export const Formulario: React.FC = () => {
 						value={form.routeHeight}
 						onChange={handleChange}
 						required
-						className="input input-sm input-bordered rounded-full bg-base-content text-base-100 w-full"
+						className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary w-full"
 					/>
 				</div>
 				<button
