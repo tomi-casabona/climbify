@@ -37,7 +37,7 @@ export const App: React.FC = () => {
 		<Router>
 			<ThemeProvider>
 				<ScaleProvider>
-					<div className="mx-auto font-tt-hoves h-screen bg-light-bg dark:bg-dark-bg bg-contain bg-no-repeat">
+					<div className="mx-auto font-tt-hoves h-screen">
 						<AppRoutes isLogged={isLogged} />
 					</div>
 				</ScaleProvider>
