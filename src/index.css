@@ -1,6 +1,7 @@
 html[data-theme="light"] {
 	background-image: url("/public/backgroundImages/bg-img-light.png");
 	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
 }
 
@@ -9,6 +10,7 @@ html[data-theme="dark"] {
 	background-image: url("/public/backgroundImages/bg-img-dark.png");
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-size: contain;
 }
 /* styles.css */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
