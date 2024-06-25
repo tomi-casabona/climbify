@@ -30,8 +30,8 @@ export const Stats = () => {
 			setTotalCompletedRoutes(calculateCompletedRoutes(routesFirebase));
 			setLastRoutes(filterLastSevenRoutes(routesFirebase));
 			setTotalRoutes(routesFirebase);
-			setMaxGrade(getMaxCompletedGrade(routesFirebase)); // work with numbers
-			setMidGrade(calculateMidGrade(routesFirebase)); // work with numbers
+			setMaxGrade(getMaxCompletedGrade(routesFirebase)); 
+			setMidGrade(calculateMidGrade(routesFirebase)); 
 			setTotalHeight(calculateTotalHeight(routesFirebase));
 		}
 	}, [routesFirebase]);
@@ -41,7 +41,7 @@ export const Stats = () => {
 			<h1 className="text-center flex items-center px-5 font-bold text-5xl uppercase my-5">
 				Estadísticas
 			</h1>
-			<div className="flex flex-col justify-center text-center items-center w-2/3 bg-base-200 rounded-[2rem] mx-auto relative">
+			<div className="flex flex-col justify-center text-center items-center w-2/3 bg-accent rounded-[2rem] mx-auto relative">
 				<h3 className="uppercase font-bold pt-5">Tu máximo</h3>
 				<button className="absolute top-2 right-2 btn btn-circle">
 					<svg

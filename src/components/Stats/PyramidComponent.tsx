@@ -1,6 +1,6 @@
 export const PyramidComponent = () => {
 	return (
-		<div className="flex-1 w-1/2 rounded-[2rem] bg-base-content p-5">
+		<div className="flex-1 w-1/2 rounded-[2rem] bg-base-300 p-5">
 			<h4 className="font-bold uppercase flex items-center gap-3 text-secondary mb-3">
 				Pirámide del encadene
 			</h4>

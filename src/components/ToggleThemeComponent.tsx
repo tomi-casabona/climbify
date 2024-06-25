@@ -3,11 +3,11 @@ import { ThemeContext } from "../context/themeContext";
 import type { ThemeContextType } from "../types/themeTypes";
 
 export const ToggleThemeComponent = () => {
-	const { toggleTheme, theme } = useContext(ThemeContext) as ThemeContextType;
+	const { toggleTheme } = useContext(ThemeContext) as ThemeContextType;
 
 	return (
 		<label className="swap swap-rotate pb-4">
-			<input type="checkbox" onChange={toggleTheme} checked={theme === "dark"} />
+			<input type="checkbox" onChange={toggleTheme} />
 			<div className="swap-on fill-current w-7 h-7 bg-transparent">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

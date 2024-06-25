@@ -1,6 +1,6 @@
 import daisyui from "daisyui";
-
-const plugin = require("tailwindcss/plugin");
+import plugin from "tailwindcss/plugin";
+import { light, dark } from "daisyui/src/theming/themes";
 
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -10,18 +10,13 @@ export default {
 				poppins: ["Poppins", "sans-serif"],
 				"tt-hoves": ["TT Hoves", "sans-serif"],
 			},
-			backgroundImage: {
-				"light-bg": "url('/public/backgroundImages/bg-img-light.png')",
-				"dark-bg": "url('/public/backgroundImages/bg-img-dark.png')",
-				"route-default": "url('/public/backgroundImages/default-route-img.jpg')",
-			},
 		},
 	},
 	daisyui: {
 		themes: [
 			{
 				light: {
-					...require("daisyui/src/theming/themes")["light"],
+					...light,
 					primary: "#feb58b",
 					secondary: "#d3dbf4",
 					accent: "#bb3c43",
@@ -30,7 +25,6 @@ export default {
 					"base-100": "#fffffc",
 					"base-content": "#03080E",
 					"custom-blue": "#bec6e0",
-
 					"--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
 					"--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
 					"--rounded-badge": "1.9rem", // border radius rounded-badge utility class, used in badges and similar
@@ -42,7 +36,7 @@ export default {
 					"--tab-radius": "0.5rem", // border radius of tabs
 				},
 				dark: {
-					...require("daisyui/src/theming/themes")["dark"],
+					...dark,
 					primary: "#feb58b",
 					secondary: "#d3dbf4",
 					accent: "#bb3c43",
@@ -51,7 +45,6 @@ export default {
 					"base-100": "#03080E",
 					"base-content": "#fffffc",
 					"custom-blue": "#bec6e0",
-
 					"--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
 					"--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
 					"--rounded-badge": "1.9rem", // border radius rounded-badge utility class, used in badges and similar
@@ -66,7 +59,7 @@ export default {
 		],
 	},
 	plugins: [
-		require("daisyui"),
+		daisyui,
 		plugin(function ({ addUtilities }) {
 			addUtilities(
 				{

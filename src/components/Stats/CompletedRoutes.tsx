@@ -17,8 +17,8 @@ export const CompletedRoutes = ({ routes }: { routes: Route[] }) => {
 	};
 
 	return (
-		<div className="w-[90%] mx-auto rounded-[2rem] bg-base-content p-5 mb-10">
-			<h4 className="font-bold text-2xl text-center uppercase flex items-center gap-3 text-base-100 mb-3">
+		<div className="w-[90%] mx-auto rounded-[2rem] bg-base-300 p-5 mb-10">
+			<h4 className="font-bold text-2xl text-center text-secondary uppercase flex items-center gap-3 mb-3">
 				Vías encadenadas
 			</h4>
 
