@@ -15,6 +15,6 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "prettier/prettier": "warn", // Asegura que los problemas de Prettier se reporten como advertencias
+    "prettier/prettier": "off", // Asegura que los problemas de Prettier se reporten como advertencias
   },
 };
