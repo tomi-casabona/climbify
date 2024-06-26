@@ -5,9 +5,7 @@ import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { useContext, useEffect, useState } from "react";
 import { calculateCompletedRoutes } from "../services/routeServices/calculatedData/calculateCompletedRoutes";
-import { filterLastSevenRoutes } from "../services/routeServices/filters/filterLastSevenRoutes";
 import { getMaxCompletedGrade } from "../services/routeServices/calculatedData/getMaxCompletedGrade";
-import { calculateMidGrade } from "../services/routeServices/calculatedData/calculateMidGrade";
 import { calculateTotalHeight } from "../services/routeServices/calculatedData/calculateTotalHeight";
 import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
 import { PyramidComponent } from "../components/Stats/PyramidComponent";
@@ -15,23 +13,16 @@ import { TotalHeightComponent } from "../components/Stats/TotalHeightComponent";
 import { CompletedRoutesGraph } from "../components/Stats/CompletedRoutesGraph";
 
 export const Stats = () => {
-	const usuario = useSelector((state: RootState) => state.user);
 	const routesFirebase: Route[] = useSelector((state: RootState) => state.routes.data) as Route[];
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 	const [totalCompletedRoutes, setTotalCompletedRoutes] = useState(0);
-	const [lastRoutes, setLastRoutes] = useState<Route[]>([]);
-	const [totalRoutes, setTotalRoutes] = useState<Route[]>([]);
 	const [maxGrade, setMaxGrade] = useState(0);
-	const [midGrade, setMidGrade] = useState(0);
 	const [totalHeight, setTotalHeight] = useState(0);
 
 	useEffect(() => {
 		if (routesFirebase) {
 			setTotalCompletedRoutes(calculateCompletedRoutes(routesFirebase));
-			setLastRoutes(filterLastSevenRoutes(routesFirebase));
-			setTotalRoutes(routesFirebase);
-			setMaxGrade(getMaxCompletedGrade(routesFirebase)); 
-			setMidGrade(calculateMidGrade(routesFirebase)); 
+			setMaxGrade(getMaxCompletedGrade(routesFirebase));
 			setTotalHeight(calculateTotalHeight(routesFirebase));
 		}
 	}, [routesFirebase]);
