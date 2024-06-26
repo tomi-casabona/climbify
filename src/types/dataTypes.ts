@@ -78,6 +78,6 @@ export interface Route {
 
 export interface Attempt {
   id: `${string}-${string}-${string}-${string}-${string}`;
-  date: Date;
+  date: string;
   completed: boolean;
 }
