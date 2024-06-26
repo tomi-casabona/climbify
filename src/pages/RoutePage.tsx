@@ -31,7 +31,7 @@ export const RoutePage = () => {
 	const school = capitalizeFirstLetterOnly(schools[route.schoolIndex]?.schoolName);
 	const location = capitalizeFirstLetterOnly(locations[route.locationIndex]?.locationName);
 
-	const saveComment = (e: SubmitEvent) => {
+	const saveComment = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault(); // Prevent form submission default behavior
 		const updatedComments = [...(route.routeComments || []), comment];
 		const updatedRoute = { ...route, routeComments: updatedComments };
@@ -41,7 +41,10 @@ export const RoutePage = () => {
 		newRoutes[routeIndex] = updatedRoute;
 		dispatch(updateRoutes(newRoutes));
 		setComment("");
-		document?.getElementById("my_modal_2").close();
+		const modal = document.getElementById("my_modal_2");
+		if (modal) {
+			modal.style.display = "none"; // Cambia el estilo para cerrar el modal
+		}
 	};
 
 	const addPegue = ({ completed }: { completed: boolean }) => {

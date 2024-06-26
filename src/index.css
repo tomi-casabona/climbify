@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 html[data-theme="light"] {
 	background-image: url("/public/backgroundImages/bg-img-light.png");
@@ -17,9 +19,6 @@ html[data-theme="dark"] {
 	background-repeat: no-repeat;
 	background-size: contain;
 }
-
-/* styles.css */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 /* Define TT Hoves font faces */
 @font-face {
