@@ -59,20 +59,11 @@ export const RoutePage = () => {
 		dispatch(updateRoutes(newRoutes));
 	};
 
-	const toggleAttempt = (updatedAttempt: Attempt) => {
-		const indexAttempt = route.routeAttempts.findIndex(
-			(attempt) => attempt.id === updatedAttempt.id
-		);
-		let updatedRoute: Route = { ...route, routeAttempts: [...route.routeAttempts] };
+	const deleteAttempt = (id: string) => {
+		const updatedAttempts = route.routeAttempts.filter((attempt) => attempt.id != id);
+		console.log(updatedAttempts);
 
-		updatedRoute.routeAttempts[indexAttempt] = { ...updatedAttempt };
-		let routeCompleted = false;
-		updatedRoute.routeAttempts.forEach((attempt) => {
-			if (attempt.completed) {
-				routeCompleted = true;
-			}
-		});
-		updatedRoute = { ...updatedRoute, completed: routeCompleted };
+		const updatedRoute: Route = { ...route, routeAttempts: [...updatedAttempts] };
 
 		// Find the route by ID and update it
 		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
@@ -81,6 +72,7 @@ export const RoutePage = () => {
 
 		dispatch(updateRoutes(newRoutes));
 	};
+
 
 	return (
 		<div className="w-full h-full absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
@@ -148,13 +140,16 @@ export const RoutePage = () => {
 					</div>
 				</div>
 				<div className="h-full w-1/2 flex flex-col bg-base-100 bg-opacity-10 rounded-3xl p-3 gap-4">
+					{/* Attempts */}
+
 					<h3 className="font-bold text-2xl text-center text-base-100">Pegues</h3>
+
 					<ul className="text-sm text-base-100 text-center flex-1 overflow-auto">
 						{route.routeAttempts && route.routeAttempts.length === 0 ? (
 							<li className="list-item">Aún no le has dado ningún pegue...</li>
 						) : (
 							route.routeAttempts?.map((attempt, index) => (
-								<PeguesComponent attempt={attempt} key={index} toggleAttempt={toggleAttempt} />
+								<PeguesComponent attempt={attempt} key={index} deleteAttempt={deleteAttempt} />
 							))
 						)}
 					</ul>
@@ -166,10 +161,7 @@ export const RoutePage = () => {
 					</div>
 
 					<div className="flex justify-center">
-						<button
-							className="btn btn-outline btn-circle"
-							onClick={() => showModal("my_modal_3")} /* onClick={() => addPegue()} */
-						>
+						<button className="btn btn-outline btn-circle" onClick={() => showModal("my_modal_3")}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -204,6 +196,7 @@ export const RoutePage = () => {
 					</div>
 				</div>
 			</div>
+
 			{/* Comments */}
 
 			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%] relative">
