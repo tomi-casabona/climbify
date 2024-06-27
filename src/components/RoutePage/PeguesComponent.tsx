@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Attempt } from "../../types/dataTypes";
 import { showModal } from "../../services/routeServices/showModal";
 
