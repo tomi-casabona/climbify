@@ -10,6 +10,7 @@ import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
 import { showModal } from "../services/routeServices/showModal";
+import { CommentsComponent } from "../components/RoutePage/CommentsComponent";
 
 export const RoutePage = () => {
 	const [comment, setComment] = useState("");
@@ -59,20 +60,25 @@ export const RoutePage = () => {
 		dispatch(updateRoutes(newRoutes));
 	};
 
-	const toggleAttempt = (updatedAttempt: Attempt) => {
-		const indexAttempt = route.routeAttempts.findIndex(
-			(attempt) => attempt.id === updatedAttempt.id
-		);
-		let updatedRoute: Route = { ...route, routeAttempts: [...route.routeAttempts] };
+	const deleteAttempt = (id: string) => {
+		const updatedAttempts = route.routeAttempts.filter((attempt) => attempt.id != id);
+		console.log(updatedAttempts);
 
-		updatedRoute.routeAttempts[indexAttempt] = { ...updatedAttempt };
-		let routeCompleted = false;
-		updatedRoute.routeAttempts.forEach((attempt) => {
-			if (attempt.completed) {
-				routeCompleted = true;
-			}
-		});
-		updatedRoute = { ...updatedRoute, completed: routeCompleted };
+		const updatedRoute: Route = { ...route, routeAttempts: [...updatedAttempts] };
+
+		// Find the route by ID and update it
+		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
+		const newRoutes = [...routes];
+		newRoutes[routeIndex] = updatedRoute;
+
+		dispatch(updateRoutes(newRoutes));
+	};
+
+	const deleteComment = (index: number) => {
+		const updatedComments = route.routeComments?.filter((_, i) => i !== index);
+		console.log(updatedComments);
+
+		const updatedRoute: Route = { ...route, routeComments: updatedComments };
 
 		// Find the route by ID and update it
 		const routeIndex = routes.findIndex((r) => r.routeId === route.routeId);
@@ -148,13 +154,16 @@ export const RoutePage = () => {
 					</div>
 				</div>
 				<div className="h-full w-1/2 flex flex-col bg-base-100 bg-opacity-10 rounded-3xl p-3 gap-4">
+					{/* Attempts */}
+
 					<h3 className="font-bold text-2xl text-center text-base-100">Pegues</h3>
+
 					<ul className="text-sm text-base-100 text-center flex-1 overflow-auto">
 						{route.routeAttempts && route.routeAttempts.length === 0 ? (
 							<li className="list-item">Aún no le has dado ningún pegue...</li>
 						) : (
 							route.routeAttempts?.map((attempt, index) => (
-								<PeguesComponent attempt={attempt} key={index} toggleAttempt={toggleAttempt} />
+								<PeguesComponent attempt={attempt} key={index} deleteAttempt={deleteAttempt} />
 							))
 						)}
 					</ul>
@@ -166,10 +175,7 @@ export const RoutePage = () => {
 					</div>
 
 					<div className="flex justify-center">
-						<button
-							className="btn btn-outline btn-circle"
-							onClick={() => showModal("my_modal_3")} /* onClick={() => addPegue()} */
-						>
+						<button className="btn btn-outline btn-circle" onClick={() => showModal("my_modal_3")}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								height="24"
@@ -204,17 +210,25 @@ export const RoutePage = () => {
 					</div>
 				</div>
 			</div>
+
 			{/* Comments */}
 
 			<div className=" flex flex-col w-11/12 bg-primary mx-3 rounded-3xl my-3 p-5 overflow-auto h-[30%] relative">
-				<p className="font-bold">Comentarios:</p>
+				<p className="font-bold mb-2 text-center">Comentarios:</p>
 				<ul>
 					{!route.routeComments ? (
-						<li>No hay ningún comentario.</li>
+						<li className="text-center mt-4">No hay ningún comentario.</li>
 					) : route.routeComments.length === 0 ? (
-						<li>No hay ningún comentario.</li>
+						<li className="text-center mt-4">No hay ningún comentario.</li>
 					) : (
-						route.routeComments.map((comment, index) => <li key={index}>{comment}</li>)
+						route.routeComments.map((comment, index) => (
+							<CommentsComponent
+								index={index}
+								key={index}
+								deleteComment={deleteComment}
+								comment={comment}
+							/>
+						))
 					)}
 				</ul>
 				<div className="flex justify-center">

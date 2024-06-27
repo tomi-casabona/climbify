@@ -18,7 +18,7 @@ export const RouteCard = ({
 	const navigate = useNavigate();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	// Truncate route name if it exceeds 14 characters
+	// Truncate route name if it exceeds 12 characters
 	const routename =
 		route.routeName.length > 12 ? route.routeName.substring(0, 12) + " ..." : route.routeName;
 	const description = capitalizeFirstLetterOnly(sector) + ", " + capitalizeFirstLetterOnly(school);
@@ -26,6 +26,7 @@ export const RouteCard = ({
 		description.length > 22 ? description.substring(0, 22) + "..." : description;
 
 	const lastDate = getMostRecentDate(route.routeAttempts);
+	
 	return (
 		<div
 			className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full cursor-pointer"
@@ -37,9 +38,7 @@ export const RouteCard = ({
 				</div>
 				<div className="text-3xl px-5 font-light text-primary text-end">
 					<h4 className="text-2xl">{scale.grades[route.routeGrade]}</h4>
-					{/* Placeholder for completion date */}
 					<p className="text-lg font-extralight">{!lastDate ? "Pendiente" : lastDate}</p>
-					{/* Replace with actual completion date logic */}
 				</div>
 			</div>
 		</div>
