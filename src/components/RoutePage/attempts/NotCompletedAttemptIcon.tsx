@@ -1,4 +1,4 @@
-export const NotCompletedAttemptIcon = () => {
+export const NotCompletedAttemptIcon: React.FC  = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
 			<path
