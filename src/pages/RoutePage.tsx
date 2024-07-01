@@ -10,7 +10,7 @@ import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
 import { showModal } from "../services/routeServices/showModal";
-import { CommentsComponent } from "../components/RoutePage/CommentsComponent";
+import { CommentsComponent } from "../components/RoutePage/comments/CommentsComponent";
 
 export const RoutePage = () => {
 	const [comment, setComment] = useState("");
