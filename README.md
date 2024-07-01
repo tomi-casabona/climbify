@@ -28,6 +28,16 @@
 
 [Climbify App](https://climbify.vercel.app/)
 
+## Images
+
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/d0866271-64ea-45be-8d5e-133a13ad766f)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/ded3e7d1-d6d0-4123-b228-21074c05ea7f)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/a467bed1-c990-4a00-b04a-f55412bffa8b)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/743c1ac7-8876-49af-a096-9874f0eb375a)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/db9ccd9e-c183-4002-b2ef-db4172c3c254)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/ec34fc09-a80f-4049-b330-d49ee10316fd)
+![image](https://github.com/tomi-casabona/climbify/assets/146122361/853e009d-3716-46fe-bfa7-33244461446a)
+
 ## Installation 💻
 
 Follow these steps to clone and run the project locally.
@@ -108,16 +118,3 @@ This README will guide you through the steps required to create a project in Fir
 
 Thank you for using Climbify App!
 Let's get to the top!
-
----
-
-## Images
-
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/d0866271-64ea-45be-8d5e-133a13ad766f)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/ded3e7d1-d6d0-4123-b228-21074c05ea7f)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/a467bed1-c990-4a00-b04a-f55412bffa8b)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/743c1ac7-8876-49af-a096-9874f0eb375a)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/db9ccd9e-c183-4002-b2ef-db4172c3c254)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/ec34fc09-a80f-4049-b330-d49ee10316fd)
-![image](https://github.com/tomi-casabona/climbify/assets/146122361/853e009d-3716-46fe-bfa7-33244461446a)
-
