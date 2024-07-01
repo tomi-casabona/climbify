@@ -1,23 +1,23 @@
+/* styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 /* Tailwind CSS imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* styles.css */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 html[data-theme="light"] {
-	background-image: url("/public/backgroundImages/bg-img-light.png");
-	background-size: cover;
+	background-image: url("/backgroundImages/bg-img-light.png");
 	background-size: contain;
 	background-repeat: no-repeat;
+	background-position: top;
 }
 
 /* Estilo para el tema oscuro */
 html[data-theme="dark"] {
-	background-image: url("/public/backgroundImages/bg-img-dark.png");
-	background-size: cover;
+	background-image: url("/backgroundImages/bg-img-dark.png");
 	background-repeat: no-repeat;
 	background-size: contain;
+	background-position: top;
 }
 
 /* Define TT Hoves font faces */
