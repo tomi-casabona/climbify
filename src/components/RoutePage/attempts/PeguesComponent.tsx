@@ -25,8 +25,10 @@ export const PeguesComponent: React.FC<Props> = ({ attempt, deleteAttempt }) => 
 	return (
 		<div className="flex justify-between items-center">
 			<p>{formatDate(attempt.date)}</p>
+			<div className="flex gap-3">
 			{attempt.completed ? <CompletedAttemptIcon /> : <NotCompletedAttemptIcon />}
 			<DeleteAttemptIcon onClick={() => showModal("my_modal_4")} />
+			</div>
 			<dialog id="my_modal_4" className="modal">
 				<div className="modal-box w-2/3">
 					<form method="dialog">
