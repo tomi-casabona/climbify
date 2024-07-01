@@ -62,8 +62,6 @@ export const RoutePage = () => {
 
 	const deleteAttempt = (id: string) => {
 		const updatedAttempts = route.routeAttempts.filter((attempt) => attempt.id != id);
-		console.log(updatedAttempts);
-
 		const updatedRoute: Route = { ...route, routeAttempts: [...updatedAttempts] };
 
 		// Find the route by ID and update it
@@ -76,8 +74,6 @@ export const RoutePage = () => {
 
 	const deleteComment = (index: number) => {
 		const updatedComments = route.routeComments?.filter((_, i) => i !== index);
-		console.log(updatedComments);
-
 		const updatedRoute: Route = { ...route, routeComments: updatedComments };
 
 		// Find the route by ID and update it
