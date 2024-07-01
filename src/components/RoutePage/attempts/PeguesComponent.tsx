@@ -1,8 +1,8 @@
-import { Attempt } from "../../types/dataTypes";
-import { showModal } from "../../services/routeServices/showModal";
-import { CompletedAttemptIcon } from "./completedAttemptIcon";
+import { Attempt } from "../../../types/dataTypes";
+import { showModal } from "../../../services/routeServices/showModal";
+import { CompletedAttemptIcon } from "./CompletedAttemptIcon";
 import { NotCompletedAttemptIcon } from "./NotCompletedAttemptIcon";
-import { DeleteAttempt } from "./DeleteAttempt";
+import { DeleteAttemptIcon } from "./DeleteAttemptIcon";
 
 type Props = {
 	attempt: Attempt;
@@ -25,8 +25,10 @@ export const PeguesComponent: React.FC<Props> = ({ attempt, deleteAttempt }) => 
 	return (
 		<div className="flex justify-between items-center">
 			<p>{formatDate(attempt.date)}</p>
+			<div className="flex gap-3">
 			{attempt.completed ? <CompletedAttemptIcon /> : <NotCompletedAttemptIcon />}
-			<DeleteAttempt onClick={() => showModal("my_modal_4")} />
+			<DeleteAttemptIcon onClick={() => showModal("my_modal_4")} />
+			</div>
 			<dialog id="my_modal_4" className="modal">
 				<div className="modal-box w-2/3">
 					<form method="dialog">

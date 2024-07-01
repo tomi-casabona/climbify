@@ -1,4 +1,4 @@
-export const DeleteAttempt: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+export const DeleteAttemptIcon: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
