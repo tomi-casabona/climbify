@@ -1,6 +1,6 @@
 # Climbify App
 
-![climbify logo](https://github.com/tomi-casabona/climbify/assets/146122361/f61050fb-e6e1-4c6d-b6b8-83e7a00fca93)
+![climbify logo long](https://github.com/tomi-casabona/climbify/assets/146122361/90b66b0e-27cf-40f3-869c-e99034199116)
 
 ## Description 📃
 
