@@ -3,14 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { Location, Route, School, Sector, Attempt } from "../types/dataTypes";
-import { PeguesComponent } from "../components/RoutePage/PeguesComponent";
+import { PeguesComponent } from "../components/RoutePage/attempts/PeguesComponent";
 import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { updateRoutes } from "../redux/thunks/routesThunks";
 import { updatePegue } from "../services/updatePegue";
 import { showModal } from "../services/routeServices/showModal";
-import { CommentsComponent } from "../components/RoutePage/CommentsComponent";
+import { CommentsComponent } from "../components/RoutePage/comments/CommentsComponent";
 
 export const RoutePage = () => {
 	const [comment, setComment] = useState("");
