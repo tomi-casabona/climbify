@@ -1,30 +1,31 @@
 import { useSelector } from "react-redux";
-import { RouteCard } from "../components/RouteList/RouteCard";
-import { Route, School, Sector } from "../types/dataTypes";
+// import { RouteCard } from "../components/RouteList/RouteCard";
+import { Route, School, Sector, Location } from "../types/dataTypes";
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
-import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
-import { showModal } from "../services/routeServices/showModal";
-import { applySorting } from "../services/routeServices/applySorting";
-import { FilterModal } from "../components/FilterModal";
-import { routesPrueba } from "../data/prueba";
+// import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
+// import { showModal } from "../services/routeServices/showModal";
+// import { applySorting } from "../services/routeServices/applySorting";
+// import { FilterModal } from "../components/FilterModal";
+// import { routesPrueba } from "../data/prueba";
 
 export const RouteList = () => {
-	const [query, setQuery] = useState("");
+	/* const [query, setQuery] = useState("");
 	const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
-	const [selectedOrder, setSelectedOrder] = useState<string>("recentDate");
+	const [selectedOrder, setSelectedOrder] = useState<string>("recentDate"); */
 
 	const routes: Route[] | null = useSelector((state: RootState) => state.routes.data);
 	const schools: School[] | null = useSelector((state: RootState) => state.schools.data);
 	const sectors: Sector[] | null = useSelector((state: RootState) => state.sectors.data);
+	const locations: Location[] | null = useSelector((state: RootState) => state.locations.data);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		if (routes) {
 			setFilteredRoutes(routes); // Initialize filteredRoutes with routes when data is loaded
 		}
 	}, [routes]);
 
-	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+	 function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const newQuery = e.target.value;
 		setQuery(newQuery);
 		if (routes) {
@@ -32,18 +33,18 @@ export const RouteList = () => {
 			setFilteredRoutes(filtered);
 		}
 	}
-
 	function handleCheckboxChange(order: string) {
 		setSelectedOrder(order === selectedOrder ? "" : order);
 	}
-
 	const handleFilterClick = () => {
 		setFilteredRoutes(applySorting(selectedOrder, filteredRoutes));
-	};
+	}; */
 
 	return (
 		<div className="py-5 mb-5 flex flex-col h-screen">
 			<h1 className="p-5 uppercase font-bold text-5xl">Tus vías</h1>
+			{/* 
+			********** SEARCH BAR ************
 			<div className="flex justify-around self-start mx-5 gap-3 w-8/12 pb-5 border-b border-neutral">
 				<input
 					type="text"
@@ -67,8 +68,10 @@ export const RouteList = () => {
 					handleCheckboxChange={handleCheckboxChange}
 					handleFilterClick={handleFilterClick}
 				/>
-			</div>
-			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth">
+			</div> */}
+			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth h-5/6">
+				{/* 
+				*************** FILTERED ROUTES *****************
 				{filteredRoutes.length === 0 &&
 					routesPrueba.map((route, index) => {
 						// Ensure data exists before accessing indices
@@ -87,13 +90,8 @@ export const RouteList = () => {
 						sectors && sectors[route.sectorIndex] ? sectors[route.sectorIndex].sectorName : "";
 
 					return <RouteCard key={index} route={route} school={schoolName} sector={sectorName} />;
-				})}
-				<div className="p-14 w-full bg-transparent"></div>
+				})} */}
 			</div>
-			{/* <div className="fixed bottom-0 w-full">
-				<div className="bg-gradient-to-t from-base-100 to-transparent w-full p-4"></div>
-				<div className="bg-base-100 w-full p-16"></div>
-			</div> */}
 		</div>
 	);
 };
