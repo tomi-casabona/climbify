@@ -11,6 +11,7 @@ import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
 import { PyramidComponent } from "../components/Stats/PyramidComponent";
 import { TotalHeightComponent } from "../components/Stats/TotalHeightComponent";
 import { CompletedRoutesGraph } from "../components/Stats/CompletedRoutesGraph";
+import { showModal } from "../services/routeServices/showModal";
 
 export const Stats = () => {
 	const routesFirebase: Route[] = useSelector((state: RootState) => state.routes.data) as Route[];
@@ -34,7 +35,9 @@ export const Stats = () => {
 			</h1>
 			<div className="flex flex-col justify-center text-center items-center w-2/3 bg-accent rounded-[2rem] mx-auto relative">
 				<h3 className="uppercase font-bold pt-5">Tu máximo</h3>
-				<button className="absolute top-2 right-2 btn btn-circle">
+				<button
+					className="absolute top-2 right-2 btn btn-circle"
+					onClick={() => showModal("my_modal_5")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-4 w-4"
@@ -49,6 +52,18 @@ export const Stats = () => {
 						/>
 					</svg>
 				</button>
+
+				<dialog id="my_modal_5" className="modal">
+					<div className="modal-box w-2/3">
+						<h3 className="font-bold text-lg text-center">
+							Este es el grado máximo que has conseguido encadenar.
+						</h3>
+					</div>
+					<form method="dialog" className="modal-backdrop">
+						<button>close</button>
+					</form>
+				</dialog>
+
 				<h3 className="text-5xl font-bold text-primary pb-4">
 					{totalCompletedRoutes === 0 ? "..." : scale.grades[maxGrade]}
 				</h3>
