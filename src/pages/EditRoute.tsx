@@ -86,7 +86,7 @@ export const EditRoute: React.FunctionComponent = () => {
 			<div className="flex justify-between">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={() => navigate(`/routes/route/${route.routeId}`)}>
+					onClick={() => navigate(-1)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
