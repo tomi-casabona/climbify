@@ -11,12 +11,25 @@ export default {
 				"tt-hoves": ["TT Hoves", "sans-serif"],
 			},
 			colors: {
-				"secondary-darker": "#bec6e0",
+				"secondary-darker": "#A8AFC4",
 				"custom-brown": "#E4DFDA",
 				"custom-white": "#fffffc",
 				"custom-gray": "#A8AFC4",
-				"black": "#03080E",
-			}
+				black: "#03080E",
+			},
+			keyframes: {
+				expand: {
+					"0%": { transform: "scale(1)" },
+					"100%": { transform: "scale(35)" },
+				},
+				fadeOut: {
+					"0%": { opacity: 1 },
+					"100%": { opacity: 0 },
+				},
+			},
+			animation: {
+				expand: "expand 0.5s ease-in-out forwards",
+			},
 		},
 	},
 	daisyui: {
