@@ -10,6 +10,9 @@ export default {
 				poppins: ["Poppins", "sans-serif"],
 				"tt-hoves": ["TT Hoves", "sans-serif"],
 			},
+			colors: {
+				"secondary-darker": "#bec6e0",
+			}
 		},
 	},
 	daisyui: {
@@ -21,11 +24,9 @@ export default {
 					secondary: "#d3dbf4",
 					accent: "#bb3c43",
 					neutral: "#e4dfda",
-					"secondary-darker": "#BEC6E0",
 					"neutral-content": "#03080e",
 					"base-100": "#fffffc",
 					"base-content": "#03080E",
-					"custom-blue": "#bec6e0",
 					"--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
 					"--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
 					"--rounded-badge": "1.9rem", // border radius rounded-badge utility class, used in badges and similar
@@ -42,11 +43,9 @@ export default {
 					secondary: "#d3dbf4",
 					accent: "#bb3c43",
 					neutral: "#12161c",
-					"secondary-darker": "#BEC6E0",
 					"neutral-content": "#fffffc",
 					"base-100": "#03080E",
 					"base-content": "#fffffc",
-					"custom-blue": "#bec6e0",
 					"--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
 					"--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
 					"--rounded-badge": "1.9rem", // border radius rounded-badge utility class, used in badges and similar
