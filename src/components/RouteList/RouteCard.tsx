@@ -26,7 +26,7 @@ export const RouteCard = ({
 		description.length > 22 ? description.substring(0, 22) + "..." : description;
 
 	const lastDate = getMostRecentDate(route.routeAttempts);
-	
+
 	return (
 		<div
 			className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full cursor-pointer"

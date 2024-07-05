@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Route, School, Sector, Location } from "../types/dataTypes";
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
+import { LocationAccordion } from "../components/RouteList/LocationAccordion";
 // import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
 // import { showModal } from "../services/routeServices/showModal";
 // import { applySorting } from "../services/routeServices/applySorting";
@@ -69,7 +70,10 @@ export const RouteList = () => {
 					handleFilterClick={handleFilterClick}
 				/>
 			</div> */}
-			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth h-5/6">
+			<div className="flex flex-col overflow-auto whitespace-nowrap no-scrollbar scroll-smooth h-5/6">
+				{locations?.map((location, index) => {
+					return <LocationAccordion key={index} location={location} index={index} />;
+				})}
 				{/* 
 				*************** FILTERED ROUTES *****************
 				{filteredRoutes.length === 0 &&
