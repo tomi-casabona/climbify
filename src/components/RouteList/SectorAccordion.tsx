@@ -15,14 +15,9 @@ export const SectorAccordion = ({ sectorIndex }: { sectorIndex: number }) => {
 				</div>
 				{sectors && (
 					<div className="collapse-content">
-						{sectors[sectorIndex].routes.map((route, index) => {
-							return (
-								<div className="p-3">
-									<p>Routeindex: {route}</p>
-									<p>Index: {index}</p>
-								</div>
-							);
-						})}
+						{sectors[sectorIndex].routes.map((route, index) => (
+							<RouteCard key={index} routeIndex={route} />
+						))}
 					</div>
 				)}
 			</div>

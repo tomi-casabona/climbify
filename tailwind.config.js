@@ -13,6 +13,9 @@ export default {
 			colors: {
 				"secondary-darker": "#bec6e0",
 				"custom-brown": "#E4DFDA",
+				"custom-white": "#fffffc",
+				"custom-gray": "#A8AFC4",
+				"black": "#03080E",
 			}
 		},
 	},
