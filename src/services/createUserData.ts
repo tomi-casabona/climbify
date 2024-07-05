@@ -39,7 +39,6 @@ export const createUserData =
         schoolName: formObject.schoolName,
         locationIndex: locationIndex,
         sectors: []
-
       }]
 
     // Find or create the school
@@ -85,6 +84,7 @@ export const createUserData =
       sectorIndex = newSectors.length - 1; // Update the index after push
     }
 
+
     const newRoutes: Route[] = actualState.routes.data ?
       actualState.routes.data.map(route => ({ ...route })) :
       [{
@@ -125,19 +125,19 @@ export const createUserData =
     if (newLocations[locationIndex].schools.length === 0) {
       newLocations[locationIndex].schools.push(schoolIndex);
     } else {
-      !newLocations[locationIndex].schools.includes(schoolIndex) && [...newLocations[locationIndex].schools, schoolIndex];
+      newLocations[locationIndex].schools = newLocations[locationIndex].schools.includes(schoolIndex) ? newLocations[locationIndex].schools : [...newLocations[locationIndex].schools, schoolIndex];
     }
     // Actualizar el array de sectors de schools --> añadir el sectorIndex si no existe
     if (newSchools[schoolIndex].sectors.length === 0) {
       newSchools[schoolIndex].sectors.push(sectorIndex)
     } else {
-      !newSchools[schoolIndex].sectors.includes(sectorIndex) && [...newSchools[schoolIndex].sectors, sectorIndex];
+      newSchools[schoolIndex].sectors = newSchools[schoolIndex].sectors.includes(sectorIndex) ? newSchools[schoolIndex].sectors : [...newSchools[schoolIndex].sectors, sectorIndex];
     }
     // Actualizar el array de routes de sectors --> añadir el routeIndex si no existe
     if (newSectors[sectorIndex].routes.length === 0) {
       newSectors[sectorIndex].routes.push(routeIndex);
     } else {
-      !newSectors[sectorIndex].routes.includes(routeIndex) && [...newSectors[sectorIndex].routes, routeIndex];
+      newSectors[sectorIndex].routes = newSectors[sectorIndex].routes.includes(routeIndex) ? newSectors[sectorIndex].routes : [...newSectors[sectorIndex].routes, routeIndex];
     }
 
     return { newLocations, newSchools, newSectors, newRoutes };
