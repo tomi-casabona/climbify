@@ -20,6 +20,10 @@ html[data-theme="dark"] {
 	background-position: top;
 }
 
+.collapse-content {
+	padding: 0 !important;
+}
+
 /* Define TT Hoves font faces */
 @font-face {
 	font-family: "TT Hoves";

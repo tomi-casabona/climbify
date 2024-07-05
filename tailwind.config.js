@@ -12,6 +12,7 @@ export default {
 			},
 			colors: {
 				"secondary-darker": "#bec6e0",
+				"custom-brown": "#E4DFDA",
 			}
 		},
 	},
