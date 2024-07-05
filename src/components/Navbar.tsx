@@ -10,7 +10,6 @@ export const Navbar: React.FC = () => {
 		e.preventDefault();
 		const button = e.currentTarget as HTMLButtonElement;
 		const svg = button.querySelector("svg");
-		console.log(svg);
 
 		button.classList.add("animate-expand");
 		svg && svg.classList.add("opacity-0");
@@ -21,7 +20,19 @@ export const Navbar: React.FC = () => {
 	};
 
 	return (
-		<nav className="btm-nav z-50 transition-all duration-300">
+		<nav className="btm-nav z-40 transition-all duration-300">
+			<button onClick={handleNewRouteClick} className="peer absolute bottom-0 z-50">
+				<div className="h-14 w-14 border border-neutral-content bg-base-100 rounded-full mb-2 flex justify-center items-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						height="24"
+						width="21"
+						viewBox="0 0 448 512"
+						className="duration-200 fill-neutral-content">
+						<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+					</svg>
+				</div>
+			</button>
 			{/* Home btn */}
 			<NavLink to={"/"}>
 				<svg
@@ -39,21 +50,7 @@ export const Navbar: React.FC = () => {
 					<path d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" />
 				</svg>
 			</NavLink>
-			<button onClick={handleNewRouteClick} className="peer">
-				<div className="h-14 w-14 bg-white rounded-full mb-2 flex justify-center items-center">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						height="24"
-						width="21"
-						viewBox="0 0 448 512"
-						className="duration-200">
-						<path
-							fill="#03080e"
-							d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
-						/>
-					</svg>
-				</div>
-			</button>
+			<div className="h-14 w-14 bg-base-100"></div>
 			<NavLink to={"/stats"}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
