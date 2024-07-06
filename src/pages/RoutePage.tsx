@@ -85,7 +85,7 @@ export const RoutePage = () => {
 	};
 
 	return (
-		<div className="w-full h-full absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center">
+		<div className="w-full h-full absolute top-0 bg-base-100 flex flex-col flex-1 justify-center items-center animate-fadeIn">
 			{/* Header */}
 			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mx-3">
 				<button
