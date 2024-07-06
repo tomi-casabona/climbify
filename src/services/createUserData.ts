@@ -31,7 +31,9 @@ export const createUserData = (
 			];
 
 	// Find or create the location
-	let locationIndex = newLocations.findIndex((loc) => loc.locationName === formObject.locationName);
+	let locationIndex = newLocations.findIndex(
+		(loc) => loc.locationName === formObject.locationName.toLowerCase().trim()
+	);
 	if (locationIndex === -1) {
 		const location = {
 			locationId: crypto.randomUUID(),
@@ -54,7 +56,9 @@ export const createUserData = (
 			];
 
 	// Find or create the school
-	let schoolIndex = newSchools.findIndex((school) => school.schoolName === formObject.schoolName);
+	let schoolIndex = newSchools.findIndex(
+		(school) => school.schoolName === formObject.schoolName.toLowerCase().trim()
+	);
 	if (schoolIndex === -1) {
 		const school = {
 			schoolId: crypto.randomUUID(),
@@ -79,7 +83,9 @@ export const createUserData = (
 			];
 
 	// Find or create the sector
-	let sectorIndex = newSectors.findIndex((sector) => sector.sectorName === formObject.sectorName);
+	let sectorIndex = newSectors.findIndex(
+		(sector) => sector.sectorName === formObject.sectorName.toLowerCase().trim()
+	);
 	if (sectorIndex === -1) {
 		const sector = {
 			sectorId: crypto.randomUUID(),
@@ -110,7 +116,9 @@ export const createUserData = (
 			];
 
 	// Find or create the route
-	let routeIndex = newRoutes.findIndex((route) => route.routeName === formObject.routeName);
+	let routeIndex = newRoutes.findIndex(
+		(route) => route.routeName === formObject.routeName.toLowerCase().trim()
+	);
 	if (routeIndex === -1) {
 		const route: Route = {
 			routeId: crypto.randomUUID(),
