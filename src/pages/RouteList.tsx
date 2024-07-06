@@ -8,11 +8,11 @@ export const RouteList = () => {
 	const locations: Location[] | null = useSelector((state: RootState) => state.locations.data);
 
 	return (
-		<div className="py-5 mb-5 flex flex-col h-screen px-2">
+		<div className="py-5 mb-5 flex flex-col h-screen px-2 animate-fadeIn">
 			<div className="flex justify-center items-center">
 				<h1 className="p-5 uppercase font-bold text-3xl text-center">Tus vías</h1>
 				<button
-					className="btn btn-sm btn-circle btn-ghost"
+					className="btn btn-sm btn-circle btn-ghost animate-pulse"
 					onClick={() => showModal("route-list-modal")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
