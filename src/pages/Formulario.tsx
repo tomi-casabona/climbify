@@ -51,7 +51,7 @@ export const Formulario: React.FC = () => {
 	};
 
 	return (
-		<div className="h-screen mx-auto bg-base-100 p-10">
+		<div className="h-screen mx-auto bg-base-100 p-10 animate-fadeIn">
 			<button
 				className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
 				onClick={() => navigate(-1)}>
