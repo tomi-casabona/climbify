@@ -1,7 +1,7 @@
 import { Location } from "../../types/dataTypes";
 import { SchoolAccordion } from "./SchoolAccordion";
 
-export const LocationAccordion = ({ location, index }: { location: Location; index: number }) => {
+export const LocationAccordion = ({ location }: { location: Location }) => {
 	return (
 		<>
 			<div className="rounded-2xl w-full bg-secondary-darker mb-2">
