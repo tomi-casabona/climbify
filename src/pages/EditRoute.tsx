@@ -11,6 +11,7 @@ import { editRouteService } from "../services/editRouteService";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { showModal } from "../services/routeServices/showModal";
+import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 
 export const EditRoute: React.FunctionComponent = () => {
 	const location = useLocation();
@@ -45,10 +46,10 @@ export const EditRoute: React.FunctionComponent = () => {
 	);
 
 	const [form, setForm] = useState<FormObject>({
-		locationName: editingLocation?.locationName || "",
-		schoolName: editingSchool?.schoolName ? editingSchool.schoolName.toUpperCase().trim() : "",
-		sectorName: editingSector?.sectorName ? editingSector.sectorName.toUpperCase().trim() : "",
-		routeName: route.routeName ? route.routeName.toUpperCase().trim() : "",
+		locationName: editingLocation ? capitalizeFirstLetterOnly(editingLocation.locationName) : "",
+		schoolName: editingSchool ? capitalizeFirstLetterOnly(editingSchool.schoolName) : "",
+		sectorName: editingSector ? capitalizeFirstLetterOnly(editingSector.sectorName) : "",
+		routeName: route.routeName ? capitalizeFirstLetterOnly(route.routeName) : "",
 		routeGrade: route.routeGrade || 0,
 		routeHeight: route.routeHeight || 0,
 	});
