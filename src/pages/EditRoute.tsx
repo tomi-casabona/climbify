@@ -14,11 +14,11 @@ import { showModal } from "../services/routeServices/showModal";
 import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 
 export const EditRoute: React.FunctionComponent = () => {
-	const location = useLocation();
+	const path = useLocation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
-	const { route } = location.state as { route: Route };
+	const { route } = path.state as { route: Route };
 
 	const locations = useSelector((state: RootState) => state.locations);
 	const schools = useSelector((state: RootState) => state.schools);
