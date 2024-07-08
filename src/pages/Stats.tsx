@@ -11,7 +11,6 @@ import { CompletedRoutes } from "../components/Stats/CompletedRoutes";
 import { PyramidComponent } from "../components/Stats/PyramidComponent";
 import { TotalHeightComponent } from "../components/Stats/TotalHeightComponent";
 import { CompletedRoutesGraph } from "../components/Stats/CompletedRoutesGraph";
-import { showModal } from "../services/routeServices/showModal";
 
 export const Stats = () => {
 	const routesFirebase: Route[] = useSelector((state: RootState) => state.routes.data) as Route[];
@@ -36,7 +35,6 @@ export const Stats = () => {
 			<div className="flex flex-col justify-center text-center items-center w-2/3 bg-accent rounded-[2rem] mx-auto relative">
 				<h3 className="uppercase font-bold pt-5">Tu máximo</h3>
 				<button className="absolute top-2 right-2 btn btn-circle animate-pulse">
-
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-4 w-4"
