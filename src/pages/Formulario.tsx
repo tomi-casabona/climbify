@@ -47,7 +47,7 @@ export const Formulario: React.FC = () => {
 		dispatch(updateSchools(newSchools));
 		dispatch(updateSectors(newSectors));
 		dispatch(updateRoutes(newRoutes));
-		navigate("/routes"); // una vez hecho el componente RouteDetail, cambiar el navigate
+		navigate(`route/${newRoutes[newRoutes.length - 1].routeId}`); // una vez hecho el componente RouteDetail, cambiar el navigate
 	};
 
 	return (

@@ -88,6 +88,18 @@ export const RouteList = () => {
 			</div>
 
 			<div className="flex flex-col overflow-auto whitespace-nowrap no-scrollbar scroll-smooth rounded-2xl">
+				<div className="flex justify-start items-center">
+					<div className="h-4 w-8 rounded-full bg-secondary-darker"></div>
+					<h3 className="px-1 font-bold text-xl">Ubicación</h3>
+				</div>
+				<div className="flex justify-start items-center">
+					<div className="h-4 w-8 rounded-full bg-secondary"></div>
+					<h3 className="px-1 font-bold text-xl">Escuela</h3>
+				</div>
+				<div className="flex justify-start items-center">
+					<div className="h-4 w-8 rounded-full bg-custom-brown"></div>
+					<h3 className="px-1 font-bold text-xl">Sector</h3>
+				</div>
 				{locations?.map((location, index) => {
 					return <LocationAccordion key={index} location={location} index={index} />;
 				})}

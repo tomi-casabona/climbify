@@ -1,12 +1,38 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar: React.FC = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
+	const navigate = useNavigate();
+
+	const handleNewRouteClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		const button = e.currentTarget as HTMLButtonElement;
+		const svg = button.querySelector("svg");
+
+		button.classList.add("animate-expand");
+		svg && svg.classList.add("opacity-0");
+
+		setTimeout(() => {
+			navigate("/newroute");
+		}, 500); // Duración de la animación
+	};
 
 	return (
-		<nav className="btm-nav z-50 transition-all duration-300">
+		<nav className="btm-nav z-40 transition-all duration-300">
+			<button onClick={handleNewRouteClick} className="peer absolute bottom-0 z-50">
+				<div className="h-14 w-14 border border-neutral-content bg-base-100 rounded-full mb-2 flex justify-center items-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						height="24"
+						width="21"
+						viewBox="0 0 448 512"
+						className="duration-200 fill-neutral-content">
+						<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+					</svg>
+				</div>
+			</button>
 			{/* Home btn */}
 			<NavLink to={"/"}>
 				<svg
@@ -24,14 +50,7 @@ export const Navbar: React.FC = () => {
 					<path d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" />
 				</svg>
 			</NavLink>
-			<NavLink to={"/newroute"}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					className="h-full fill-base-content pb-2"
-					viewBox="0 0 512 512">
-					<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
-				</svg>
-			</NavLink>
+			<div className="h-14 w-14 bg-base-100"></div>
 			<NavLink to={"/stats"}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
