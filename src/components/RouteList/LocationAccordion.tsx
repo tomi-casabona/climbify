@@ -1,17 +1,14 @@
 import { Location } from "../../types/dataTypes";
 import { SchoolAccordion } from "./SchoolAccordion";
 
-export const LocationAccordion = ({ location, index }: { location: Location; index: number }) => {
+export const LocationAccordion = ({ location }: { location: Location }) => {
 	return (
 		<>
-			<div className="collapse overflow-clip collapse-arrow bg-secondary-darker text-black">
-				<input type="checkbox" name={`location-accordion-${index}`} />
-				<div className="collapse-title text-xl font-bold capitalize">{location.locationName}</div>
-				<div className="collapse-content ">
-					{location.schools.map((school, index) => {
-						return <SchoolAccordion key={index} schoolIndex={school} />;
-					})}
-				</div>
+			<div className="rounded-2xl w-full bg-secondary-darker mb-2">
+				<div className="text-xl p-4 font-bold capitalize text-black">{location.locationName}</div>
+				{location.schools.map((school, index) => {
+					return <SchoolAccordion key={index} schoolIndex={school} />;
+				})}
 			</div>
 		</>
 	);

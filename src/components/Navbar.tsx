@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
 	};
 
 	return (
-		<nav className="btm-nav z-40 transition-all duration-300">
+		<nav className="btm-nav z-40 transition-all duration-300 animate-fadeIn">
 			<button onClick={handleNewRouteClick} className="peer absolute bottom-0 z-50">
 				<div className="h-14 w-14 border border-neutral-content bg-base-100 rounded-full mb-2 flex justify-center items-center">
 					<svg

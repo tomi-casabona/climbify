@@ -8,11 +8,11 @@ export const RouteList = () => {
 	const locations: Location[] | null = useSelector((state: RootState) => state.locations.data);
 
 	return (
-		<div className="py-5 mb-5 flex flex-col h-screen px-2">
-			<div className="flex justify-center items-center">
-				<h1 className="p-5 uppercase font-bold text-3xl text-center">Tus vías</h1>
+		<div className="py-5 mb-5 flex flex-col h-screen px-2 animate-fadeIn">
+			<div className="flex items-center my-3">
+				<h1 className="p-5 font-bold text-5xl uppercase">Tus vías</h1>
 				<button
-					className="btn btn-sm btn-circle btn-ghost"
+					className="btn btn-sm btn-circle btn-ghost animate-pulse"
 					onClick={() => showModal("route-list-modal")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -88,20 +88,8 @@ export const RouteList = () => {
 			</div>
 
 			<div className="flex flex-col overflow-auto whitespace-nowrap no-scrollbar scroll-smooth rounded-2xl">
-				<div className="flex justify-start items-center">
-					<div className="h-4 w-8 rounded-full bg-secondary-darker"></div>
-					<h3 className="px-1 font-bold text-xl">Ubicación</h3>
-				</div>
-				<div className="flex justify-start items-center">
-					<div className="h-4 w-8 rounded-full bg-secondary"></div>
-					<h3 className="px-1 font-bold text-xl">Escuela</h3>
-				</div>
-				<div className="flex justify-start items-center">
-					<div className="h-4 w-8 rounded-full bg-custom-brown"></div>
-					<h3 className="px-1 font-bold text-xl">Sector</h3>
-				</div>
 				{locations?.map((location, index) => {
-					return <LocationAccordion key={index} location={location} index={index} />;
+					return <LocationAccordion key={index} location={location} />;
 				})}
 			</div>
 			<div className="bg-transparent min-h-[64px] w-auto"></div>
