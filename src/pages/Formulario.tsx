@@ -54,7 +54,7 @@ export const Formulario: React.FC = () => {
 		<div className="h-screen mx-auto bg-base-100 p-10">
 			<button
 				className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-				onClick={() => navigate("/")}>
+				onClick={() => navigate(-1)}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					height="20"

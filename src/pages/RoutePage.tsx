@@ -90,7 +90,7 @@ export const RoutePage = () => {
 			<div className="w-full flex justify-between items-center px-3 py-5 pb-0 mx-3">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={() => navigate("/routes")}>
+					onClick={() => navigate(-1)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"

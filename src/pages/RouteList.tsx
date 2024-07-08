@@ -1,99 +1,98 @@
 import { useSelector } from "react-redux";
-import { RouteCard } from "../components/RouteList/RouteCard";
-import { Route, School, Sector } from "../types/dataTypes";
+import { Location } from "../types/dataTypes";
 import { RootState } from "../redux/store";
-import { useEffect, useState } from "react";
-import { filterByRouteName } from "../services/routeServices/filters/filterByRouteName";
+import { LocationAccordion } from "../components/RouteList/LocationAccordion";
 import { showModal } from "../services/routeServices/showModal";
-import { applySorting } from "../services/routeServices/applySorting";
-import { FilterModal } from "../components/FilterModal";
-import { routesPrueba } from "../data/prueba";
 
 export const RouteList = () => {
-	const [query, setQuery] = useState("");
-	const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
-	const [selectedOrder, setSelectedOrder] = useState<string>("recentDate");
-
-	const routes: Route[] | null = useSelector((state: RootState) => state.routes.data);
-	const schools: School[] | null = useSelector((state: RootState) => state.schools.data);
-	const sectors: Sector[] | null = useSelector((state: RootState) => state.sectors.data);
-
-	useEffect(() => {
-		if (routes) {
-			setFilteredRoutes(routes); // Initialize filteredRoutes with routes when data is loaded
-		}
-	}, [routes]);
-
-	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const newQuery = e.target.value;
-		setQuery(newQuery);
-		if (routes) {
-			const filtered = filterByRouteName(routes, newQuery);
-			setFilteredRoutes(filtered);
-		}
-	}
-
-	function handleCheckboxChange(order: string) {
-		setSelectedOrder(order === selectedOrder ? "" : order);
-	}
-
-	const handleFilterClick = () => {
-		setFilteredRoutes(applySorting(selectedOrder, filteredRoutes));
-	};
+	const locations: Location[] | null = useSelector((state: RootState) => state.locations.data);
 
 	return (
-		<div className="py-5 mb-5 flex flex-col h-screen">
-			<h1 className="p-5 uppercase font-bold text-5xl">Tus vías</h1>
-			<div className="flex justify-around self-start mx-5 gap-3 w-8/12 pb-5 border-b border-neutral">
-				<input
-					type="text"
-					placeholder="Buscar"
-					value={query}
-					className="input w-8/12 rounded-full bg-neutral-content text-base-100"
-					onChange={handleInputChange}
-				/>
-				<button className="btn rounded-full" onClick={() => showModal("my_modal_1")}>
+		<div className="py-5 mb-5 flex flex-col h-screen px-2">
+			<div className="flex justify-center items-center">
+				<h1 className="p-5 uppercase font-bold text-3xl text-center">Tus vías</h1>
+				<button
+					className="btn btn-sm btn-circle btn-ghost"
+					onClick={() => showModal("route-list-modal")}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						height="20"
-						width="12.5"
-						viewBox="0 0 320 512"
-						fill="currentColor">
-						<path d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z" />
+						className="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
 					</svg>
 				</button>
-				<FilterModal
-					selectedOrder={selectedOrder}
-					handleCheckboxChange={handleCheckboxChange}
-					handleFilterClick={handleFilterClick}
-				/>
+
+				<dialog id="route-list-modal" className="modal">
+					<div className="modal-box w-full bg-opacity-95">
+						<form method="dialog">
+							<button className="btn btn-sm btn-circle absolute right-2 top-2">✕</button>
+							<h3 className="font-bold text-lg">¿Cómo se clasifican las vías?</h3>
+							<p className="mt-4">
+								Las vías de escalada se clasifican según su{" "}
+								<span className="font-bold rounded bg-secondary-darker px-1 text-black uppercase">
+									ubicación
+								</span>{" "}
+								(ciudado o país), su{" "}
+								<span className="font-bold rounded bg-secondary px-1 text-black uppercase">
+									escuela
+								</span>{" "}
+								(p.e. "Yosemite") y su{" "}
+								<span className="font-bold rounded bg-custom-brown px-1 text-black uppercase">
+									sector
+								</span>
+								.
+							</p>
+							<p className="mt-4">
+								Aquí encontrarás{" "}
+								<span className="font-bold">todas las vías que has registrado</span>.
+							</p>
+							<p className="mt-4">
+								Si has encadenado la vía verás un icono como este
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24"
+									width="24"
+									viewBox="0 0 512 512"
+									className="mx-2 inline-block">
+									<path
+										fill="#46bb3c"
+										d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+									/>
+								</svg>
+								al lado derecho de tu vía. Por el contrario, este icono
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24"
+									width="24"
+									viewBox="0 0 512 512"
+									className="mx-2 inline-block">
+									<path
+										fill="#bb3c43"
+										d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"
+									/>
+								</svg>
+								indicará que aún no las has encadenado.
+							</p>
+							<p className="my-4">Haz click a una vía para ver sus detalles y anotar tus pegues.</p>
+							<p className="font-bold">¿A qué estás esperando? ¡A escalar!</p>
+						</form>
+					</div>
+				</dialog>
 			</div>
-			<div className="flex flex-col overflow-y-auto whitespace-nowrap no-scrollbar scroll-smooth">
-				{filteredRoutes.length === 0 &&
-					routesPrueba.map((route, index) => {
-						// Ensure data exists before accessing indices
-						const schoolName: string =
-							schools && schools[route.schoolIndex] ? schools[route.schoolIndex].schoolName : "";
-						const sectorName =
-							sectors && sectors[route.sectorIndex] ? sectors[route.sectorIndex].sectorName : "";
 
-						return <RouteCard key={index} route={route} school={schoolName} sector={sectorName} />;
-					})}
-				{filteredRoutes?.map((route, index) => {
-					// Ensure data exists before accessing indices
-					const schoolName: string =
-						schools && schools[route.schoolIndex] ? schools[route.schoolIndex].schoolName : "";
-					const sectorName =
-						sectors && sectors[route.sectorIndex] ? sectors[route.sectorIndex].sectorName : "";
-
-					return <RouteCard key={index} route={route} school={schoolName} sector={sectorName} />;
+			<div className="flex flex-col overflow-auto whitespace-nowrap no-scrollbar scroll-smooth rounded-2xl">
+				{locations?.map((location, index) => {
+					return <LocationAccordion key={index} location={location} index={index} />;
 				})}
-				<div className="p-14 w-full bg-transparent"></div>
 			</div>
-			{/* <div className="fixed bottom-0 w-full">
-				<div className="bg-gradient-to-t from-base-100 to-transparent w-full p-4"></div>
-				<div className="bg-base-100 w-full p-16"></div>
-			</div> */}
+			<div className="bg-transparent min-h-[64px] w-auto"></div>
 		</div>
 	);
 };
