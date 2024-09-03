@@ -11,13 +11,23 @@ export const RouteCard = ({ routeIndex }: { routeIndex: number }) => {
 	const navigate = useNavigate();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	// Truncate route name if it exceeds 12 characters
-	const routeName =
-		routes && routes.length > 0
-			? routes[routeIndex].routeName.length > 15
-				? routes[routeIndex].routeName.substring(0, 15) + "..."
-				: routes[routeIndex].routeName
-			: "No hay vías.";
+	let routeName = "No hay vías.";
+
+	try {
+		if (routes && routes.length > 0) {
+			const route = routes[routeIndex];
+
+			if (!route || !route.routeName) {
+				throw new Error("Invalid route or route name");
+			}
+
+			routeName =
+				route.routeName.length > 15 ? route.routeName.substring(0, 15) + "..." : route.routeName;
+		}
+	} catch (error) {
+		console.error("Error processing route:", error);
+		routeName = "Error al obtener la vía.";
+	}
 
 	return routes && routes.length > 0 ? (
 		<div
