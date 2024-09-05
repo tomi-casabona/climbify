@@ -16,7 +16,7 @@ export const HomeLastAscents = ({ route, index }: { route: Route; index: number 
 	return (
 		<div className="inline-block mx-1 " onClick={() => navigate(`routes/route/${route.routeId}`)}>
 			<div
-				className={`w-48 h-48 p-3 active:scale-105 duration-200 rounded-full ${esPar ? "bg-neutral-content" : "bg-neutral my-4"} flex flex-col justify-center items-center text-center object-center font-bold`}>
+				className={`w-48 h-48 m-1 p-3 active:scale-105 duration-200 rounded-full ${esPar ? "bg-neutral-content" : "bg-neutral my-4"} flex flex-col justify-center items-center text-center object-center font-bold`}>
 				<div className="h-2/5 flex items-end">
 					<p
 						className={`text-xl uppercase text-wrap ${esPar ? "text-neutral" : "text-neutral-content"}`}>
