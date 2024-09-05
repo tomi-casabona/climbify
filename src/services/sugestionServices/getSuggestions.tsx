@@ -1,4 +1,5 @@
 import type { actualState } from "../../types/dataTypes";
+import { capitalizeArray } from "./capitalizeArray";
 
 export const getSuggestionsForLocations = (
 	inputValue: string,
@@ -14,7 +15,7 @@ export const getSuggestionsForLocations = (
 			.filter((location) => location.locationName.toLowerCase().includes(inputValue.toLowerCase()))
 			.map((location) => location.locationName); // Mapea los nombres de ubicación
 
-		return filteredLocations; // Devuelve el array de nombres de ubicación filtrados
+		return capitalizeArray(filteredLocations); // Devuelve el array de nombres de ubicación filtrados
 	} else {
 		return []; // Devuelve un array vacío si no hay datos o no es un array
 	}
@@ -33,7 +34,7 @@ export const getSuggestionsForSchools = (
 			.filter((school) => school.schoolName.toLowerCase().includes(inputValue.toLowerCase()))
 			.map((school) => school.schoolName); // Mapea los nombres de las schools
 
-		return filteredSchools; // Devuelve el array de nombres de schools filtrados
+		return capitalizeArray(filteredSchools); // Devuelve el array de nombres de schools filtrados
 	} else {
 		return []; // Devuelve un array vacío si no hay datos o no es un array
 	}
@@ -52,7 +53,7 @@ export const getSuggestionsForSectors = (
 			.filter((sector) => sector.sectorName.toLowerCase().includes(inputValue.toLowerCase()))
 			.map((sector) => sector.sectorName); // Mapea los nombres de las sectors
 
-		return filteredSectors; // Devuelve el array de nombres de sectors filtrados
+		return capitalizeArray(filteredSectors); // Devuelve el array de nombres de sectors filtrados
 	} else {
 		return []; // Devuelve un array vacío si no hay datos o no es un array
 	}
@@ -68,7 +69,7 @@ export const getSuggestionsForRoutes = (inputValue: string, actualState: actualS
 			.filter((route) => route.routeName.toLowerCase().includes(inputValue.toLowerCase()))
 			.map((route) => route.routeName); // Mapea los nombres de las routes
 
-		return filteredRoutes; // Devuelve el array de nombres de routes filtrados
+		return capitalizeArray(filteredRoutes); // Devuelve el array de nombres de routes filtrados
 	} else {
 		return []; // Devuelve un array vacío si no hay datos o no es un array
 	}
