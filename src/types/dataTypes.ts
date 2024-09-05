@@ -81,3 +81,10 @@ export interface Attempt {
   date: string;
   completed: boolean;
 }
+
+export type actualState = {
+  locations: LocationState;
+  schools: SchoolState;
+  sectors: SectorState;
+  routes: RouteState;
+}

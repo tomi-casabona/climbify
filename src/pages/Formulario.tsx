@@ -10,6 +10,13 @@ import { updateRoutes } from "../redux/thunks/routesThunks";
 import { useNavigate } from "react-router-dom";
 import { ScaleContext } from "../context/gradeContext";
 import { ScaleContextType } from "../types/gradeType";
+import { SuggestionsDropdown } from "../components/SuggestionsDropdown";
+import {
+	getSuggestionsForLocations,
+	getSuggestionsForRoutes,
+	getSuggestionsForSchools,
+	getSuggestionsForSectors,
+} from "../services/sugestionServices/getSuggestions";
 
 export const Formulario: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -19,18 +26,6 @@ export const Formulario: React.FC = () => {
 		sectors: useSelector((state: RootState) => state.sectors),
 		routes: useSelector((state: RootState) => state.routes),
 	};
-	const navigate = useNavigate();
-	const { scale } = useContext(ScaleContext) as ScaleContextType;
-
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-	) => {
-		setForm({
-			...form,
-			[e.target.name]: e.target.value,
-		});
-	};
-
 	const [form, setForm] = useState<FormObject>({
 		locationName: "",
 		schoolName: "",
@@ -39,7 +34,81 @@ export const Formulario: React.FC = () => {
 		routeGrade: 0,
 		routeHeight: 0,
 	});
+	const [suggestions, setSuggestions] = useState<string[]>([]); // Estado para almacenar las sugerencias
+	const [showLocationSuggestions, setShowLocationSuggestions] = useState(false); // Estado para controlar la visibilidad del dropdown
+	const [showSchoolSuggestions, setShowSchoolSuggestions] = useState(false);
+	const [showSectorSuggestions, setShowSectorSuggestions] = useState(false);
+	const [showRouteSuggestions, setShowRouteSuggestions] = useState(false);
+	const navigate = useNavigate();
+	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) => {
+		const { name, value } = e.target;
+		setForm({
+			...form,
+			[name]: value,
+		});
+
+		//  lógica para obtener sugerencias basadas en el nombre del campo
+		if (name === "locationName") {
+			const suggestions = getSuggestionsForLocations(value, actualState); // Función que obtiene las sugerencias
+			setSuggestions(suggestions);
+			setShowLocationSuggestions(true);
+		}
+		if (name === "schoolName") {
+			const suggestions = getSuggestionsForSchools(value, actualState);
+			setSuggestions(suggestions);
+			setShowSchoolSuggestions(true);
+		}
+		if (name === "sectorName") {
+			const suggestions = getSuggestionsForSectors(value, actualState);
+			setSuggestions(suggestions);
+			setShowSectorSuggestions(true);
+		}
+		if (name === "routeName") {
+			const suggestions = getSuggestionsForRoutes(value, actualState);
+			setSuggestions(suggestions);
+			setShowRouteSuggestions(true);
+		}
+	};
+
+	const handleClick = (event: React.MouseEvent<HTMLInputElement>): void => {
+		const { name } = event.target as HTMLInputElement;
+
+		console.log(suggestions);
+
+		if (name === "locationName") {
+			const suggestions = getSuggestionsForLocations("", actualState);
+			setSuggestions(suggestions);
+			setShowLocationSuggestions(true);
+		}
+		if (name === "schoolName") {
+			const suggestions = getSuggestionsForSchools("", actualState);
+			setSuggestions(suggestions);
+			setShowSchoolSuggestions(true);
+		}
+		if (name === "sectorName") {
+			const suggestions = getSuggestionsForSectors("", actualState);
+			setSuggestions(suggestions);
+			setShowSectorSuggestions(true);
+		}
+		if (name === "routeName") {
+			const suggestions = getSuggestionsForRoutes("", actualState);
+			setSuggestions(suggestions);
+			setShowRouteSuggestions(true);
+		}
+	};
+
+	const handleSelectSuggestion = (suggestion: string, fieldName: string) => {
+		setForm({
+			...form,
+			[fieldName]: suggestion,
+		});
+	};
+
+	
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		const { newLocations, newSchools, newSectors, newRoutes } = createUserData(actualState, form);
@@ -47,7 +116,7 @@ export const Formulario: React.FC = () => {
 		dispatch(updateSchools(newSchools));
 		dispatch(updateSectors(newSectors));
 		dispatch(updateRoutes(newRoutes));
-		navigate(`route/${newRoutes[newRoutes.length - 1].routeId}`); // una vez hecho el componente RouteDetail, cambiar el navigate
+		navigate(`route/${newRoutes[newRoutes.length - 1].routeId}`);
 	};
 
 	return (
@@ -76,9 +145,21 @@ export const Formulario: React.FC = () => {
 							type="text"
 							value={form.locationName}
 							onChange={handleChange}
+							onClick={handleClick}
 							required
+							autoComplete="off"
 							className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary  w-full"
 						/>
+
+						{showLocationSuggestions && (
+							<SuggestionsDropdown
+								suggestions={suggestions}
+								onSelectSuggestion={(suggestion) =>
+									handleSelectSuggestion(suggestion, "locationName")
+								}
+								closeDropdown={() => setShowLocationSuggestions(false)}
+							/>
+						)}
 					</div>
 					<div>
 						<label className="label font-bold uppercase">Escuela</label>
@@ -88,9 +169,20 @@ export const Formulario: React.FC = () => {
 							type="text"
 							value={form.schoolName}
 							onChange={handleChange}
+							onClick={handleClick}
 							required
+							autoComplete="off"
 							className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary  w-full"
-						/>
+						/>{" "}
+						{showSchoolSuggestions && (
+							<SuggestionsDropdown
+								suggestions={suggestions}
+								onSelectSuggestion={(suggestion) =>
+									handleSelectSuggestion(suggestion, "schoolName")
+								}
+								closeDropdown={() => setShowSchoolSuggestions(false)}
+							/>
+						)}
 					</div>
 					<div>
 						<label className="label font-bold uppercase">Sector</label>
@@ -100,9 +192,20 @@ export const Formulario: React.FC = () => {
 							type="text"
 							value={form.sectorName}
 							onChange={handleChange}
+							onClick={handleClick}
 							required
+							autoComplete="off"
 							className="input input-sm input-bordered rounded-full bg-secondary text-slate-800 w-full"
-						/>
+						/>{" "}
+						{showSectorSuggestions && (
+							<SuggestionsDropdown
+								suggestions={suggestions}
+								onSelectSuggestion={(suggestion) =>
+									handleSelectSuggestion(suggestion, "sectorName")
+								}
+								closeDropdown={() => setShowSectorSuggestions(false)}
+							/>
+						)}
 					</div>
 					<div>
 						<label className="label font-bold uppercase">Nombre de la Vía</label>
@@ -112,9 +215,18 @@ export const Formulario: React.FC = () => {
 							type="text"
 							value={form.routeName}
 							onChange={handleChange}
+							onClick={handleClick}
 							required
+							autoComplete="off"
 							className="input input-sm input-bordered rounded-full bg-secondary  text-slate-800 w-full"
-						/>
+						/>{" "}
+						{showRouteSuggestions && (
+							<SuggestionsDropdown
+								suggestions={suggestions}
+								onSelectSuggestion={(suggestion) => handleSelectSuggestion(suggestion, "routeName")}
+								closeDropdown={() => setShowRouteSuggestions(false)}
+							/>
+						)}
 					</div>
 					<div>
 						<label className="label font-bold uppercase">Grado</label>
@@ -139,6 +251,7 @@ export const Formulario: React.FC = () => {
 							value={form.routeHeight}
 							onChange={handleChange}
 							required
+							autoComplete="off"
 							className="input input-sm input-bordered rounded-full text-slate-800 bg-secondary w-full"
 						/>
 					</div>
