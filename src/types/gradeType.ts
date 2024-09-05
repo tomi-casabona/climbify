@@ -8,3 +8,4 @@ export type ScaleContextType = {
   scaleIndex: number;
   selectScale: (scaleIndex: number) => void;
 }
+

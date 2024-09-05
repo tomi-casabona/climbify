@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
 
 	return (
 		<>
-			<div className="h-screen w-full py-5">
+			<div className="h-screen w-full py-5 animate-fadeIn">
 				<div className="p-5 mx-5 h-[15%]">
 					<p>Hola {usuario.info ? usuario.info.displayName : "climber"}!</p>
 					<h1 className="font-bold text-5xl uppercase">Resumen</h1>

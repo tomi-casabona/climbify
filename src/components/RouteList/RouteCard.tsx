@@ -1,46 +1,69 @@
 import { useNavigate } from "react-router-dom";
 import { Route } from "../../types/dataTypes";
-import { capitalizeFirstLetterOnly } from "../../services/capitalizeFirstLetter";
 import { ScaleContextType } from "../../types/gradeType";
 import { ScaleContext } from "../../context/gradeContext";
 import { useContext } from "react";
-import { getMostRecentDate } from "../../services/routeServices/getMostRecentDate";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-export const RouteCard = ({
-	route,
-	school,
-	sector,
-}: {
-	route: Route;
-	school: string;
-	sector: string;
-}) => {
+export const RouteCard = ({ routeIndex }: { routeIndex: number }) => {
+	const routes: Route[] | null = useSelector((state: RootState) => state.routes.data);
 	const navigate = useNavigate();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
 
-	// Truncate route name if it exceeds 12 characters
-	const routename =
-		route.routeName.length > 12 ? route.routeName.substring(0, 12) + " ..." : route.routeName;
-	const description = capitalizeFirstLetterOnly(sector) + ", " + capitalizeFirstLetterOnly(school);
-	const finalDescription =
-		description.length > 22 ? description.substring(0, 22) + "..." : description;
+	let routeName = "No hay vías.";
 
-	const lastDate = getMostRecentDate(route.routeAttempts);
-	
-	return (
+	try {
+		if (routes && routes.length > 0) {
+			const route = routes[routeIndex];
+
+			if (!route || !route.routeName) {
+				throw new Error("Invalid route or route name");
+			}
+
+			routeName =
+				route.routeName.length > 15 ? route.routeName.substring(0, 15) + "..." : route.routeName;
+		}
+	} catch (error) {
+		console.error("Error processing route:", error);
+		routeName = "Error al obtener la vía.";
+	}
+
+	return routes && routes.length > 0 ? (
 		<div
-			className="mx-5 active:scale-105 duration-200 my-2 p-[1px] bg-gradient-to-b opacity from-neutral-content to-base-100 rounded-full cursor-pointer"
-			onClick={() => navigate(`route/${route.routeId}`)}>
-			<div className="p-5 bg-base-100 rounded-full flex justify-between items-center">
-				<div>
-					<h4 className="text-2xl uppercase font-bold">{routename}</h4>
-					<p className="text-lg font-extralight capitalize">{finalDescription}</p>
-				</div>
-				<div className="text-3xl px-5 font-light text-primary text-end">
-					<h4 className="text-2xl">{scale.grades[route.routeGrade]}</h4>
-					<p className="text-lg font-extralight">{!lastDate ? "Pendiente" : lastDate}</p>
-				</div>
+			className="flex justify-between items-center p-4 bg-custom-white rounded-2xl"
+			onClick={() => navigate(`route/${routes[routeIndex].routeId}`)}>
+			<div className="text-primary px-2 font-bold text-xl">
+				{scale.grades[routes[routeIndex].routeGrade]}
 			</div>
+			<div className="uppercase px-2 font-bold text-xl">{routeName}</div>
+			{routes[routeIndex].completed ? (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					height="24"
+					width="24"
+					viewBox="0 0 512 512"
+					className="mx-2">
+					<path
+						fill="#46bb3c"
+						d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+					/>
+				</svg>
+			) : (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					height="24"
+					width="24"
+					viewBox="0 0 512 512"
+					className="mx-2">
+					<path
+						fill="#bb3c43"
+						d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"
+					/>
+				</svg>
+			)}
 		</div>
+	) : (
+		<div className="p-4 font-bold">No hay ninguna vía en este sector.</div>
 	);
 };

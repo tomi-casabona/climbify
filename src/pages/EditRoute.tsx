@@ -11,13 +11,14 @@ import { editRouteService } from "../services/editRouteService";
 import { ScaleContextType } from "../types/gradeType";
 import { ScaleContext } from "../context/gradeContext";
 import { showModal } from "../services/routeServices/showModal";
+import { capitalizeFirstLetterOnly } from "../services/capitalizeFirstLetter";
 
 export const EditRoute: React.FunctionComponent = () => {
-	const location = useLocation();
+	const path = useLocation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 	const { scale } = useContext(ScaleContext) as ScaleContextType;
-	const { route } = location.state as { route: Route };
+	const { route } = path.state as { route: Route };
 
 	const locations = useSelector((state: RootState) => state.locations);
 	const schools = useSelector((state: RootState) => state.schools);
@@ -45,10 +46,10 @@ export const EditRoute: React.FunctionComponent = () => {
 	);
 
 	const [form, setForm] = useState<FormObject>({
-		locationName: editingLocation?.locationName || "",
-		schoolName: editingSchool?.schoolName ? editingSchool.schoolName.toUpperCase().trim() : "",
-		sectorName: editingSector?.sectorName ? editingSector.sectorName.toUpperCase().trim() : "",
-		routeName: route.routeName ? route.routeName.toUpperCase().trim() : "",
+		locationName: editingLocation ? capitalizeFirstLetterOnly(editingLocation.locationName) : "",
+		schoolName: editingSchool ? capitalizeFirstLetterOnly(editingSchool.schoolName) : "",
+		sectorName: editingSector ? capitalizeFirstLetterOnly(editingSector.sectorName) : "",
+		routeName: route.routeName ? capitalizeFirstLetterOnly(route.routeName) : "",
 		routeGrade: route.routeGrade || 0,
 		routeHeight: route.routeHeight || 0,
 	});
@@ -86,7 +87,7 @@ export const EditRoute: React.FunctionComponent = () => {
 			<div className="flex justify-between">
 				<button
 					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
-					onClick={() => navigate(`/routes/route/${route.routeId}`)}>
+					onClick={() => navigate(-1)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="20"
