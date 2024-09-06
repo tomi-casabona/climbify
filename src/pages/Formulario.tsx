@@ -121,10 +121,9 @@ export const Formulario: React.FC = () => {
 
 	return (
 		<>
-			<div className="h-screen w-full bg-black -z-50 fixed"></div>
-			<div className="h-screen mx-auto bg-base-100 p-10 animate-fadeIn">
+			<div className="h-screen mx-auto p-10 animate-fadeIn md:w-10/12">
 				<button
-					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0"
+					className="rounded-2xl text-2xl btn btn-outline h-12 w-12 p-0 md:ml-24 "
 					onClick={() => navigate(-1)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
