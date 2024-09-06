@@ -40,7 +40,7 @@ export const Home: React.FC = () => {
 					<p>
 						Hola <strong>{usuario.info ? usuario.info.displayName : "climber"}!</strong>
 					</p>
-					<h1 className="font-bold text-3xl uppercase md:mt-2 md:text-center">Tu actividad</h1>
+					<h1 className="font-bold text-3xl uppercase md:m-3 md:text-center">Tu actividad</h1>
 				</div>
 				<div className="h-[35%] overflow-hidden flex flex-col items-center justify-center w-full px-5 md:h-auto md:flex-row md:justify-around">
 					<HomeCard
@@ -55,7 +55,7 @@ export const Home: React.FC = () => {
 					/>
 				</div>
 
-				<h2 className="p-5 mx-5 h-[10%] text-2xl ">Últimos ascensos</h2>
+				<h2 className="p-5 mx-5 h-[10%] text-2xl md:mb-5 ">Últimos ascensos</h2>
 				<AutoScroll totalRoutes={totalRoutes} routesPrueba={routesPrueba} />
 			</div>
 		</>
