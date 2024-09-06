@@ -135,9 +135,9 @@ export const Formulario: React.FC = () => {
 						<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
 					</svg>
 				</button>
-				<h1 className="font-bold text-5xl uppercase my-5">Nueva vía</h1>
-				<form onSubmit={handleSubmit} className="h-10/12 overflow-y-auto">
-					<div>
+				<h1 className="font-bold text-5xl uppercase my-5 md:text-center md:mt-0">Nueva vía</h1>
+				<form onSubmit={handleSubmit} className="h-10/12 overflow-y-auto md:flex md:flex-wrap md:justify-evenly">
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Ubicación</label>
 						<input
 							name="locationName"
@@ -161,7 +161,7 @@ export const Formulario: React.FC = () => {
 							/>
 						)}
 					</div>
-					<div>
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Escuela</label>
 						<input
 							name="schoolName"
@@ -184,7 +184,7 @@ export const Formulario: React.FC = () => {
 							/>
 						)}
 					</div>
-					<div>
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Sector</label>
 						<input
 							name="sectorName"
@@ -207,7 +207,7 @@ export const Formulario: React.FC = () => {
 							/>
 						)}
 					</div>
-					<div>
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Nombre de la Vía</label>
 						<input
 							name="routeName"
@@ -228,7 +228,7 @@ export const Formulario: React.FC = () => {
 							/>
 						)}
 					</div>
-					<div>
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Grado</label>
 						<select
 							name="routeGrade"
@@ -243,7 +243,7 @@ export const Formulario: React.FC = () => {
 							})}
 						</select>
 					</div>
-					<div className="pb-3">
+					<div className="md:w-1/3 md:m-2">
 						<label className="label font-bold uppercase">Altura</label>
 						<input
 							name="routeHeight"
@@ -258,7 +258,7 @@ export const Formulario: React.FC = () => {
 					<button
 						type="submit"
 						onClick={handleSubmit}
-						className="btn btn-primary rounded-full w-full my-10 uppercase text-base-content">
+						className="btn btn-primary rounded-full w-full my-10 uppercase text-base-content md:w-1/2 ">
 						Agregar Vía
 					</button>
 				</form>
