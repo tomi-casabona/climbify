@@ -25,8 +25,8 @@ export const CompletedRoutes = ({ routes }: { routes: Route[] }) => {
 			<div className="flex flex-wrap">
 				{scale.grades.map((grade, index) => {
 					return (
-						<div className="flex w-1/2 justify-evenly md:w-1/4">
-							<li className="flex text-center" key={index}>
+						<div className="flex w-1/2 justify-evenly md:w-1/4" key={index}>
+							<li className="flex text-center">
 								<p className="text-primary font-bold text-2xl mx-3">{grade}: </p>
 								<p className="text-secondary font-bold text-2xl me-3">
 									{calculateTotal(routes, index)}
