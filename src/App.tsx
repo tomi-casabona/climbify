@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AppRoutes } from "./routes/AppRoutes";
+import { AppRoutes } from "./applicationRoutes/AppRoutes";
 import { useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase-config";
 import { AppDispatch } from "./redux/store";
