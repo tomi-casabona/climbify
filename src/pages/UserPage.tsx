@@ -22,7 +22,7 @@ export const UserPage = () => {
 		}
 	};
 	return (
-		<div className="mx-5 mb-5 px-5 py-10 animate-fadeIn">
+		<div className="mx-5 mb-5 px-5 py-10 animate-fadeIn md:flex md:flex-col">
 			<ToggleThemeComponent />
 			<div className="flex justify-center items-center">
 				<img
@@ -31,10 +31,10 @@ export const UserPage = () => {
 							? user.info.photoURL
 							: "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
 					}
-					className="w-52 h-52 m-auto rounded-full border-4 border-base-content"
+					className="w-52 h-52 m-auto rounded-full border-4 border-base-content md:ml-8"
 				/>
 			</div>
-			<h1 className=" text-5xl my-5 text-center flex-wrap">Hola, {user.info?.displayName}!</h1>
+			<h1 className=" text-4xl my-5 text-center flex-wrap">Hola, {user.info?.displayName}!</h1>
 			<div className="flex flex-col justify-center items-center">
 				<div className="dropdown my-5">
 					<div tabIndex={0} className="m-1 btn btn-primary btn-outline active:bg-base-content">
@@ -74,7 +74,7 @@ export const UserPage = () => {
 				<div className="my-5 text-xl">
 					Ejemplo: {scale.grades[4]}, {scale.grades[10]}, {scale.grades[20]}...
 				</div>
-				<div>
+				<div className="md:mb-16">
 					<button onClick={handleLogout} className="btn-secondary btn text-xl">
 						Logout
 					</button>

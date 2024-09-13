@@ -6,7 +6,7 @@ export const ToggleThemeComponent = () => {
 	const { toggleTheme } = useContext(ThemeContext) as ThemeContextType;
 
 	return (
-		<label className="swap swap-rotate pb-4">
+		<label className="swap swap-rotate pb-4 md:w-full justify-end">
 			<input type="checkbox" onChange={toggleTheme} />
 			<div className="swap-on fill-current w-7 h-7 bg-transparent">
 				<svg

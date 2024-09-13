@@ -9,8 +9,8 @@ export const RouteList = () => {
 
 	return (
 		<div className="py-5 mb-5 flex flex-col h-screen px-2 animate-fadeIn">
-			<div className="flex items-center my-3">
-				<h1 className="p-5 font-bold text-5xl uppercase">Tus vías</h1>
+			<div className="flex items-center my-3 md:mx-auto">
+				<h1 className="p-5 font-bold text-5xl uppercase md:mx-center">Tus vías</h1>
 				<button
 					className="btn btn-sm btn-circle btn-ghost animate-pulse"
 					onClick={() => showModal("route-list-modal")}>
@@ -87,7 +87,7 @@ export const RouteList = () => {
 				</dialog>
 			</div>
 
-			<div className="flex flex-col overflow-auto whitespace-nowrap no-scrollbar scroll-smooth rounded-2xl">
+			<div className="flex w-10/12 mx-auto md:flex-row md:justify-evenly mt-8 flex-col overflow-auto flex-wrap no-scrollbar scroll-smooth rounded-2xl">
 				{locations?.map((location, index) => {
 					return <LocationAccordion key={index} location={location} />;
 				})}
