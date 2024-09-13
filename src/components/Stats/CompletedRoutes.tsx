@@ -18,19 +18,21 @@ export const CompletedRoutes = ({ routes }: { routes: Route[] }) => {
 
 	return (
 		<div className="w-[90%] mx-auto rounded-[2rem] bg-base-300 p-5 mb-10">
-			<h4 className="font-bold text-2xl text-center text-secondary uppercase flex items-center gap-3 mb-3">
+			<h4 className="font-bold text-2xl text-center text-secondary uppercase items-center gap-3 m-5">
 				Vías encadenadas
 			</h4>
 
 			<div className="flex flex-wrap">
 				{scale.grades.map((grade, index) => {
 					return (
-						<li className="w-1/2 flex" key={index}>
-							<p className="text-primary font-bold text-2xl mx-3">{grade}: </p>
-							<p className="text-secondary font-bold text-2xl me-3">
-								{calculateTotal(routes, index)}
-							</p>
-						</li>
+						<div className="flex w-1/2 justify-evenly md:w-1/4" key={index}>
+							<li className="flex text-center">
+								<p className="text-primary font-bold text-2xl mx-3">{grade}: </p>
+								<p className="text-secondary font-bold text-2xl me-3">
+									{calculateTotal(routes, index)}
+								</p>
+							</li>
+						</div>
 					);
 				})}
 			</div>
