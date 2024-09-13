@@ -31,12 +31,12 @@ export const RouteCard = ({ routeIndex }: { routeIndex: number }) => {
 
 	return routes && routes.length > 0 ? (
 		<div
-			className="flex justify-between items-center p-4 bg-custom-white rounded-2xl"
+			className="flex justify-between items-center p-2 my-2 bg-custom-white rounded-2xl"
 			onClick={() => navigate(`route/${routes[routeIndex].routeId}`)}>
 			<div className="text-primary px-2 font-bold text-xl">
 				{scale.grades[routes[routeIndex].routeGrade]}
 			</div>
-			<div className="uppercase px-2 font-bold text-xl">{routeName}</div>
+			<div className="uppercase px-2 font-bold text-l">{routeName}</div>
 			{routes[routeIndex].completed ? (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

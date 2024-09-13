@@ -8,9 +8,9 @@ export const SectorAccordion = ({ sectorIndex }: { sectorIndex: number }) => {
 
 	return (
 		<>
-			<div className="collapse overflow-clip collapse-arrow bg-custom-brown text-black">
+			<div className="collapse overflow-clip collapse-arrow bg-custom-brown text-black mt-2">
 				<input type="checkbox" name={`sector-accordion-${sectorIndex}`} />
-				<div className="collapse-title text-xl capitalize font-bold">
+				<div className="collapse-title text-l capitalize font-bold">
 					{sectors ? sectors[sectorIndex].sectorName : "No hay ninguna escuela."}
 				</div>
 				{sectors && (
