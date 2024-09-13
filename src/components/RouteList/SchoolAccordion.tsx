@@ -8,9 +8,9 @@ export const SchoolAccordion = ({ schoolIndex }: { schoolIndex: number }) => {
 
 	return (
 		<>
-			<div className="collapse overflow-clip collapse-arrow bg-secondary text-black">
+			<div className="collapse collapse-arrow bg-secondary text-black my-2 ">
 				<input type="checkbox" name={`school-accordion-${schoolIndex}`} />
-				<div className="collapse-title text-xl font-bold capitalize">
+				<div className="collapse-title text-l font-bold capitalize">
 					{schools ? schools[schoolIndex].schoolName : "No hay ninguna escuela."}
 				</div>
 				{schools && (
