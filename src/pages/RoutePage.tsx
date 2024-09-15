@@ -123,7 +123,7 @@ export const RoutePage = () => {
 				</p>
 			</div>
 			{/* Main */}
-			<div className="w-11/12 h-2/5 bg-secondary mx-3 rounded-3xl my-3 p-3 flex gap-2 flex-1">
+			<div className="w-11/12 h-4/5 bg-secondary mx-3 rounded-3xl my-3 p-3 flex gap-2 flex-1">
 				{/* TODO Poner la imagen de route.routeImg */}
 				<div className="w-1/2 h-full flex flex-col gap-2">
 					<div
@@ -143,7 +143,7 @@ export const RoutePage = () => {
 						</div>
 					</div>
 					<div className="bg-base-content w-full h-2/5 rounded-3xl flex flex-col justify-center items-center">
-						<h4 className="text-7xl text-primary font-extrabold">
+						<h4 className="text-5xl text-primary font-extrabold">
 							{scale.grades[route.routeGrade]}
 						</h4>
 						<h5 className="text-2xl text-secondary font-bold">{route.routeHeight}m</h5>
@@ -154,7 +154,7 @@ export const RoutePage = () => {
 
 					<h3 className="font-bold text-2xl text-center text-base-100">Pegues</h3>
 
-					<ul className="text-sm text-base-100 text-center flex-1 overflow-auto">
+					<ul className="text-sm text-base-100 text-center flex-1 ">
 						{route.routeAttempts && route.routeAttempts.length === 0 ? (
 							<li className="list-item">Aún no le has dado ningún pegue...</li>
 						) : (
